@@ -24,9 +24,33 @@ The aim is to build a living knowledge base that combines structured research, d
 - `docs/internal-growth/` - domestic development, governance, and social indicators
 - `docs/research-notes/` - raw notes, reading summaries, open questions
 - `docs/ai-workflows/` - prompts, research methods, automation workflows
+- `docs/briefs/` - polished policy and strategy briefs
+- `docs/presentations/` - presentation outlines and future deck material
 - `data/` - datasets, cleaned data, and derived tables
 - `sources/` - source lists, citations, and reference material
 - `analyses/` - deeper essays, models, dashboards, and reports
+- `project_india/` - Python helpers for repeatable research workflows
+- `workflows/` - documented research and presentation processes
+
+## Integrated Workflow
+
+Project India uses three connected layers:
+
+- Markdown is the knowledge base.
+- Python is the workflow engine.
+- Presentations, briefs, dashboards, and essays are the communication layer.
+
+Create a new topic workflow with:
+
+```bash
+python3 -m project_india.cli new-topic "India's Semiconductor Mission" --slug india-semiconductor-mission
+```
+
+For topics outside sectors, pass a category:
+
+```bash
+python3 -m project_india.cli new-topic "West Bengal Assembly Election 2026" --slug west-bengal-assembly-election-2026 --category internal-growth
+```
 
 ## Working Principles
 

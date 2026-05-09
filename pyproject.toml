@@ -1,0 +1,21 @@
+[project]
+name = "project-india"
+version = "0.1.0"
+description = "AI-assisted research workflows for Project India."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+analysis = [
+  "pandas>=2.2",
+  "matplotlib>=3.8",
+  "jupyter>=1.0",
+]
+
+[project.scripts]
+project-india = "project_india.cli:main"
+
+[tool.ruff]
+line-length = 100
+

@@ -153,6 +153,22 @@ Project India can produce multiple kinds of outputs:
 - Maps and visual explainers
 - AI workflows and prompt libraries
 
+## Integrated System
+
+Project India should be built as an integrated research system.
+
+Core layers:
+
+- Markdown is the memory: notes, topic files, sources, briefs, and outlines.
+- Python is the machinery: repeatable file creation, data processing, timelines, charts, reports, and future automation.
+- Presentations are the voice: slide outlines, decks, visual explainers, and decision-ready communication.
+
+The default flow is:
+
+Sources -> Research notes -> Data tables -> Analysis -> Brief -> Presentation -> Dashboard or site
+
+The Python package starts small on purpose. It should grow only when a workflow becomes repeated enough to deserve automation.
+
 ## Source Standards
 
 - Prefer primary sources when possible.
@@ -170,4 +186,3 @@ Project India can produce multiple kinds of outputs:
 3. Build a timeline of key semiconductor policy events in India.
 4. Write the first sector note using the standard research template.
 5. Review the structure and improve the workflow before expanding to other topics.
-
