@@ -52,6 +52,23 @@ For topics outside sectors, pass a category:
 python3 -m project_india.cli new-topic "West Bengal Assembly Election 2026" --slug west-bengal-assembly-election-2026 --category internal-growth
 ```
 
+Build a reusable research index:
+
+```bash
+python3 -m project_india.cli index-research
+```
+
+The index is written to `data/processed/research_index.json` and acts as the project's lightweight research database. It links topic notes, source logs, briefs, presentation outlines, and generated decks by slug.
+
+Generate a draft presentation from a topic note:
+
+```bash
+python3 -m pip install -e ".[presentation]"
+python3 -m project_india.cli build-presentation "West Bengal Assembly Election 2026" --slug west-bengal-assembly-election-2026 --category internal-growth
+```
+
+The GitHub Actions workflow `Generate Topic Presentation` can run the same process from GitHub using manual inputs for title, slug, and category.
+
 ## Working Principles
 
 - Use credible primary and secondary sources.

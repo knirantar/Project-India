@@ -49,3 +49,15 @@ Presentations should make complex topics understandable without flattening them.
 7. Convert the outline into a deck when the story is ready.
 8. Review for clarity, sourcing, and logic.
 
+## GitHub Automation
+
+Use the `Generate Topic Presentation` GitHub Actions workflow when a topic needs a first draft deck from the repository itself.
+
+Manual inputs:
+
+- `title` - topic title
+- `slug` - optional file slug
+- `category` - one of `sectors`, `geopolitics`, `internal-growth`, or `research-notes`
+- `commit_changes` - whether to commit generated outputs back to the repository
+
+The workflow creates missing topic files, generates a draft PPTX in `docs/presentations/`, updates `data/processed/research_index.json`, uploads the deck as a workflow artifact, and optionally commits the changes.

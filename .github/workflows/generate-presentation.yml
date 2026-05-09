@@ -1,0 +1,87 @@
+name: Generate Topic Presentation
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: Topic title
+        required: true
+        type: string
+      slug:
+        description: File slug, for example west-bengal-assembly-election-2026
+        required: false
+        type: string
+      category:
+        description: Docs category for the topic note
+        required: true
+        default: sectors
+        type: choice
+        options:
+          - sectors
+          - geopolitics
+          - internal-growth
+          - research-notes
+      commit_changes:
+        description: Commit generated files back to the repository
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Project India tools
+        run: python -m pip install -e ".[presentation]"
+
+      - name: Create topic workspace if missing
+        env:
+          TITLE: ${{ inputs.title }}
+          SLUG: ${{ inputs.slug }}
+          CATEGORY: ${{ inputs.category }}
+        run: |
+          if [ -n "$SLUG" ]; then
+            project-india new-topic "$TITLE" --slug "$SLUG" --category "$CATEGORY"
+          else
+            project-india new-topic "$TITLE" --category "$CATEGORY"
+          fi
+
+      - name: Generate presentation draft
+        env:
+          TITLE: ${{ inputs.title }}
+          SLUG: ${{ inputs.slug }}
+          CATEGORY: ${{ inputs.category }}
+        run: |
+          if [ -n "$SLUG" ]; then
+            project-india build-presentation "$TITLE" --slug "$SLUG" --category "$CATEGORY"
+          else
+            project-india build-presentation "$TITLE" --category "$CATEGORY"
+          fi
+
+      - name: Update research index
+        run: project-india index-research
+
+      - name: Upload generated presentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-india-presentation
+          path: docs/presentations/*.pptx
+
+      - name: Commit generated outputs
+        if: ${{ inputs.commit_changes }}
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Generate presentation for ${{ inputs.title }}"
+          file_pattern: "docs sources analyses data/processed"

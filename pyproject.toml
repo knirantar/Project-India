@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "project-india"
 version = "0.1.0"
@@ -12,6 +16,9 @@ analysis = [
   "matplotlib>=3.8",
   "jupyter>=1.0",
 ]
+presentation = [
+  "python-pptx>=0.6.23",
+]
 
 [project.scripts]
 project-india = "project_india.cli:main"
@@ -19,3 +26,5 @@ project-india = "project_india.cli:main"
 [tool.ruff]
 line-length = 100
 
+[tool.setuptools.packages.find]
+include = ["project_india*"]
