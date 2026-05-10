@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, dataclass
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Literal
 
@@ -45,6 +45,12 @@ def _load_config() -> dict:
     return json.loads(config_path.read_text(encoding="utf-8"))
 
 
+def _write_config(config: dict) -> None:
+    """Write research_config.json."""
+    config_path = paths.ROOT / "research_config.json"
+    config_path.write_text(json.dumps(config, indent=4), encoding="utf-8")
+
+
 def _find_topic_config(slug: str) -> dict | None:
     """Find topic in config by slug."""
     config = _load_config()
@@ -54,17 +60,104 @@ def _find_topic_config(slug: str) -> dict | None:
     return None
 
 
+def _estimate_strategy_cost(strategy: str) -> float:
+    """Return configured estimated API cost for a strategy."""
+    config = _load_config()
+    strategy_config = config.get("strategies", {}).get(strategy, {})
+    return float(strategy_config.get("api_cost_estimate_usd", 0.30))
+
+
 def _get_next_strategy(slug: str) -> str:
     """Get next strategy in rotation for a topic."""
-    config = _load_config()
     topic = _find_topic_config(slug)
     if not topic:
         return "developments"
     
     strategies = topic.get("strategy", {}).get("rotation", ["developments"])
     current_index = topic.get("strategy", {}).get("current_index", 0)
-    next_index = (current_index + 1) % len(strategies)
-    return strategies[next_index]
+    return strategies[current_index % len(strategies)]
+
+
+def _next_scheduled_run(schedule: dict, now: datetime) -> str | None:
+    """Compute the next scheduled run date for dashboard metadata."""
+    frequency = schedule.get("frequency")
+
+    if frequency == "daily":
+        return (now.date() + timedelta(days=1)).isoformat()
+
+    if frequency == "weekly":
+        weekdays = {
+            "monday": 0,
+            "tuesday": 1,
+            "wednesday": 2,
+            "thursday": 3,
+            "friday": 4,
+            "saturday": 5,
+            "sunday": 6,
+        }
+        target_weekday = weekdays.get(str(schedule.get("day_of_week", "monday")).lower(), 0)
+        days_ahead = (target_weekday - now.weekday()) % 7
+        if days_ahead == 0:
+            days_ahead = 7
+        return (now.date() + timedelta(days=days_ahead)).isoformat()
+
+    if frequency == "monthly":
+        raw_day = schedule.get("day_of_month") or schedule.get("day_of_week") or 1
+        try:
+            day = max(1, min(int(raw_day), 28))
+        except (TypeError, ValueError):
+            day = 1
+
+        year = now.year
+        month = now.month
+        if now.day >= day:
+            month += 1
+            if month > 12:
+                month = 1
+                year += 1
+        return datetime(year, month, day, tzinfo=UTC).date().isoformat()
+
+    return None
+
+
+def _update_config_after_run(slug: str, strategy: str, api_cost_usd: float) -> None:
+    """Update budget, schedule, and strategy metadata after a successful run."""
+    config = _load_config()
+    now = datetime.now(UTC)
+
+    for topic in config.get("topics", []):
+        if topic.get("slug") != slug:
+            continue
+
+        strategy_config = topic.setdefault("strategy", {})
+        rotation = strategy_config.get("rotation", [strategy])
+        if rotation:
+            try:
+                completed_index = rotation.index(strategy)
+            except ValueError:
+                completed_index = int(strategy_config.get("current_index", 0))
+            strategy_config["current_index"] = (completed_index + 1) % len(rotation)
+
+        schedule = topic.setdefault("schedule", {})
+        schedule["last_run_date"] = now.date().isoformat()
+        schedule["next_scheduled_run"] = _next_scheduled_run(schedule, now)
+
+        metadata = topic.setdefault("metadata", {})
+        metadata["api_calls_month"] = int(metadata.get("api_calls_month", 0)) + 1
+        metadata["last_cost_usd"] = api_cost_usd
+        metadata["total_cost_month"] = round(
+            float(metadata.get("total_cost_month", 0)) + api_cost_usd,
+            4,
+        )
+
+        budget = config.setdefault("budget", {})
+        budget["current_month_spent_usd"] = round(
+            float(budget.get("current_month_spent_usd", 0)) + api_cost_usd,
+            4,
+        )
+        break
+
+    _write_config(config)
 
 
 def _build_increment_prompt(
@@ -252,6 +345,9 @@ Gaps: {plan.api_scope}
     except ValueError:
         summary = "Update completed."
     
+    api_cost_usd = _estimate_strategy_cost(strategy)  # type: ignore[arg-type]
+    _update_config_after_run(slug, strategy, api_cost_usd)  # type: ignore[arg-type]
+
     # Write run record
     run_path = paths.RESEARCH_RUNS / f"{slug}-increment-{datetime.now(UTC).strftime('%Y%m%d-%H%M%S')}.json"
     run_record = {
@@ -261,7 +357,7 @@ Gaps: {plan.api_scope}
         "category": category,
         "strategy": strategy,
         "model": model,
-        "api_cost_usd": 0.30,  # Estimate based on strategy
+        "api_cost_usd": api_cost_usd,
         "summary": summary,
         "files_updated": {k: str(v) for k, v in updated_files.items()},
     }
@@ -277,6 +373,6 @@ Gaps: {plan.api_scope}
         source_path=str(updated_files.get("sources", "")),
         brief_path=str(updated_files.get("brief", "")),
         run_path=str(run_path),
-        api_cost_usd=0.30,
+        api_cost_usd=api_cost_usd,
         summary=summary,
     )

@@ -23,6 +23,10 @@ on:
         required: false
         default: "gpt-5"
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   incremental-research:
     runs-on: ubuntu-latest
@@ -30,12 +34,12 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: "pip"
@@ -47,58 +51,84 @@ jobs:
       
       - name: Determine which topics to run
         id: topics
+        env:
+          INPUT_TOPIC_SLUG: ${{ github.event.inputs.topic_slug || '' }}
+          INPUT_STRATEGY: ${{ github.event.inputs.strategy || 'rotate' }}
         run: |
-          python -c "
           import json
+          import os
           from datetime import datetime, UTC
           
           with open('research_config.json') as f:
               config = json.load(f)
+
+          input_slug = os.environ.get('INPUT_TOPIC_SLUG', '').strip()
+          input_strategy = os.environ.get('INPUT_STRATEGY', 'rotate').strip() or 'rotate'
           
-          # Get current day/hour for schedule matching
           now = datetime.now(UTC)
           day_name = now.strftime('%A').lower()
           hour = now.hour
           
           topics_to_run = []
-          for topic in config['topics']:
-              if not topic['enabled']:
-                  continue
-              
-              schedule = topic['schedule']
-              freq = schedule['frequency']
-              
-              # Check if this topic should run now
-              should_run = False
-              if freq == 'daily':
-                  time_matches = str(hour).zfill(2) == schedule['time_utc'].split(':')[0]
-                  should_run = time_matches
-              elif freq == 'weekly':
-                  day_matches = day_name == schedule.get('day_of_week', 'monday')
-                  time_matches = str(hour).zfill(2) == schedule['time_utc'].split(':')[0]
-                  should_run = day_matches and time_matches
-              
-              if should_run:
-                  topics_to_run.append({
-                      'title': topic['title'],
-                      'slug': topic['slug'],
-                      'category': topic['category'],
-                      'strategy': topic['strategy']['rotation'][topic['strategy']['current_index']]
-                  })
+
+          if input_slug:
+              topic = next((item for item in config['topics'] if item['slug'] == input_slug), None)
+              if topic is None:
+                  raise SystemExit(f'No topic found for slug: {input_slug}')
+              topics_to_run.append({
+                  'title': topic['title'],
+                  'slug': topic['slug'],
+                  'category': topic['category'],
+                  'strategy': input_strategy,
+              })
+          else:
+              for topic in config['topics']:
+                  if not topic.get('enabled', True):
+                      continue
+
+                  schedule = topic['schedule']
+                  freq = schedule['frequency']
+                  should_run = False
+
+                  if freq == 'daily':
+                      should_run = str(hour).zfill(2) == schedule['time_utc'].split(':')[0]
+                  elif freq == 'weekly':
+                      day_matches = day_name == schedule.get('day_of_week', 'monday')
+                      time_matches = str(hour).zfill(2) == schedule['time_utc'].split(':')[0]
+                      should_run = day_matches and time_matches
+
+                  if should_run:
+                      rotation = topic.get('strategy', {}).get('rotation', ['developments'])
+                      current_index = topic.get('strategy', {}).get('current_index', 0)
+                      strategy = rotation[current_index % len(rotation)]
+                      topics_to_run.append({
+                          'title': topic['title'],
+                          'slug': topic['slug'],
+                          'category': topic['category'],
+                          'strategy': strategy,
+                      })
           
-          print(f'::set-output name=topics::{json.dumps(topics_to_run)}')
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write(f'topics={json.dumps(topics_to_run)}\n')
+              output.write(f'has_topics={str(bool(topics_to_run)).lower()}\n')
+
           print(f'Topics to run: {json.dumps(topics_to_run, indent=2)}')
-          "
+        shell: python
       
       - name: Run incremental research for scheduled topics
+        if: steps.topics.outputs.has_topics == 'true'
         env:
-          OPENAI_API_KEY: \${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          MODEL: ${{ github.event.inputs.model || 'gpt-5' }}
+          TOPICS_JSON: ${{ steps.topics.outputs.topics }}
         run: |
           import json
+          import os
           import subprocess
           import sys
           
-          topics = json.loads('''${{ steps.topics.outputs.topics }}''')
+          topics = json.loads(os.environ['TOPICS_JSON'])
+          model = os.environ.get('MODEL', 'gpt-5')
           
           if not topics:
               print("No topics scheduled to run at this time.")
@@ -115,6 +145,7 @@ jobs:
                   "--slug", topic['slug'],
                   "--category", topic['category'],
                   "--strategy", topic['strategy'],
+                  "--model", model,
               ]
               
               result = subprocess.run(cmd, capture_output=False)
@@ -124,61 +155,74 @@ jobs:
               
               print(f"SUCCESS: Completed research for {topic['slug']}")
         shell: python
-      
-      - name: Commit changes
-        if: always()
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Research Bot"
-          
-          # Check if there are changes
-          if git diff --quiet; then
-              echo "No changes to commit."
-              exit 0
-          fi
-          
-          git add -A
-          git commit -m "chore(research): scheduled incremental research update"
-          git push
-      
+
       - name: Create research run summary
         if: always()
         run: |
-          python -c "
           import json
+          import os
           from pathlib import Path
-          from datetime import datetime, UTC
-          
-          # Find latest research run files
+
           runs_dir = Path('data/processed/research_runs')
+          summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
+
           if not runs_dir.exists():
               print('No research runs found.')
-              exit(0)
+              raise SystemExit(0)
           
-          # Get most recent run
           runs = list(runs_dir.glob('*.json'))
           if not runs:
               print('No research runs found.')
-              exit(0)
+              raise SystemExit(0)
           
           latest_run = max(runs, key=lambda p: p.stat().st_mtime)
           with open(latest_run) as f:
               run = json.load(f)
-          
-          print(f'## Research Run Summary')
-          print(f'')
-          print(f'**Topic:** {run.get(\"title\", \"Unknown\")}')
-          print(f'**Strategy:** {run.get(\"strategy\", \"Unknown\")}')
-          print(f'**Timestamp:** {run.get(\"timestamp\", \"Unknown\")}')
-          print(f'**Cost:** \${run.get(\"api_cost_usd\", 0)}')
-          print(f'')
-          print(f'### Changes')
-          print(f'{run.get(\"summary\", \"No summary\")}')
-          "
+
+          lines = [
+              '## Research Run Summary',
+              '',
+              f'**Topic:** {run.get("title", "Unknown")}',
+              f'**Strategy:** {run.get("strategy", "Unknown")}',
+              f'**Timestamp:** {run.get("timestamp", "Unknown")}',
+              f'**Cost:** ${run.get("api_cost_usd", 0)}',
+              '',
+              '### Changes',
+              run.get('summary', 'No summary'),
+          ]
+          print('\n'.join(lines))
+          if summary_path:
+              with open(summary_path, 'a', encoding='utf-8') as summary:
+                  summary.write('\n'.join(lines))
+                  summary.write('\n')
+        shell: python
+
+      - name: Open pull request with research updates
+        if: steps.topics.outputs.has_topics == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(research): scheduled incremental research update"
+          title: "chore(research): scheduled incremental research update"
+          body: |
+            Automated incremental research update.
+
+            This workflow writes updates to docs, sources, reports, research run records, and budget metadata without pushing directly to protected `main`.
+          branch: automation/scheduled-incremental-research
+          delete-branch: true
+          labels: |
+            research
+            automated
+          add-paths: |
+            docs
+            sources
+            analyses
+            data/processed
+            research_config.json
       
       - name: Upload run artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: research-runs
           path: data/processed/research_runs/

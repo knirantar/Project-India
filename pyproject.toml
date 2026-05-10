@@ -22,6 +22,11 @@ presentation = [
 research = [
   "openai>=2.0",
 ]
+dashboard = [
+  "streamlit>=1.28.0",
+  "pandas>=2.0",
+  "plotly>=5.17",
+]
 
 [project.scripts]
 project-india = "project_india.cli:main"

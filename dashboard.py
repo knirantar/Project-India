@@ -531,7 +531,7 @@ elif page == "⚙️ Admin":
         
         st.markdown("**Add New Topic:**")
         st.info("To add a new topic, create a GitHub Issue using the 'Add New Research Topic' template.")
-        st.markdown("👉 [Go to GitHub Issues](https://github.com/nirantarkulkarni/Project-India/issues/new?template=01-add-topic.md)")
+        st.markdown("👉 [Go to GitHub Issues](https://github.com/knirantar/Project-India/issues/new?template=01-add-topic.md)")
     
     with admin_tab2:
         st.subheader("⏰ Schedule Management")
@@ -557,7 +557,7 @@ elif page == "⚙️ Admin":
         
         st.markdown("**Modify Schedule:**")
         st.info("To modify a topic's schedule, create a GitHub Issue using the 'Modify Research Schedule' template.")
-        st.markdown("👉 [Go to GitHub Issues](https://github.com/nirantarkulkarni/Project-India/issues/new?template=02-modify-schedule.md)")
+        st.markdown("👉 [Go to GitHub Issues](https://github.com/knirantar/Project-India/issues/new?template=02-modify-schedule.md)")
     
     with admin_tab3:
         st.subheader("⚙️ Configuration")

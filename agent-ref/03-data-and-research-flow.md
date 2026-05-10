@@ -22,3 +22,13 @@ Avoid hollow headline-only decks.
 
 The research index should be stable across workflow runs. Its `updated_at` values come from Git history, not wall-clock time.
 
+Incremental scheduled research is controlled by `research_config.json` and implemented by `project_india/increment_research.py`.
+It should keep costs low by rotating focused strategies: `developments`, `gaps`, and `factcheck`.
+Scheduled runs should write research updates and run records, then open a pull request instead of pushing directly to protected `main`.
+
+The Streamlit dashboard reads committed repo data only:
+
+- `research_config.json` for topics, schedules, and budget metadata
+- `data/processed/research_index.json` for repository memory
+- `data/processed/topic_data/*.json` for visual topic evidence
+- `data/processed/research_runs/*.json` for research history and cost trends

@@ -266,7 +266,7 @@ Configuration:
 ### Streamlit Cloud Setup
 - [ ] Visit https://share.streamlit.io
 - [ ] Sign in with GitHub
-- [ ] Create "New app"
+- [ ] Click "Create app"
 - [ ] Select knirantar/Project-India, main, dashboard.py
 - [ ] Click Deploy
 - [ ] Wait 2-3 minutes
@@ -379,14 +379,14 @@ Scenario 3: Add 2 More Topics (5 topics total)
 ```bash
 # 1. Go to https://share.streamlit.io
 # 2. Sign in with GitHub
-# 3. Click "New app"
+# 3. Click "Create app"
 # 4. Select: knirantar/Project-India, main, dashboard.py
 # 5. Click "Deploy"
 # 6. Wait 2-3 minutes
 # 7. Your dashboard is live! 🎉
 
 # Your dashboard URL:
-# https://share.streamlit.io/knirantar/project-india/main/dashboard.py
+# https://project-india-research.streamlit.app if the custom subdomain is available
 ```
 
 ---
