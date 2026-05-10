@@ -119,10 +119,10 @@ Then go back to your dashboard and refresh. You should see:
 ## Your Dashboard URL (After Deployment)
 
 ```
-https://project-india-research.streamlit.app
+https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 ```
 
-If Streamlit assigns a generated URL instead, use the URL shown on the app page.
+This is the production URL for Project India.
 
 Share this link with anyone!
 

@@ -4,6 +4,8 @@ Project India is a research and analysis repository for documenting, decoding, a
 
 The aim is to build a living knowledge base that combines structured research, data analysis, policy understanding, sector-by-sector tracking, and AI-assisted workflows.
 
+Live dashboard: https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
+
 ## Focus Areas
 
 - Geopolitics and foreign policy

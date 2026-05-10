@@ -386,7 +386,7 @@ Scenario 3: Add 2 More Topics (5 topics total)
 # 7. Your dashboard is live! 🎉
 
 # Your dashboard URL:
-# https://project-india-research.streamlit.app if the custom subdomain is available
+# https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 ```
 
 ---
