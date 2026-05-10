@@ -13,6 +13,8 @@ The dashboard is meant to be the public presentation surface for the research sy
 The dashboard also has a **Start Research** intake page. The intake form collects a topic title, category, starting context, questions, and source leads. When Streamlit secrets are configured, it dispatches `.github/workflows/topic-intake-research.yml`.
 The intake workflow should generate dashboard-ready research data, not a separate PPTX deck.
 
+The dashboard's **Operations -> Schedules** page is the control surface for recurring research. It can dispatch `.github/workflows/configure-topic-schedule.yml` to set a topic to manual, daily, weekly, or monthly incremental tracking, and it can dispatch `.github/workflows/incremental-research.yml` for a one-off focused update.
+
 It shows:
 
 - topic inventory and status

@@ -21,7 +21,9 @@ DOCS_DIR = ROOT / "docs"
 REPORTS_DIR = ROOT / "analyses" / "reports"
 SOURCES_DIR = ROOT / "sources"
 PROD_URL = "https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/"
-WORKFLOW_FILE = "topic-intake-research.yml"
+TOPIC_INTAKE_WORKFLOW = "topic-intake-research.yml"
+CONFIGURE_SCHEDULE_WORKFLOW = "configure-topic-schedule.yml"
+INCREMENTAL_RESEARCH_WORKFLOW = "incremental-research.yml"
 DEFAULT_OWNER = "knirantar"
 DEFAULT_REPO = "Project-India"
 
@@ -164,6 +166,29 @@ def app_secret(name: str, default: str = "") -> str:
     return str(value) if value is not None else default
 
 
+def dispatch_workflow(workflow_file: str, inputs: dict[str, str]) -> tuple[bool, str]:
+    token = app_secret("GITHUB_DISPATCH_TOKEN")
+    owner = app_secret("GITHUB_OWNER", DEFAULT_OWNER)
+    repo = app_secret("GITHUB_REPO", DEFAULT_REPO)
+    if not token:
+        return False, "GITHUB_DISPATCH_TOKEN is not configured in Streamlit secrets."
+
+    response = requests.post(
+        f"https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_file}/dispatches",
+        headers={
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"Bearer {token}",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        json={"ref": "main", "inputs": inputs},
+        timeout=20,
+    )
+
+    if response.status_code == 204:
+        return True, f"GitHub workflow started: {workflow_file}"
+    return False, f"GitHub API returned {response.status_code}: {response.text[:500]}"
+
+
 def dispatch_topic_workflow(
     *,
     title: str,
@@ -175,38 +200,59 @@ def dispatch_topic_workflow(
     model: str,
     depth: str,
 ) -> tuple[bool, str]:
-    token = app_secret("GITHUB_DISPATCH_TOKEN")
-    owner = app_secret("GITHUB_OWNER", DEFAULT_OWNER)
-    repo = app_secret("GITHUB_REPO", DEFAULT_REPO)
-    if not token:
-        return False, "GITHUB_DISPATCH_TOKEN is not configured in Streamlit secrets."
-
-    response = requests.post(
-        f"https://api.github.com/repos/{owner}/{repo}/actions/workflows/{WORKFLOW_FILE}/dispatches",
-        headers={
-            "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {token}",
-            "X-GitHub-Api-Version": "2022-11-28",
+    return dispatch_workflow(
+        TOPIC_INTAKE_WORKFLOW,
+        {
+            "title": title,
+            "slug": slug,
+            "category": category,
+            "context": context,
+            "questions": questions,
+            "sources": sources,
+            "research_model": model,
+            "depth": depth,
         },
-        json={
-            "ref": "main",
-            "inputs": {
-                "title": title,
-                "slug": slug,
-                "category": category,
-                "context": context,
-                "questions": questions,
-                "sources": sources,
-                "research_model": model,
-                "depth": depth,
-            },
-        },
-        timeout=20,
     )
 
-    if response.status_code == 204:
-        return True, "GitHub research workflow started."
-    return False, f"GitHub API returned {response.status_code}: {response.text[:500]}"
+
+def dispatch_schedule_workflow(
+    *,
+    slug: str,
+    frequency: str,
+    enabled: bool,
+    time_utc: str,
+    day_of_week: str,
+    day_of_month: int,
+    strategies: list[str],
+) -> tuple[bool, str]:
+    return dispatch_workflow(
+        CONFIGURE_SCHEDULE_WORKFLOW,
+        {
+            "slug": slug,
+            "frequency": frequency,
+            "enabled": "true" if enabled else "false",
+            "time_utc": time_utc,
+            "day_of_week": day_of_week,
+            "day_of_month": str(day_of_month),
+            "strategies": ",".join(strategies),
+        },
+    )
+
+
+def dispatch_incremental_workflow(
+    *,
+    slug: str,
+    strategy: str,
+    model: str,
+) -> tuple[bool, str]:
+    return dispatch_workflow(
+        INCREMENTAL_RESEARCH_WORKFLOW,
+        {
+            "topic_slug": slug,
+            "strategy": strategy,
+            "model": model,
+        },
+    )
 
 
 def topic_markdown_path(record: dict[str, Any]) -> Path | None:
@@ -571,7 +617,8 @@ if page == "Start Research":
                 st.markdown(
                     "Research usually takes a few minutes. Watch the workflow in "
                     "[GitHub Actions](https://github.com/knirantar/Project-India/actions/workflows/topic-intake-research.yml). "
-                    "If auto-merge is configured, refresh this app after completion. Otherwise merge the generated PR."
+                    "If auto-merge is configured, refresh this app after completion. Otherwise merge the generated PR. "
+                    "After the topic appears, use Operations -> Schedules to turn on incremental tracking."
                 )
             else:
                 st.error(message)
@@ -727,7 +774,160 @@ elif page == "Operations":
                     "Strategy rotation": ", ".join(topic.get("strategy", {}).get("rotation", [])),
                 }
             )
-        st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+        if rows:
+            st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+        else:
+            st.info("No topics have been added to research_config.json yet.")
+
+        st.divider()
+        st.subheader("Configure Incremental Tracking")
+        st.markdown(
+            "Use this after the first deep research run. It sets a frequency for focused updates "
+            "so the scheduled workflow checks the topic hourly but only researches it when it is due."
+        )
+
+        configured_topics = config.get("topics", [])
+        if not configured_topics:
+            st.info("Start a topic first, then return here to configure its incremental cadence.")
+        else:
+            topic_options = {
+                f"{topic.get('title', topic.get('slug'))} ({topic.get('slug')})": topic
+                for topic in configured_topics
+            }
+            selected_schedule_label = st.selectbox(
+                "Topic to track",
+                list(topic_options),
+                key="schedule_topic",
+            )
+            selected_schedule_topic = topic_options[selected_schedule_label]
+            current_schedule = selected_schedule_topic.get("schedule", {})
+            current_strategy = selected_schedule_topic.get("strategy", {})
+            current_rotation = [
+                strategy
+                for strategy in current_strategy.get("rotation", ["developments", "gaps", "factcheck"])
+                if strategy in {"developments", "gaps", "factcheck"}
+            ] or ["developments", "gaps", "factcheck"]
+
+            with st.form("configure_schedule_form"):
+                c1, c2 = st.columns(2)
+                with c1:
+                    frequency = st.selectbox(
+                        "Frequency",
+                        ["manual", "daily", "weekly", "monthly"],
+                        index=["manual", "daily", "weekly", "monthly"].index(
+                            current_schedule.get("frequency", "manual")
+                            if current_schedule.get("frequency") in {"manual", "daily", "weekly", "monthly"}
+                            else "manual"
+                        ),
+                    )
+                    enabled = st.checkbox(
+                        "Enable scheduled tracking",
+                        value=bool(selected_schedule_topic.get("enabled", False)),
+                        disabled=frequency == "manual",
+                    )
+                    time_utc = st.text_input(
+                        "Run time UTC",
+                        value=current_schedule.get("time_utc") or "06:00",
+                        help="Use HH:MM, for example 06:00. The scheduler checks once every hour.",
+                    )
+                with c2:
+                    day_of_week = st.selectbox(
+                        "Weekly day",
+                        ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+                        index=[
+                            "monday",
+                            "tuesday",
+                            "wednesday",
+                            "thursday",
+                            "friday",
+                            "saturday",
+                            "sunday",
+                        ].index(current_schedule.get("day_of_week", "monday"))
+                        if current_schedule.get("day_of_week", "monday")
+                        in {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"}
+                        else 0,
+                    )
+                    day_of_month = st.number_input(
+                        "Monthly day",
+                        min_value=1,
+                        max_value=28,
+                        value=int(current_schedule.get("day_of_month") or 1),
+                    )
+                    strategies = st.multiselect(
+                        "Incremental strategy rotation",
+                        ["developments", "gaps", "factcheck"],
+                        default=current_rotation,
+                    )
+
+                schedule_pin = st.text_input("Admin PIN", type="password", key="schedule_pin")
+                schedule_submitted = st.form_submit_button("Save schedule through GitHub workflow")
+
+            if schedule_submitted:
+                expected_pin = app_secret("APP_ADMIN_PIN")
+                if not expected_pin or schedule_pin != expected_pin:
+                    st.error("Admin PIN is missing or incorrect.")
+                elif not strategies:
+                    st.error("Choose at least one incremental strategy.")
+                else:
+                    ok, message = dispatch_schedule_workflow(
+                        slug=selected_schedule_topic.get("slug", ""),
+                        frequency=frequency,
+                        enabled=enabled and frequency != "manual",
+                        time_utc=time_utc.strip() or "06:00",
+                        day_of_week=day_of_week,
+                        day_of_month=int(day_of_month),
+                        strategies=strategies,
+                    )
+                    if ok:
+                        st.success(message)
+                        st.markdown(
+                            "[Watch schedule configuration in GitHub Actions]"
+                            "(https://github.com/knirantar/Project-India/actions/workflows/configure-topic-schedule.yml)."
+                        )
+                    else:
+                        st.error(message)
+
+        st.divider()
+        st.subheader("Run One Incremental Update Now")
+        st.markdown(
+            "This triggers the focused incremental workflow for an existing topic. "
+            "It reuses existing repo memory and runs only the selected update strategy."
+        )
+        if configured_topics:
+            manual_options = {
+                f"{topic.get('title', topic.get('slug'))} ({topic.get('slug')})": topic
+                for topic in configured_topics
+            }
+            with st.form("manual_incremental_form"):
+                manual_label = st.selectbox("Topic", list(manual_options), key="manual_increment_topic")
+                manual_strategy = st.selectbox(
+                    "Strategy",
+                    ["rotate", "developments", "gaps", "factcheck"],
+                    help="Rotate uses the topic's configured strategy rotation.",
+                )
+                manual_model = st.text_input("Model", value="gpt-5", key="manual_increment_model")
+                manual_pin = st.text_input("Admin PIN", type="password", key="manual_increment_pin")
+                manual_submitted = st.form_submit_button("Run incremental research now")
+
+            if manual_submitted:
+                expected_pin = app_secret("APP_ADMIN_PIN")
+                selected_manual_topic = manual_options[manual_label]
+                if not expected_pin or manual_pin != expected_pin:
+                    st.error("Admin PIN is missing or incorrect.")
+                else:
+                    ok, message = dispatch_incremental_workflow(
+                        slug=selected_manual_topic.get("slug", ""),
+                        strategy=manual_strategy,
+                        model=manual_model.strip() or "gpt-5",
+                    )
+                    if ok:
+                        st.success(message)
+                        st.markdown(
+                            "[Watch incremental research in GitHub Actions]"
+                            "(https://github.com/knirantar/Project-India/actions/workflows/incremental-research.yml)."
+                        )
+                    else:
+                        st.error(message)
 
     with tab_history:
         if not runs:
