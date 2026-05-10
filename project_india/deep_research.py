@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -255,6 +256,49 @@ Output format:
 """.strip()
 
 
+def _openai_retry_count() -> int:
+    raw_value = os.environ.get("PROJECT_INDIA_OPENAI_RETRIES", "4")
+    try:
+        return max(1, int(raw_value))
+    except ValueError:
+        return 4
+
+
+def _create_response_with_retries(client: object, **kwargs: object) -> object:
+    """Call OpenAI Responses API with backoff for transient transport failures."""
+    try:
+        from openai import APIConnectionError, APITimeoutError, InternalServerError, RateLimitError
+    except ImportError as error:
+        raise SystemExit(
+            "openai is required. Install with: python3 -m pip install -e '.[research]'"
+        ) from error
+
+    retryable_errors = (APIConnectionError, APITimeoutError, InternalServerError, RateLimitError)
+    attempts = _openai_retry_count()
+    last_error: Exception | None = None
+
+    for attempt in range(1, attempts + 1):
+        try:
+            return client.responses.create(**kwargs)  # type: ignore[attr-defined]
+        except retryable_errors as error:
+            last_error = error
+            if attempt == attempts:
+                break
+
+            delay = min(90, 5 * (2 ** (attempt - 1)))
+            print(
+                f"OpenAI request failed with {type(error).__name__}; "
+                f"retrying in {delay}s ({attempt}/{attempts}).",
+                flush=True,
+            )
+            time.sleep(delay)
+
+    raise SystemExit(
+        "OpenAI request failed after "
+        f"{attempts} attempts: {type(last_error).__name__}: {last_error}"
+    )
+
+
 def run_deep_research(
     title: str,
     slug: str | None = None,
@@ -312,7 +356,8 @@ def run_deep_research(
 
     client = OpenAI()
 
-    response = client.responses.create(
+    response = _create_response_with_retries(
+        client,
         model=model,
         reasoning={"effort": "high" if depth == "deep" else "low"},
         tools=[{"type": "web_search"}],
