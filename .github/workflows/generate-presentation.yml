@@ -134,7 +134,7 @@ jobs:
 
       - name: Commit generated outputs
         if: ${{ inputs.commit_changes }}
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Generate presentation for ${{ inputs.title }}"
           file_pattern: "docs sources analyses data/processed"
