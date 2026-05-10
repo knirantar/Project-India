@@ -1,5 +1,16 @@
 [
   {
+    "brief_path": "analyses/reports/us-iran-war-2026-brief.md",
+    "category": "geopolitics",
+    "presentation_deck_path": "docs/presentations/us-iran-war-2026-generated-deck.pptx",
+    "presentation_outline_path": "docs/presentations/us-iran-war-2026-outline.md",
+    "slug": "us-iran-war-2026",
+    "source_path": "sources/us-iran-war-2026-sources.md",
+    "title": "US Iran War",
+    "topic_path": "docs/geopolitics/us-iran-war-2026.md",
+    "updated_at": "2026-05-10T02:52:35+00:00"
+  },
+  {
     "brief_path": "analyses/reports/west-bengal-assembly-election-2026-brief.md",
     "category": "internal-growth",
     "presentation_deck_path": "docs/presentations/west-bengal-election-2026-analysis-deck.pptx",
@@ -8,7 +19,7 @@
     "source_path": "sources/west-bengal-assembly-election-2026-sources.md",
     "title": "West Bengal Assembly Election 2026",
     "topic_path": "docs/internal-growth/west-bengal-assembly-election-2026.md",
-    "updated_at": "2026-05-09T19:22:18+00:00"
+    "updated_at": "2026-05-10T02:52:35+00:00"
   },
   {
     "brief_path": null,
@@ -19,7 +30,7 @@
     "source_path": null,
     "title": "Project Ideas",
     "topic_path": "docs/research-notes/ideas.md",
-    "updated_at": "2026-05-09T19:22:18+00:00"
+    "updated_at": "2026-05-10T02:52:35+00:00"
   },
   {
     "brief_path": null,
@@ -30,7 +41,7 @@
     "source_path": null,
     "title": "Project India Roadmap",
     "topic_path": "docs/research-notes/project-roadmap.md",
-    "updated_at": "2026-05-09T19:22:18+00:00"
+    "updated_at": "2026-05-10T02:52:35+00:00"
   },
   {
     "brief_path": "analyses/reports/india-semiconductor-mission-brief.md",
@@ -41,6 +52,6 @@
     "source_path": "sources/india-semiconductor-mission-sources.md",
     "title": "India's Semiconductor Mission",
     "topic_path": "docs/sectors/india-semiconductor-mission.md",
-    "updated_at": "2026-05-09T19:22:18+00:00"
+    "updated_at": "2026-05-10T02:52:35+00:00"
   }
 ]
