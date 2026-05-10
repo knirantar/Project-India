@@ -124,6 +124,57 @@ def get_status_color(status):
     }
     return colors.get(status, "#636e72")
 
+
+def format_metric_value(metric):
+    """Format a structured topic metric for display."""
+    if isinstance(metric, dict):
+        value = metric.get("value", "N/A")
+        unit = metric.get("unit")
+        if unit and unit not in {"number", "count"}:
+            return f"{value} {unit}"
+        return value
+    return metric
+
+
+def display_topic_metrics(topic_data):
+    """Display topic metrics from either dict or list-based structured data."""
+    metrics = topic_data.get("metrics", {})
+    if not metrics:
+        return
+
+    st.markdown("**Key Metrics:**")
+
+    if isinstance(metrics, dict):
+        metric_items = [
+            {"label": metric_name, "value": metric_value}
+            for metric_name, metric_value in metrics.items()
+        ]
+    elif isinstance(metrics, list):
+        metric_items = [
+            metric
+            for metric in metrics
+            if isinstance(metric, dict) and metric.get("label") is not None
+        ]
+    else:
+        return
+
+    if not metric_items:
+        return
+
+    metric_cols = st.columns(min(len(metric_items), 4))
+    for idx, metric in enumerate(metric_items):
+        if isinstance(metric, dict):
+            label = str(metric.get("label", "Metric"))
+            value = format_metric_value(metric)
+            help_text = metric.get("context") or metric.get("source")
+        else:
+            label = "Metric"
+            value = metric
+            help_text = None
+
+        with metric_cols[idx % len(metric_cols)]:
+            st.metric(label, value, help=help_text)
+
 # ============================================================================
 # SIDEBAR NAVIGATION
 # ============================================================================
@@ -136,7 +187,6 @@ with st.sidebar:
         "Navigation",
         ["📊 Overview", "🌍 Geopolitics", "🏛️ Internal Growth", "⚙️ Sectors", 
          "📈 Research History", "⚙️ Admin"],
-        use_container_width=True,
     )
     
     st.divider()
@@ -259,7 +309,7 @@ if page == "📊 Overview":
                 title="Cost Distribution",
                 color_discrete_sequence=px.colors.qualitative.Set2,
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
         
         with col2:
             fig = px.bar(
@@ -270,7 +320,7 @@ if page == "📊 Overview":
                 color="Topic",
                 color_discrete_sequence=px.colors.qualitative.Set2,
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
 # ============================================================================
 # PAGE: GEOPOLITICS
@@ -308,15 +358,7 @@ elif page == "🌍 Geopolitics":
                 topic_data = load_topic_data(topic["slug"])
                 
                 if topic_data:
-                    st.markdown("**Key Metrics:**")
-                    
-                    # Display metrics as columns
-                    metrics = topic_data.get("metrics", {})
-                    if metrics:
-                        metric_cols = st.columns(len(metrics))
-                        for idx, (metric_name, metric_value) in enumerate(metrics.items()):
-                            with metric_cols[idx % len(metric_cols)]:
-                                st.metric(metric_name, metric_value)
+                    display_topic_metrics(topic_data)
                     
                     # Display comparisons
                     if "comparisons" in topic_data:
@@ -324,7 +366,7 @@ elif page == "🌍 Geopolitics":
                         comparisons = topic_data["comparisons"]
                         if isinstance(comparisons, list) and comparisons:
                             df_comp = pd.DataFrame(comparisons)
-                            st.dataframe(df_comp, use_container_width=True)
+                            st.dataframe(df_comp, width="stretch")
                     
                     # Display timeline
                     if "timeline" in topic_data:
@@ -332,7 +374,7 @@ elif page == "🌍 Geopolitics":
                         timeline = topic_data["timeline"]
                         if isinstance(timeline, list) and timeline:
                             df_timeline = pd.DataFrame(timeline)
-                            st.dataframe(df_timeline, use_container_width=True)
+                            st.dataframe(df_timeline, width="stretch")
 
 # ============================================================================
 # PAGE: INTERNAL GROWTH
@@ -370,15 +412,7 @@ elif page == "🏛️ Internal Growth":
                 topic_data = load_topic_data(topic["slug"])
                 
                 if topic_data:
-                    st.markdown("**Key Metrics:**")
-                    
-                    # Display metrics as columns
-                    metrics = topic_data.get("metrics", {})
-                    if metrics:
-                        metric_cols = st.columns(len(metrics))
-                        for idx, (metric_name, metric_value) in enumerate(metrics.items()):
-                            with metric_cols[idx % len(metric_cols)]:
-                                st.metric(metric_name, metric_value)
+                    display_topic_metrics(topic_data)
                     
                     # Display comparisons
                     if "comparisons" in topic_data:
@@ -386,7 +420,7 @@ elif page == "🏛️ Internal Growth":
                         comparisons = topic_data["comparisons"]
                         if isinstance(comparisons, list) and comparisons:
                             df_comp = pd.DataFrame(comparisons)
-                            st.dataframe(df_comp, use_container_width=True)
+                            st.dataframe(df_comp, width="stretch")
 
 # ============================================================================
 # PAGE: SECTORS
@@ -424,15 +458,7 @@ elif page == "⚙️ Sectors":
                 topic_data = load_topic_data(topic["slug"])
                 
                 if topic_data:
-                    st.markdown("**Key Metrics:**")
-                    
-                    # Display metrics as columns
-                    metrics = topic_data.get("metrics", {})
-                    if metrics:
-                        metric_cols = st.columns(len(metrics))
-                        for idx, (metric_name, metric_value) in enumerate(metrics.items()):
-                            with metric_cols[idx % len(metric_cols)]:
-                                st.metric(metric_name, metric_value)
+                    display_topic_metrics(topic_data)
 
 # ============================================================================
 # PAGE: RESEARCH HISTORY
@@ -464,7 +490,7 @@ elif page == "📈 Research History":
         df_runs = pd.DataFrame(runs_data)
         
         # Display table
-        st.dataframe(df_runs, use_container_width=True, hide_index=True)
+        st.dataframe(df_runs, width="stretch", hide_index=True)
         
         st.divider()
         
@@ -481,7 +507,7 @@ elif page == "📈 Research History":
             title="Cumulative API Cost Over Time",
             markers=True,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
         
         # Strategy distribution
         st.subheader("🎯 Strategy Distribution")
@@ -493,7 +519,7 @@ elif page == "📈 Research History":
             title="Research Runs by Strategy",
             color_discrete_sequence=px.colors.qualitative.Set2,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 # ============================================================================
 # PAGE: ADMIN
