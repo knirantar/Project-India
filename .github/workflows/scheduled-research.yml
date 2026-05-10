@@ -1,0 +1,185 @@
+name: Scheduled Incremental Research
+
+on:
+  schedule:
+    # West Bengal Assembly Election 2026 - weekly Monday 9 AM UTC
+    - cron: "0 9 * * 1"
+      
+    # US-Iran War 2026 - daily 6 AM UTC  
+    - cron: "0 6 * * *"
+      
+  # Allow manual trigger for testing/emergency runs
+  workflow_dispatch:
+    inputs:
+      topic_slug:
+        description: "Topic slug to research (or leave empty for all scheduled)"
+        required: false
+      strategy:
+        description: "Research strategy (developments, gaps, factcheck, rotate)"
+        required: false
+        default: "rotate"
+      model:
+        description: "OpenAI model to use"
+        required: false
+        default: "gpt-5"
+
+jobs:
+  incremental-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[research]"
+      
+      - name: Determine which topics to run
+        id: topics
+        run: |
+          python -c "
+          import json
+          from datetime import datetime, UTC
+          
+          with open('research_config.json') as f:
+              config = json.load(f)
+          
+          # Get current day/hour for schedule matching
+          now = datetime.now(UTC)
+          day_name = now.strftime('%A').lower()
+          hour = now.hour
+          
+          topics_to_run = []
+          for topic in config['topics']:
+              if not topic['enabled']:
+                  continue
+              
+              schedule = topic['schedule']
+              freq = schedule['frequency']
+              
+              # Check if this topic should run now
+              should_run = False
+              if freq == 'daily':
+                  time_matches = str(hour).zfill(2) == schedule['time_utc'].split(':')[0]
+                  should_run = time_matches
+              elif freq == 'weekly':
+                  day_matches = day_name == schedule.get('day_of_week', 'monday')
+                  time_matches = str(hour).zfill(2) == schedule['time_utc'].split(':')[0]
+                  should_run = day_matches and time_matches
+              
+              if should_run:
+                  topics_to_run.append({
+                      'title': topic['title'],
+                      'slug': topic['slug'],
+                      'category': topic['category'],
+                      'strategy': topic['strategy']['rotation'][topic['strategy']['current_index']]
+                  })
+          
+          print(f'::set-output name=topics::{json.dumps(topics_to_run)}')
+          print(f'Topics to run: {json.dumps(topics_to_run, indent=2)}')
+          "
+      
+      - name: Run incremental research for scheduled topics
+        env:
+          OPENAI_API_KEY: \${{ secrets.OPENAI_API_KEY }}
+        run: |
+          import json
+          import subprocess
+          import sys
+          
+          topics = json.loads('''${{ steps.topics.outputs.topics }}''')
+          
+          if not topics:
+              print("No topics scheduled to run at this time.")
+              sys.exit(0)
+          
+          for topic in topics:
+              print(f"\\n{'='*60}")
+              print(f"Running incremental research: {topic['title']}")
+              print(f"{'='*60}")
+              
+              cmd = [
+                  sys.executable, "-m", "project_india.cli", "research-increment",
+                  topic['title'],
+                  "--slug", topic['slug'],
+                  "--category", topic['category'],
+                  "--strategy", topic['strategy'],
+              ]
+              
+              result = subprocess.run(cmd, capture_output=False)
+              if result.returncode != 0:
+                  print(f"ERROR: Research failed for {topic['slug']}")
+                  continue
+              
+              print(f"SUCCESS: Completed research for {topic['slug']}")
+        shell: python
+      
+      - name: Commit changes
+        if: always()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Research Bot"
+          
+          # Check if there are changes
+          if git diff --quiet; then
+              echo "No changes to commit."
+              exit 0
+          fi
+          
+          git add -A
+          git commit -m "chore(research): scheduled incremental research update"
+          git push
+      
+      - name: Create research run summary
+        if: always()
+        run: |
+          python -c "
+          import json
+          from pathlib import Path
+          from datetime import datetime, UTC
+          
+          # Find latest research run files
+          runs_dir = Path('data/processed/research_runs')
+          if not runs_dir.exists():
+              print('No research runs found.')
+              exit(0)
+          
+          # Get most recent run
+          runs = list(runs_dir.glob('*.json'))
+          if not runs:
+              print('No research runs found.')
+              exit(0)
+          
+          latest_run = max(runs, key=lambda p: p.stat().st_mtime)
+          with open(latest_run) as f:
+              run = json.load(f)
+          
+          print(f'## Research Run Summary')
+          print(f'')
+          print(f'**Topic:** {run.get(\"title\", \"Unknown\")}')
+          print(f'**Strategy:** {run.get(\"strategy\", \"Unknown\")}')
+          print(f'**Timestamp:** {run.get(\"timestamp\", \"Unknown\")}')
+          print(f'**Cost:** \${run.get(\"api_cost_usd\", 0)}')
+          print(f'')
+          print(f'### Changes')
+          print(f'{run.get(\"summary\", \"No summary\")}')
+          "
+      
+      - name: Upload run artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: research-runs
+          path: data/processed/research_runs/
+          retention-days: 30

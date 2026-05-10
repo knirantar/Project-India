@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 
 from project_india.deep_research import run_deep_research
+from project_india.increment_research import run_incremental_research
 from project_india.presentation_builder import build_presentation
 from project_india.research_db import write_index
 from project_india.research_plan import write_plan
@@ -100,6 +101,30 @@ def build_parser() -> argparse.ArgumentParser:
     )
     plan_parser.add_argument("--output", help="Optional research plan output path.")
 
+    increment_parser = subparsers.add_parser(
+        "research-increment",
+        help="Run incremental research on a topic (developments, gaps, or fact-checking).",
+    )
+    increment_parser.add_argument("title", help="Human-readable topic title.")
+    increment_parser.add_argument("--slug", help="Optional file slug.")
+    increment_parser.add_argument(
+        "--category",
+        choices=sorted(TOPIC_FOLDERS),
+        default="sectors",
+        help="Destination docs category for the topic note.",
+    )
+    increment_parser.add_argument(
+        "--strategy",
+        choices=["developments", "gaps", "factcheck", "rotate"],
+        default="rotate",
+        help="Research strategy: developments (new changes), gaps (explore unexplored subtopic), factcheck (verify facts), or rotate (use next in config).",
+    )
+    increment_parser.add_argument(
+        "--model",
+        default="gpt-5",
+        help="OpenAI model to use for research.",
+    )
+
     return parser
 
 
@@ -159,6 +184,23 @@ def main() -> None:
             output_path=Path(args.output) if args.output else None,
         )
         print(f"Wrote research plan: {output}")
+
+    if args.command == "research-increment":
+        outputs = run_incremental_research(
+            args.title,
+            slug=args.slug,
+            category=args.category,
+            strategy=args.strategy,
+            model=args.model,
+        )
+        print("Incremental research completed:")
+        print(f"- strategy: {outputs.strategy}")
+        print(f"- topic: {outputs.topic_path}")
+        print(f"- sources: {outputs.source_path}")
+        print(f"- brief: {outputs.brief_path}")
+        print(f"- run record: {outputs.run_path}")
+        print(f"- API cost: ${outputs.api_cost_usd}")
+        print(f"- changes: {outputs.summary[:200]}...")
 
 
 if __name__ == "__main__":
