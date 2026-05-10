@@ -50,6 +50,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -130,3 +132,4 @@ jobs:
         with:
           commit_message: "Generate presentation for ${{ inputs.title }}"
           file_pattern: "docs sources analyses data/processed"
+          pull: "--rebase --autostash"

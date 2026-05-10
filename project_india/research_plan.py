@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, dataclass
-from datetime import UTC, datetime
+import hashlib
 from pathlib import Path
 
 from project_india import paths
@@ -25,7 +25,7 @@ class ResearchPlan:
     title: str
     slug: str
     category: str
-    generated_at: str
+    content_hash: str
     existing_assets: list[ExistingAsset]
     related_records: list[dict[str, str | None]]
     local_context_path: str
@@ -72,7 +72,20 @@ def _data_assets(slug: str) -> list[tuple[str, Path]]:
         if not root.exists():
             continue
         for path in sorted(root.rglob("*")):
-            if path.is_file() and slug in path.name:
+            if not path.is_file() or slug not in path.name:
+                continue
+            relative_parts = path.relative_to(paths.PROCESSED_DATA).parts
+            if relative_parts and relative_parts[0] in {
+                "research_context",
+                "research_plans",
+                "research_runs",
+            }:
+                continue
+            if path.name == "research_index.json":
+                continue
+            if path.suffix.lower() in {".pptx", ".png", ".jpg", ".jpeg", ".pdf"}:
+                continue
+            else:
                 assets.append(("data", path))
     return assets
 
@@ -105,6 +118,18 @@ def _local_context(slug: str, assets: list[ExistingAsset]) -> Path:
 
     context_path.write_text("\n".join(sections), encoding="utf-8")
     return context_path
+
+
+def _content_hash(assets: list[ExistingAsset]) -> str:
+    digest = hashlib.sha256()
+    for asset in assets:
+        path = paths.ROOT / asset.path
+        digest.update(asset.path.encode("utf-8"))
+        digest.update(b"\0")
+        if path.exists() and path.is_file():
+            digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
 
 
 def _missing_questions(asset_kinds: set[str]) -> list[str]:
@@ -164,7 +189,7 @@ def plan_research(
         title=title,
         slug=topic_slug,
         category=category,
-        generated_at=datetime.now(UTC).replace(microsecond=0).isoformat(),
+        content_hash=_content_hash(assets),
         existing_assets=assets,
         related_records=related,
         local_context_path=str(context_path.relative_to(paths.ROOT)),
@@ -188,4 +213,3 @@ def write_plan(
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(asdict(plan), indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return output
-

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from dataclasses import asdict, dataclass
-from datetime import UTC, datetime
 from pathlib import Path
 
 from project_india import paths
@@ -34,11 +34,27 @@ def _relative(path: Path | None) -> str | None:
     return str(path.relative_to(paths.ROOT))
 
 
+def _git_timestamp(path: Path) -> str:
+    relative = str(path.relative_to(paths.ROOT))
+    try:
+        result = subprocess.run(
+            ["git", "log", "-1", "--format=%cI", "--", relative],
+            cwd=paths.ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        return "uncommitted"
+
+    timestamp = result.stdout.strip()
+    return timestamp or "uncommitted"
+
+
 def _record_for_topic(topic_path: Path) -> ResearchRecord:
     slug = topic_path.stem
     category = str(topic_path.parent.relative_to(paths.DOCS))
     title = _title_from_markdown(topic_path)
-    timestamp = datetime.now(UTC).replace(microsecond=0).isoformat()
 
     return ResearchRecord(
         slug=slug,
@@ -49,7 +65,7 @@ def _record_for_topic(topic_path: Path) -> ResearchRecord:
         brief_path=_relative(paths.REPORTS / f"{slug}-brief.md"),
         presentation_outline_path=_relative(paths.PRESENTATIONS / f"{slug}-outline.md"),
         presentation_deck_path=_find_deck(slug),
-        updated_at=timestamp,
+        updated_at=_git_timestamp(topic_path),
     )
 
 
@@ -86,4 +102,3 @@ def write_index(output_path: Path | None = None) -> Path:
     records = [asdict(record) for record in build_index()]
     output.write_text(json.dumps(records, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return output
-
