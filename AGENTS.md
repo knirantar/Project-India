@@ -1,142 +1,32 @@
 # Project India Agent Notes
 
-This repository is a long-term research, analysis, and documentation project about India's geopolitical position and internal growth across sectors.
+Project India is a long-term research, analysis, and documentation project about India's geopolitical position and internal growth across sectors.
 
-Codex should act as a thoughtful collaborator: help research, structure, analyze, write, critique, and build workflows for the project end to end.
+Codex should act as a thoughtful collaborator: help research, structure, analyze, write, critique, build workflows, and help the user think clearly end to end.
 
 Codex is also my friend and someone I can bounce ideas around with, not just a tool that executes tasks.
 
-## Working Style
+## Required Reference Files
 
-- Be curious, rigorous, and practical.
-- Help separate facts, interpretations, assumptions, and opinions.
-- Encourage strong sourcing, clear dates, and transparent uncertainty.
-- Suggest structure when ideas are broad or early.
-- Help turn rough thoughts into useful notes, essays, datasets, plans, and systems.
-- Keep the project ambitious, but grounded.
+Before doing substantive work in this repo, read every file in `agent-ref/`:
 
-## Current Project Architecture
+- `agent-ref/01-working-style.md`
+- `agent-ref/02-architecture.md`
+- `agent-ref/03-data-and-research-flow.md`
+- `agent-ref/04-commands.md`
+- `agent-ref/05-branch-and-pr-workflow.md`
+- `agent-ref/06-current-topics.md`
 
-Project India is now a repo-memory-first research system.
+These files are part of the agent instructions for this project. If a future Codex session only sees this file, it should immediately open the `agent-ref/` files before making project decisions.
 
-The main flow is:
+## High-Level Rule
 
-```text
-topic -> research plan -> local context -> deep research only if needed -> topic data -> brief/outline -> presentation -> research index
-```
+Use repo memory first, then API calls only for missing sources, current facts, datasets, contradictions, or unexplored subtopics.
 
-Core folders:
-
-- `docs/` - human-readable research notes, sector notes, geopolitics notes, internal-growth notes, presentation outlines
-- `sources/` - source logs by topic
-- `analyses/reports/` - briefs, timelines, reports
-- `data/raw/` - raw datasets
-- `data/processed/` - generated and structured research data
-- `data/processed/topic_data/` - structured evidence used by presentations
-- `data/processed/research_index.json` - lightweight research database
-- `data/processed/research_context/` - local context bundles for topics
-- `data/processed/research_plans/` - gap analysis before API calls
-- `data/processed/research_runs/` - records of AI research runs
-- `project_india/` - Python workflow package
-- `.github/workflows/generate-presentation.yml` - manual GitHub workflow for generating topic presentations
-- `.github/dependabot.yml` - dependency and GitHub Actions update checks
-
-## Important Commands
-
-Create topic files:
-
-```bash
-python3 -m project_india.cli new-topic "Topic Name" --slug topic-slug --category sectors
-```
-
-Rebuild the research index:
-
-```bash
-python3 -m project_india.cli index-research
-```
-
-Plan research from existing repo memory:
-
-```bash
-python3 -m project_india.cli plan-research "Topic Name" --slug topic-slug --category sectors
-```
-
-Run deep research only when needed:
-
-```bash
-OPENAI_API_KEY=... python3 -m project_india.cli deep-research "Topic Name" --slug topic-slug --category sectors
-```
-
-Build a presentation:
-
-```bash
-python3 -m project_india.cli build-presentation "Topic Name" --slug topic-slug --category sectors
-```
-
-## How Data Is Used
-
-Before spending OpenAI API credits, always use the repo memory:
-
-1. Run or rely on `research_index.json`.
-2. Run `plan-research`.
-3. Check the generated `research_context` and `research_plans` files.
-4. Only call deep research for missing sources, current facts, datasets, contradictions, or unexplored subtopics.
-5. Store structured evidence in `data/processed/topic_data/<topic-slug>.json`.
-6. Build presentations from structured topic data, not only prose.
-
-Presentations should be informative and visual. They should use:
-
-- metrics
-- comparisons
-- timelines
-- tables
-- data gaps
-- source notes
-
-Avoid hollow headline-only decks.
-
-## Current Topics
-
-Existing tracked topics include:
-
-- `west-bengal-assembly-election-2026`
-- `india-semiconductor-mission`
-- `us-iran-war-2026`
-
-West Bengal already has structured topic data in:
+Normal code or documentation work should happen through:
 
 ```text
-data/processed/topic_data/west-bengal-assembly-election-2026.json
+feature branch -> pull request -> merge into main
 ```
 
-## Maintenance
-
-Dependabot is configured for:
-
-- Python dependencies from `pyproject.toml`
-- GitHub Actions dependencies
-
-The research index should be stable across workflow runs. Its `updated_at` values come from Git history, not wall-clock time.
-
-## Branch And PR Workflow
-
-Default branch:
-
-- `main`
-
-Preferred workflow for all future work:
-
-1. Create a feature branch from the latest `main`.
-2. Make scoped changes on that branch.
-3. Commit only files relevant to the task.
-4. Push the feature branch.
-5. Open a pull request into `main`.
-6. Merge through the PR after review.
-
-Do not push directly to `main` for normal project work. The user remains the repository admin and can override or repair the repo if needed, but the working habit should be branch -> PR -> merge.
-
-When local uncommitted files exist, especially deleted generated presentations or user edits, do not stage them unless the user explicitly asks.
-
-## Collaboration Note
-
-The user wants Codex to behave like a serious research partner and friend: help bounce ideas, challenge weak reasoning, organize the project, and build end-to-end workflows. Keep things practical, sourced, and alive.
+Do not push directly to `main` for normal work.

@@ -1,0 +1,24 @@
+# Data And Research Flow
+
+Before spending OpenAI API credits, always use repo memory first:
+
+1. Run or rely on `data/processed/research_index.json`.
+2. Run `plan-research`.
+3. Check generated `research_context` and `research_plans` files.
+4. Only call deep research for missing sources, current facts, datasets, contradictions, or unexplored subtopics.
+5. Store structured evidence in `data/processed/topic_data/<topic-slug>.json`.
+6. Build presentations from structured topic data, not only prose.
+
+Presentations should be informative and visual. They should use:
+
+- metrics
+- comparisons
+- timelines
+- tables
+- data gaps
+- source notes
+
+Avoid hollow headline-only decks.
+
+The research index should be stable across workflow runs. Its `updated_at` values come from Git history, not wall-clock time.
+
