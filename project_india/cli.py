@@ -5,7 +5,6 @@ from pathlib import Path
 
 from project_india.deep_research import run_deep_research
 from project_india.increment_research import run_incremental_research
-from project_india.presentation_builder import build_presentation
 from project_india.research_db import write_index
 from project_india.research_plan import write_plan
 from project_india.topics import TOPIC_FOLDERS, create_topic
@@ -39,23 +38,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     index_parser.add_argument("--output", help="Optional output path for the JSON index.")
 
-    deck_parser = subparsers.add_parser(
-        "build-presentation",
-        help="Create a draft PPTX presentation for a topic.",
-    )
-    deck_parser.add_argument("title", help="Human-readable topic title.")
-    deck_parser.add_argument("--slug", help="Optional file slug.")
-    deck_parser.add_argument(
-        "--category",
-        choices=sorted(TOPIC_FOLDERS),
-        default="sectors",
-        help="Docs category for the source topic note.",
-    )
-    deck_parser.add_argument("--output", help="Optional PPTX output path.")
-
     research_parser = subparsers.add_parser(
         "deep-research",
-        help="Run AI-assisted web research and write topic, source, brief, and outline files.",
+        help="Run AI-assisted web research and write topic, source, brief, and topic-data files.",
     )
     research_parser.add_argument("title", help="Human-readable topic title.")
     research_parser.add_argument("--slug", help="Optional file slug.")
@@ -143,20 +128,10 @@ def main() -> None:
         print(f"- topic: {files.topic}")
         print(f"- sources: {files.sources}")
         print(f"- brief: {files.brief}")
-        print(f"- presentation: {files.presentation}")
 
     if args.command == "index-research":
         output = write_index(Path(args.output) if args.output else None)
         print(f"Wrote research index: {output}")
-
-    if args.command == "build-presentation":
-        output = build_presentation(
-            args.title,
-            slug=args.slug,
-            category=args.category,
-            output_path=Path(args.output) if args.output else None,
-        )
-        print(f"Wrote presentation: {output}")
 
     if args.command == "deep-research":
         outputs = run_deep_research(
@@ -171,7 +146,6 @@ def main() -> None:
         print(f"- topic: {outputs.topic_path}")
         print(f"- sources: {outputs.source_path}")
         print(f"- brief: {outputs.brief_path}")
-        print(f"- presentation outline: {outputs.presentation_path}")
         print(f"- topic data: {outputs.data_path}")
         print(f"- run record: {outputs.run_path}")
 

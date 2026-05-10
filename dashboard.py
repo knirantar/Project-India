@@ -10,6 +10,7 @@ from typing import Any
 
 import pandas as pd
 import plotly.express as px
+import requests
 import streamlit as st
 
 
@@ -20,6 +21,9 @@ DOCS_DIR = ROOT / "docs"
 REPORTS_DIR = ROOT / "analyses" / "reports"
 SOURCES_DIR = ROOT / "sources"
 PROD_URL = "https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/"
+WORKFLOW_FILE = "topic-intake-research.yml"
+DEFAULT_OWNER = "knirantar"
+DEFAULT_REPO = "Project-India"
 
 
 st.set_page_config(
@@ -144,6 +148,65 @@ def first_paragraph(markdown: str, limit: int = 340) -> str:
 
 def file_label(path: str | None) -> str:
     return path or "Not available"
+
+
+def slugify(value: str) -> str:
+    value = value.strip().lower()
+    value = re.sub(r"[^a-z0-9]+", "-", value)
+    return value.strip("-")
+
+
+def app_secret(name: str, default: str = "") -> str:
+    try:
+        value = st.secrets.get(name, default)
+    except (FileNotFoundError, KeyError):
+        return default
+    return str(value) if value is not None else default
+
+
+def dispatch_topic_workflow(
+    *,
+    title: str,
+    slug: str,
+    category: str,
+    context: str,
+    questions: str,
+    sources: str,
+    model: str,
+    depth: str,
+) -> tuple[bool, str]:
+    token = app_secret("GITHUB_DISPATCH_TOKEN")
+    owner = app_secret("GITHUB_OWNER", DEFAULT_OWNER)
+    repo = app_secret("GITHUB_REPO", DEFAULT_REPO)
+    if not token:
+        return False, "GITHUB_DISPATCH_TOKEN is not configured in Streamlit secrets."
+
+    response = requests.post(
+        f"https://api.github.com/repos/{owner}/{repo}/actions/workflows/{WORKFLOW_FILE}/dispatches",
+        headers={
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"Bearer {token}",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        json={
+            "ref": "main",
+            "inputs": {
+                "title": title,
+                "slug": slug,
+                "category": category,
+                "context": context,
+                "questions": questions,
+                "sources": sources,
+                "research_model": model,
+                "depth": depth,
+            },
+        },
+        timeout=20,
+    )
+
+    if response.status_code == 204:
+        return True, "GitHub research workflow started."
+    return False, f"GitHub API returned {response.status_code}: {response.text[:500]}"
 
 
 def topic_markdown_path(record: dict[str, Any]) -> Path | None:
@@ -416,7 +479,7 @@ with st.sidebar:
 
     page = st.radio(
         "Navigation",
-        ["Insight Briefs", "Topic Explorer", "Research Library", "Operations"],
+        ["Start Research", "Insight Briefs", "Topic Explorer", "Research Library", "Operations"],
     )
 
     st.divider()
@@ -429,7 +492,114 @@ runs = load_research_runs()
 structured_topics = [topic for topic in topics if load_topic_data(topic.get("slug", ""))]
 
 
-if page == "Insight Briefs":
+if page == "Start Research":
+    st.markdown("<div class='pi-kicker'>New Topic Intake</div>", unsafe_allow_html=True)
+    st.title("Start a Research Topic")
+    st.markdown(
+        "<div class='pi-hero'>Give Project India a topic, your starting context, questions, "
+        "and source leads. The app will trigger GitHub Actions to run source-backed research, "
+        "write structured evidence, open a PR, and update the dashboard after the PR is merged. "
+        "This flow does not generate a separate presentation deck because the app is the presentation surface.</div>",
+        unsafe_allow_html=True,
+    )
+
+    secrets_ready = bool(app_secret("GITHUB_DISPATCH_TOKEN"))
+    pin_configured = bool(app_secret("APP_ADMIN_PIN"))
+    if not secrets_ready or not pin_configured:
+        st.warning(
+            "Workflow dispatch is not fully configured yet. Add Streamlit secrets "
+            "`GITHUB_DISPATCH_TOKEN` and `APP_ADMIN_PIN` to enable one-click research starts."
+        )
+
+    with st.form("topic_intake_form"):
+        title = st.text_input("Topic title", placeholder="Example: India's shipbuilding strategy")
+        category = st.selectbox(
+            "Category",
+            ["sectors", "geopolitics", "internal-growth", "research-notes"],
+            index=0,
+        )
+        slug = st.text_input("Slug", placeholder="Auto-generated from title if left blank")
+        context = st.text_area(
+            "Starting context",
+            placeholder="What do you already know? Why does this topic matter? What angle should the research take?",
+            height=160,
+        )
+        questions = st.text_area(
+            "Questions to answer",
+            placeholder="One question per line. Example: What are India's current capacity gaps?",
+            height=140,
+        )
+        sources = st.text_area(
+            "Source leads or URLs",
+            placeholder="Paste any official sources, articles, PDFs, datasets, or names of institutions to check.",
+            height=120,
+        )
+
+        c1, c2 = st.columns(2)
+        with c1:
+            model = st.text_input("Research model", value="gpt-5")
+        with c2:
+            depth = st.selectbox("Depth", ["deep", "standard"], index=0)
+
+        admin_pin = st.text_input("Admin PIN", type="password")
+        submitted = st.form_submit_button("Start GitHub research workflow")
+
+    if submitted:
+        clean_title = title.strip()
+        clean_slug = slugify(slug or title)
+        expected_pin = app_secret("APP_ADMIN_PIN")
+
+        if not clean_title:
+            st.error("Add a topic title first.")
+        elif not clean_slug:
+            st.error("Add a valid title or slug.")
+        elif not expected_pin or admin_pin != expected_pin:
+            st.error("Admin PIN is missing or incorrect.")
+        else:
+            ok, message = dispatch_topic_workflow(
+                title=clean_title,
+                slug=clean_slug,
+                category=category,
+                context=context.strip(),
+                questions=questions.strip(),
+                sources=sources.strip(),
+                model=model.strip() or "gpt-5",
+                depth=depth,
+            )
+            if ok:
+                st.success(message)
+                st.markdown(
+                    "Research usually takes a few minutes. Watch the workflow in "
+                    "[GitHub Actions](https://github.com/knirantar/Project-India/actions/workflows/topic-intake-research.yml). "
+                    "If auto-merge is configured, refresh this app after completion. Otherwise merge the generated PR."
+                )
+            else:
+                st.error(message)
+
+    st.divider()
+    st.subheader("Required Setup")
+    st.markdown(
+        """
+Add these Streamlit secrets:
+
+```toml
+GITHUB_OWNER = "knirantar"
+GITHUB_REPO = "Project-India"
+GITHUB_DISPATCH_TOKEN = "github_pat_or_classic_token_with_actions_write"
+APP_ADMIN_PIN = "choose-a-private-pin"
+```
+
+Add these GitHub Actions secrets:
+
+```text
+OPENAI_API_KEY
+PROJECT_INDIA_ADMIN_TOKEN   # optional, only if you want workflow PRs auto-merged
+```
+"""
+    )
+
+
+elif page == "Insight Briefs":
     st.markdown("<div class='pi-kicker'>Project India</div>", unsafe_allow_html=True)
     st.title("Research Intelligence Dashboard")
     st.markdown(
@@ -450,7 +620,7 @@ if page == "Insight Briefs":
 
     featured = structured_topics or topics
     if not featured:
-        st.info("No topics are indexed yet.")
+        st.info("No topics are indexed yet. Use Start Research to launch the first topic workflow.")
     else:
         labels = [f"{record.get('title', record.get('slug'))} ({record.get('category')})" for record in featured]
         selected_label = st.selectbox("Select a topic", labels, label_visibility="collapsed")

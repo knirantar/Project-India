@@ -61,8 +61,6 @@ def _topic_files(slug: str, category: str) -> list[tuple[str, Path]]:
         ("topic_note", TOPIC_FOLDERS[category] / f"{slug}.md"),
         ("source_log", paths.SOURCES / f"{slug}-sources.md"),
         ("brief", paths.REPORTS / f"{slug}-brief.md"),
-        ("presentation_outline", paths.PRESENTATIONS / f"{slug}-outline.md"),
-        ("generated_deck", paths.PRESENTATIONS / f"{slug}-generated-deck.pptx"),
     ]
 
 
@@ -143,8 +141,6 @@ def _missing_questions(asset_kinds: set[str]) -> list[str]:
         questions.append("Which primary and secondary sources should anchor this topic?")
     if "brief" not in asset_kinds:
         questions.append("What is the bottom-line strategic brief for this topic?")
-    if "presentation_outline" not in asset_kinds:
-        questions.append("What claim-led slide outline best communicates this topic?")
     if "data" not in asset_kinds and "topic_data" not in asset_kinds:
         questions.append("What datasets, metrics, comparisons, or quantitative indicators are required?")
     questions.append("Which claims remain time-sensitive or unverified?")

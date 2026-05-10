@@ -24,12 +24,6 @@ Run deep research only when needed:
 OPENAI_API_KEY=... python3 -m project_india.cli deep-research "Topic Name" --slug topic-slug --category sectors
 ```
 
-Build a presentation:
-
-```bash
-python3 -m project_india.cli build-presentation "Topic Name" --slug topic-slug --category sectors
-```
-
 Run incremental research:
 
 ```bash
@@ -49,4 +43,18 @@ Deploy on Streamlit Community Cloud with:
 Repository: knirantar/Project-India
 Branch: main
 Main file path: dashboard.py
+```
+
+Manually run the topic-intake workflow:
+
+```bash
+gh workflow run topic-intake-research.yml \
+  -f title="Topic Name" \
+  -f slug="topic-name" \
+  -f category="sectors" \
+  -f context="Starting context" \
+  -f questions="Questions to answer" \
+  -f sources="Source leads" \
+  -f research_model="gpt-5" \
+  -f depth="deep"
 ```

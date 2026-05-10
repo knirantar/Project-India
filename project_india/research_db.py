@@ -7,6 +7,13 @@ from pathlib import Path
 
 from project_india import paths
 
+SYSTEM_RESEARCH_NOTES = {
+    "data-and-indexing",
+    "dependency-graph",
+    "ideas",
+    "project-roadmap",
+}
+
 
 @dataclass(frozen=True)
 class ResearchRecord:
@@ -16,8 +23,6 @@ class ResearchRecord:
     topic_path: str
     source_path: str | None
     brief_path: str | None
-    presentation_outline_path: str | None
-    presentation_deck_path: str | None
     topic_data_path: str | None
     updated_at: str
 
@@ -64,18 +69,9 @@ def _record_for_topic(topic_path: Path) -> ResearchRecord:
         topic_path=str(topic_path.relative_to(paths.ROOT)),
         source_path=_relative(paths.SOURCES / f"{slug}-sources.md"),
         brief_path=_relative(paths.REPORTS / f"{slug}-brief.md"),
-        presentation_outline_path=_relative(paths.PRESENTATIONS / f"{slug}-outline.md"),
-        presentation_deck_path=_find_deck(slug),
         topic_data_path=_relative(paths.TOPIC_DATA / f"{slug}.json"),
         updated_at=_git_timestamp(topic_path),
     )
-
-
-def _find_deck(slug: str) -> str | None:
-    candidates = sorted(paths.PRESENTATIONS.glob(f"{slug}*.pptx"))
-    if not candidates and slug.startswith("west-bengal-assembly-"):
-        candidates = sorted(paths.PRESENTATIONS.glob("west-bengal-election-2026*.pptx"))
-    return _relative(candidates[0]) if candidates else None
 
 
 def build_index() -> list[ResearchRecord]:
@@ -92,6 +88,8 @@ def build_index() -> list[ResearchRecord]:
             continue
         for topic_path in sorted(root.glob("*.md")):
             if topic_path.name.startswith("."):
+                continue
+            if root == paths.RESEARCH_NOTES and topic_path.stem in SYSTEM_RESEARCH_NOTES:
                 continue
             records.append(_record_for_topic(topic_path))
 

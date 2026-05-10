@@ -108,7 +108,7 @@ Each major topic should use this structure:
 
 ## First 10 Topics
 
-1. India's Semiconductor Mission
+1. First user-submitted dashboard research topic
 2. India-China strategic competition
 3. India's energy transition
 4. Digital public infrastructure and India Stack
@@ -121,22 +121,9 @@ Each major topic should use this structure:
 
 ## Pilot Topic
 
-Start with India's Semiconductor Mission.
+Start with one user-submitted topic through the Streamlit **Start Research** intake flow.
 
-This is a strong first topic because it connects:
-
-- Industrial policy
-- Supply chains
-- Technology competition
-- China and Taiwan risk
-- United States partnerships
-- Manufacturing capacity
-- Talent and skills
-- Capital expenditure
-- State incentives
-- Long-term strategic autonomy
-
-The goal of the pilot is not only to understand semiconductors. The goal is to test the research workflow and create a reusable pattern for future sectors.
+The goal of the pilot is not only to understand that topic. The goal is to test the intake workflow, source-backed research, structured topic data, and dashboard presentation pattern before expanding to other sectors or geopolitical questions.
 
 ## Output Formats
 
@@ -161,11 +148,11 @@ Core layers:
 
 - Markdown is the memory: notes, topic files, sources, briefs, and outlines.
 - Python is the machinery: repeatable file creation, data processing, timelines, charts, reports, and future automation.
-- Presentations are the voice: slide outlines, decks, visual explainers, and decision-ready communication.
+- The Streamlit dashboard is the voice: insight briefs, structured evidence boards, visual explainers, and decision-ready communication.
 
 The default flow is:
 
-Sources -> Research notes -> Data tables -> Analysis -> Brief -> Presentation -> Dashboard or site
+User topic input -> Source-backed research -> Data tables -> Analysis -> Brief -> Dashboard
 
 The Python package starts small on purpose. It should grow only when a workflow becomes repeated enough to deserve automation.
 
@@ -181,8 +168,7 @@ The Python package starts small on purpose. It should grow only when a workflow 
 
 ## Near-Term Plan
 
-1. Create a reusable topic template.
-2. Create the first source list for India's Semiconductor Mission.
-3. Build a timeline of key semiconductor policy events in India.
-4. Write the first sector note using the standard research template.
-5. Review the structure and improve the workflow before expanding to other topics.
+1. Create a reusable topic intake template.
+2. Submit the first topic through the production dashboard.
+3. Generate source-backed research and structured topic data.
+4. Review the dashboard output and improve the workflow before expanding to other topics.

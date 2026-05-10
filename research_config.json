@@ -5,102 +5,22 @@
         "tracked_start_date": "2026-05-10",
         "current_month_spent_usd": 0
     },
-    "topics": [
-        {
-            "title": "West Bengal Assembly Election 2026",
-            "slug": "west-bengal-assembly-election-2026",
-            "category": "internal-growth",
-            "enabled": true,
-            "schedule": {
-                "frequency": "weekly",
-                "day_of_week": "monday",
-                "time_utc": "09:00",
-                "last_run_date": "2026-05-10",
-                "next_scheduled_run": "2026-05-17"
-            },
-            "strategy": {
-                "rotation": [
-                    "developments",
-                    "gaps",
-                    "factcheck"
-                ],
-                "current_index": 0,
-                "description": "Rotate through research strategies: find new developments, explore gaps, verify facts"
-            },
-            "metadata": {
-                "api_calls_month": 1,
-                "last_cost_usd": 0.50,
-                "development_status": "mature"
-            }
-        },
-        {
-            "title": "US-Iran War 2026",
-            "slug": "us-iran-war-2026",
-            "category": "geopolitics",
-            "enabled": true,
-            "schedule": {
-                "frequency": "daily",
-                "time_utc": "06:00",
-                "last_run_date": "2026-05-10",
-                "next_scheduled_run": "2026-05-11"
-            },
-            "strategy": {
-                "rotation": [
-                    "developments",
-                    "gaps",
-                    "factcheck"
-                ],
-                "current_index": 0,
-                "description": "Daily tracking of active conflict: new events, verified facts, impact on India"
-            },
-            "metadata": {
-                "api_calls_month": 2,
-                "last_cost_usd": 0.75,
-                "development_status": "active",
-                "note": "Active geopolitical event, higher update frequency"
-            }
-        },
-        {
-            "title": "India's Semiconductor Mission",
-            "slug": "india-semiconductor-mission",
-            "category": "sectors",
-            "enabled": false,
-            "schedule": {
-                "frequency": "weekly",
-                "day_of_week": "wednesday",
-                "time_utc": "10:00",
-                "last_run_date": null,
-                "next_scheduled_run": null
-            },
-            "strategy": {
-                "rotation": [
-                    "gaps"
-                ],
-                "current_index": 0,
-                "description": "Pilot multi-sector topic: currently disabled, awaiting activation"
-            },
-            "metadata": {
-                "api_calls_month": 0,
-                "last_cost_usd": 0,
-                "development_status": "stub"
-            }
-        }
-    ],
+    "topics": [],
     "strategies": {
         "developments": {
-            "description": "Research only NEW developments since last run",
+            "description": "Research only new developments since last run",
             "api_cost_estimate_usd": 0.25,
-            "prompt_modifier": "Only include developments, news, and changes since your last knowledge cutoff. Focus on: What's new? What changed? Ignore analysis of existing facts unless directly relevant to new developments."
+            "prompt_modifier": "Only include developments, news, and changes since the last run. Focus on what changed."
         },
         "gaps": {
-            "description": "Explore ONE unexplored subtopic from gaps list",
+            "description": "Explore one unexplored subtopic from the gaps list",
             "api_cost_estimate_usd": 0.35,
-            "prompt_modifier": "This topic has gaps in: {gaps_list}. Pick ONE unexplored subtopic and research it in depth. Provide new insights and data not covered before."
+            "prompt_modifier": "Pick one unexplored subtopic and research it in depth. Provide new insights and data not covered before."
         },
         "factcheck": {
             "description": "Verify and update existing facts, confidence scores, and sources",
-            "api_cost_estimate_usd": 0.30,
-            "prompt_modifier": "Review these existing facts and update them with the latest information: {existing_facts}. Update confidence scores based on new sources. Verify or contradict previous claims."
+            "api_cost_estimate_usd": 0.3,
+            "prompt_modifier": "Review existing facts, update confidence scores, and identify contradictions from newer or stronger sources."
         }
     }
 }

@@ -34,7 +34,7 @@ data/processed/topic_data/<topic-slug>.json
 ```
 
 This file should contain metrics, comparisons, timelines, tables, source links,
-confidence levels, and data gaps. Presentation generation should use this data
+confidence levels, and data gaps. Dashboard rendering should use this data
 before using prose.
 
 Gather sources in this order:
@@ -88,7 +88,7 @@ Each mature topic can produce:
 - Brief
 - Timeline
 - Data table
-- Presentation outline
+- Structured topic data
 - Dashboard or chart
 
 ## 7. Review and Update

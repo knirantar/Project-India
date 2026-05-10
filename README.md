@@ -27,12 +27,12 @@ Live dashboard: https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 - `docs/research-notes/` - raw notes, reading summaries, open questions
 - `docs/ai-workflows/` - prompts, research methods, automation workflows
 - `docs/briefs/` - polished policy and strategy briefs
-- `docs/presentations/` - presentation outlines and future deck material
+- The production Streamlit app is the main presentation surface.
 - `data/` - datasets, cleaned data, and derived tables
 - `sources/` - source lists, citations, and reference material
 - `analyses/` - deeper essays, models, dashboards, and reports
 - `project_india/` - Python helpers for repeatable research workflows
-- `workflows/` - documented research and presentation processes
+- `workflows/` - documented research and app workflow processes
 
 ## Integrated Workflow
 
@@ -40,7 +40,7 @@ Project India uses three connected layers:
 
 - Markdown is the knowledge base.
 - Python is the workflow engine.
-- Presentations, briefs, dashboards, and essays are the communication layer.
+- Briefs, dashboards, and essays are the communication layer.
 
 Key reference files:
 
@@ -49,16 +49,16 @@ Key reference files:
 - `docs/research-notes/dependency-graph.md` - code, data, and maintenance dependency graph
 - `AGENTS.md` - guidance for future Codex sessions
 
-Create a new topic workflow with:
+Create a new topic workflow manually with:
 
 ```bash
-python3 -m project_india.cli new-topic "India's Semiconductor Mission" --slug india-semiconductor-mission
+python3 -m project_india.cli new-topic "Topic Name" --slug topic-slug
 ```
 
 For topics outside sectors, pass a category:
 
 ```bash
-python3 -m project_india.cli new-topic "West Bengal Assembly Election 2026" --slug west-bengal-assembly-election-2026 --category internal-growth
+python3 -m project_india.cli new-topic "Topic Name" --slug topic-slug --category internal-growth
 ```
 
 Build a reusable research index:
@@ -67,7 +67,7 @@ Build a reusable research index:
 python3 -m project_india.cli index-research
 ```
 
-The index is written to `data/processed/research_index.json` and acts as the project's lightweight research database. It links topic notes, source logs, briefs, presentation outlines, and generated decks by slug.
+The index is written to `data/processed/research_index.json` and acts as the project's lightweight research database. It links topic notes, source logs, briefs, structured topic data, and dashboard-ready outputs by slug.
 
 Structured evidence for each topic belongs in:
 
@@ -75,31 +75,24 @@ Structured evidence for each topic belongs in:
 data/processed/topic_data/<topic-slug>.json
 ```
 
-This is where metrics, comparisons, timelines, tables, sources, and data gaps live. Generated presentations use this file for charts and evidence slides.
+This is where metrics, comparisons, timelines, tables, sources, and data gaps live. The Streamlit dashboard uses this file for charts and evidence boards.
 
 Plan research from local repo memory before spending API calls:
 
 ```bash
-python3 -m project_india.cli plan-research "West Bengal Assembly Election 2026" --slug west-bengal-assembly-election-2026 --category internal-growth
+python3 -m project_india.cli plan-research "Topic Name" --slug topic-slug --category sectors
 ```
 
 This writes a plan under `data/processed/research_plans/` and a local context bundle under `data/processed/research_context/`.
-
-Generate a draft presentation from a topic note:
-
-```bash
-python3 -m pip install -e ".[presentation]"
-python3 -m project_india.cli build-presentation "West Bengal Assembly Election 2026" --slug west-bengal-assembly-election-2026 --category internal-growth
-```
 
 Run source-backed AI research before building outputs:
 
 ```bash
 python3 -m pip install -e ".[research]"
-OPENAI_API_KEY=... python3 -m project_india.cli deep-research "India's Semiconductor Mission" --slug india-semiconductor-mission --category sectors
+OPENAI_API_KEY=... python3 -m project_india.cli deep-research "Topic Name" --slug topic-slug --category sectors
 ```
 
-The GitHub Actions workflow `Generate Topic Presentation` can run the same process from GitHub using manual inputs for title, slug, and category. Set `research_mode` to `deep` to run AI web research first. This requires an `OPENAI_API_KEY` repository secret.
+The current production workflow uses the Streamlit dashboard as the presentation surface. New app-submitted topics run through the GitHub Actions workflow `Topic Intake Research`, which creates research notes, source logs, briefs, structured topic data, and the research index for the dashboard.
 
 ## Working Principles
 
