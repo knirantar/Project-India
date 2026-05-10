@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from project_india import paths
+from project_india.research_plan import plan_research
 from project_india.topics import TOPIC_FOLDERS, TopicFiles, create_topic, slugify
 
 
@@ -65,7 +66,13 @@ def _existing_context(files: TopicFiles) -> str:
     return "\n".join(parts)
 
 
-def _prompt(title: str, category: str, depth: str, existing_context: str) -> str:
+def _prompt(
+    title: str,
+    category: str,
+    depth: str,
+    existing_context: str,
+    planning_context: str,
+) -> str:
     return f"""
 You are building Project India, a rigorous research system about India's
 geopolitics and internal growth.
@@ -74,8 +81,12 @@ Research topic: {title}
 Category: {category}
 Depth: {depth}
 
-Your task is to perform real source-backed research before writing. Use web
-search. Prefer primary sources first: official government sites, Election
+Your task is to perform real source-backed research before writing, but first
+use the repository memory below. Do not spend search effort repeating what is
+already known. Use web search only for missing sources, current facts, datasets,
+conflicting claims, and unexplored subtopics identified in the research plan.
+
+Prefer primary sources first: official government sites, Election
 Commission, RBI, PIB, ministries, parliament, courts, budgets, official
 statistics, multilateral datasets, and original policy documents. Then use
 credible secondary sources: serious newspapers, think tanks, universities,
@@ -93,6 +104,8 @@ Rules:
 - Return exactly the four XML-like blocks below and nothing outside them.
 
 Existing repository context to improve, replace, or build on:
+{planning_context}
+
 {existing_context}
 
 Output format:
@@ -238,7 +251,9 @@ def run_deep_research(
 
     topic_slug = slugify(slug or title)
     files = _files_for(title, topic_slug, category)
+    plan = plan_research(title, slug=topic_slug, category=category, force_api=True)
     context = _existing_context(files)
+    planning_context = json.dumps(asdict(plan), indent=2, sort_keys=True)
     client = OpenAI()
 
     response = client.responses.create(
@@ -247,7 +262,7 @@ def run_deep_research(
         tools=[{"type": "web_search"}],
         tool_choice="auto",
         include=["web_search_call.action.sources"],
-        input=_prompt(title, category, depth, context),
+        input=_prompt(title, category, depth, context, planning_context),
     )
 
     output_text = response.output_text
@@ -273,6 +288,7 @@ def run_deep_research(
         "depth": depth,
         "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat(),
         "response_id": getattr(response, "id", None),
+        "research_plan": asdict(plan),
         "response": response_dump,
     }
     run_path.write_text(json.dumps(run_payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")

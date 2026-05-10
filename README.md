@@ -60,6 +60,14 @@ python3 -m project_india.cli index-research
 
 The index is written to `data/processed/research_index.json` and acts as the project's lightweight research database. It links topic notes, source logs, briefs, presentation outlines, and generated decks by slug.
 
+Plan research from local repo memory before spending API calls:
+
+```bash
+python3 -m project_india.cli plan-research "West Bengal Assembly Election 2026" --slug west-bengal-assembly-election-2026 --category internal-growth
+```
+
+This writes a plan under `data/processed/research_plans/` and a local context bundle under `data/processed/research_context/`.
+
 Generate a draft presentation from a topic note:
 
 ```bash

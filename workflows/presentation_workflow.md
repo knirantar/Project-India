@@ -62,4 +62,4 @@ Manual inputs:
 
 The workflow creates missing topic files, generates a draft PPTX in `docs/presentations/`, updates `data/processed/research_index.json`, uploads the deck as a workflow artifact, and optionally commits the changes.
 
-For serious topics, use `research_mode=deep`. This runs `project-india deep-research` first, which uses OpenAI web search to produce a source-backed topic note, source log, brief, and presentation outline. If `OPENAI_API_KEY` is not configured as a repository secret, the workflow should fail instead of producing a hollow deck.
+For serious topics, use `research_mode=deep`. The workflow first runs `project-india plan-research`, which audits `docs/`, `sources/`, `analyses/`, `data/`, and `data/processed/research_index.json`. Then `project-india deep-research` uses that plan to search only for missing sources, current facts, datasets, conflicting claims, and unexplored subtopics. If `OPENAI_API_KEY` is not configured as a repository secret, the workflow should fail instead of producing a hollow deck.

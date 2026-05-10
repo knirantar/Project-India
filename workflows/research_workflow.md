@@ -16,6 +16,17 @@ Good format:
 
 ## 2. Collect Sources
 
+Before searching the web or calling an AI model, audit what the repository
+already knows:
+
+```bash
+python3 -m project_india.cli index-research
+python3 -m project_india.cli plan-research "<Topic>" --slug <topic-slug> --category <category>
+```
+
+Use the generated research plan to decide whether deep research is needed. This
+keeps API spending focused on gaps rather than re-researching existing notes.
+
 Gather sources in this order:
 
 1. Primary sources: government documents, laws, budgets, speeches, official datasets.
@@ -79,4 +90,3 @@ Before publishing or relying on a conclusion:
 - Separate facts from interpretation.
 - Note open questions.
 - Update when new policy or data arrives.
-

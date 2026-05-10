@@ -71,6 +71,18 @@ jobs:
             project-india new-topic "$TITLE" --category "$CATEGORY"
           fi
 
+      - name: Plan research from repo memory
+        env:
+          TITLE: ${{ inputs.title }}
+          SLUG: ${{ inputs.slug }}
+          CATEGORY: ${{ inputs.category }}
+        run: |
+          if [ -n "$SLUG" ]; then
+            project-india plan-research "$TITLE" --slug "$SLUG" --category "$CATEGORY"
+          else
+            project-india plan-research "$TITLE" --category "$CATEGORY"
+          fi
+
       - name: Run deep research
         if: ${{ inputs.research_mode == 'deep' }}
         env:

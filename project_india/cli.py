@@ -6,6 +6,7 @@ from pathlib import Path
 from project_india.deep_research import run_deep_research
 from project_india.presentation_builder import build_presentation
 from project_india.research_db import write_index
+from project_india.research_plan import write_plan
 from project_india.topics import TOPIC_FOLDERS, create_topic
 
 
@@ -75,6 +76,25 @@ def build_parser() -> argparse.ArgumentParser:
         help="Research depth.",
     )
 
+    plan_parser = subparsers.add_parser(
+        "plan-research",
+        help="Audit local docs/data/index and write a research plan before API calls.",
+    )
+    plan_parser.add_argument("title", help="Human-readable topic title.")
+    plan_parser.add_argument("--slug", help="Optional file slug.")
+    plan_parser.add_argument(
+        "--category",
+        choices=sorted(TOPIC_FOLDERS),
+        default="sectors",
+        help="Destination docs category for the topic note.",
+    )
+    plan_parser.add_argument(
+        "--force-api",
+        action="store_true",
+        help="Mark the plan as requiring API research even if local context is strong.",
+    )
+    plan_parser.add_argument("--output", help="Optional research plan output path.")
+
     return parser
 
 
@@ -122,6 +142,16 @@ def main() -> None:
         print(f"- brief: {outputs.brief_path}")
         print(f"- presentation outline: {outputs.presentation_path}")
         print(f"- run record: {outputs.run_path}")
+
+    if args.command == "plan-research":
+        output = write_plan(
+            args.title,
+            slug=args.slug,
+            category=args.category,
+            force_api=args.force_api,
+            output_path=Path(args.output) if args.output else None,
+        )
+        print(f"Wrote research plan: {output}")
 
 
 if __name__ == "__main__":
