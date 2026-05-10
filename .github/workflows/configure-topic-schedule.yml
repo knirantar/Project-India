@@ -1,0 +1,123 @@
+name: Configure Topic Schedule
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: Topic slug to configure
+        required: true
+        type: string
+      frequency:
+        description: Incremental research frequency
+        required: true
+        default: weekly
+        type: choice
+        options:
+          - manual
+          - daily
+          - weekly
+          - monthly
+      enabled:
+        description: Enable scheduled incremental research
+        required: true
+        default: true
+        type: boolean
+      time_utc:
+        description: UTC run time in HH:MM
+        required: true
+        default: "06:00"
+        type: string
+      day_of_week:
+        description: Weekly run day
+        required: false
+        default: monday
+        type: string
+      day_of_month:
+        description: Monthly run day, 1-28
+        required: false
+        default: "1"
+        type: string
+      strategies:
+        description: Comma-separated strategy rotation
+        required: true
+        default: developments,gaps,factcheck
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Project India tools
+        run: python -m pip install -e .
+
+      - name: Update topic schedule
+        env:
+          TOPIC_SLUG: ${{ inputs.slug }}
+          FREQUENCY: ${{ inputs.frequency }}
+          ENABLED: ${{ inputs.enabled }}
+          TIME_UTC: ${{ inputs.time_utc }}
+          DAY_OF_WEEK: ${{ inputs.day_of_week }}
+          DAY_OF_MONTH: ${{ inputs.day_of_month }}
+          STRATEGIES: ${{ inputs.strategies }}
+        run: |
+          ENABLED_FLAG=""
+          if [ "$ENABLED" = "true" ]; then
+            ENABLED_FLAG="--enabled"
+          fi
+
+          project-india configure-schedule \
+            --slug "$TOPIC_SLUG" \
+            --frequency "$FREQUENCY" \
+            $ENABLED_FLAG \
+            --time-utc "$TIME_UTC" \
+            --day-of-week "$DAY_OF_WEEK" \
+            --day-of-month "$DAY_OF_MONTH" \
+            --strategies "$STRATEGIES"
+
+      - name: Open pull request with schedule update
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Configure research schedule for ${{ inputs.slug }}"
+          title: "Configure research schedule for ${{ inputs.slug }}"
+          body: |
+            Updates `research_config.json` so `${{ inputs.slug }}` uses scheduled incremental research.
+
+            Frequency: `${{ inputs.frequency }}`
+            Time UTC: `${{ inputs.time_utc }}`
+            Strategies: `${{ inputs.strategies }}`
+          branch: schedule/${{ inputs.slug }}
+          delete-branch: true
+          labels: |
+            research
+            automated
+          add-paths: research_config.json
+
+      - name: Auto-merge pull request when admin token is configured
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+          ADMIN_TOKEN: ${{ secrets.PROJECT_INDIA_ADMIN_TOKEN }}
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          if [ -z "$ADMIN_TOKEN" ]; then
+            echo "PROJECT_INDIA_ADMIN_TOKEN is not configured. PR remains open for manual merge."
+            exit 0
+          fi
+
+          GH_TOKEN="$ADMIN_TOKEN" gh pr merge "$PR_NUMBER" --merge --delete-branch --admin

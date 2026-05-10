@@ -3,20 +3,22 @@
 from __future__ import annotations
 
 import json
-from dataclasses import asdict, dataclass
-from datetime import UTC, datetime, timedelta
+import os
+from dataclasses import dataclass
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
 
 from project_india import paths
-from project_india.deep_research import _existing_context, _files_for, _extract_tag, TAG_NAMES
+from project_india.deep_research import (
+    _create_response_with_retries,
+    _existing_context,
+    _extract_tag,
+    _files_for,
+)
 from project_india.research_plan import plan_research
+from project_india.scheduling import next_run_date
 from project_india.topics import TOPIC_FOLDERS
-
-try:
-    import openai
-except ImportError:
-    openai = None  # type: ignore
 
 
 StrategyType = Literal["developments", "gaps", "factcheck", "rotate"]
@@ -78,48 +80,6 @@ def _get_next_strategy(slug: str) -> str:
     return strategies[current_index % len(strategies)]
 
 
-def _next_scheduled_run(schedule: dict, now: datetime) -> str | None:
-    """Compute the next scheduled run date for dashboard metadata."""
-    frequency = schedule.get("frequency")
-
-    if frequency == "daily":
-        return (now.date() + timedelta(days=1)).isoformat()
-
-    if frequency == "weekly":
-        weekdays = {
-            "monday": 0,
-            "tuesday": 1,
-            "wednesday": 2,
-            "thursday": 3,
-            "friday": 4,
-            "saturday": 5,
-            "sunday": 6,
-        }
-        target_weekday = weekdays.get(str(schedule.get("day_of_week", "monday")).lower(), 0)
-        days_ahead = (target_weekday - now.weekday()) % 7
-        if days_ahead == 0:
-            days_ahead = 7
-        return (now.date() + timedelta(days=days_ahead)).isoformat()
-
-    if frequency == "monthly":
-        raw_day = schedule.get("day_of_month") or schedule.get("day_of_week") or 1
-        try:
-            day = max(1, min(int(raw_day), 28))
-        except (TypeError, ValueError):
-            day = 1
-
-        year = now.year
-        month = now.month
-        if now.day >= day:
-            month += 1
-            if month > 12:
-                month = 1
-                year += 1
-        return datetime(year, month, day, tzinfo=UTC).date().isoformat()
-
-    return None
-
-
 def _update_config_after_run(slug: str, strategy: str, api_cost_usd: float) -> None:
     """Update budget, schedule, and strategy metadata after a successful run."""
     config = _load_config()
@@ -140,7 +100,7 @@ def _update_config_after_run(slug: str, strategy: str, api_cost_usd: float) -> N
 
         schedule = topic.setdefault("schedule", {})
         schedule["last_run_date"] = now.date().isoformat()
-        schedule["next_scheduled_run"] = _next_scheduled_run(schedule, now)
+        schedule["next_scheduled_run"] = next_run_date(schedule, now)
 
         metadata = topic.setdefault("metadata", {})
         metadata["api_calls_month"] = int(metadata.get("api_calls_month", 0)) + 1
@@ -220,24 +180,34 @@ def _call_openai_increment(
     prompt: str,
     model: str = "gpt-5",
 ) -> str:
-    """Call OpenAI API for incremental research."""
-    if not openai:
-        raise ImportError("openai package not installed. Install with: pip install openai")
-    
-    client = openai.OpenAI()  # Uses OPENAI_API_KEY env var
-    response = client.chat.completions.create(
+    """Call OpenAI Responses API for focused incremental research."""
+    if not os.environ.get("OPENAI_API_KEY"):
+        raise SystemExit(
+            "OPENAI_API_KEY is required for incremental research. Add it as a GitHub Actions secret."
+        )
+
+    try:
+        from openai import OpenAI
+    except ImportError as error:
+        raise SystemExit(
+            "openai is required. Install with: python3 -m pip install -e '.[research]'"
+        ) from error
+
+    client = OpenAI()
+    response = _create_response_with_retries(
+        client,
         model=model,
-        messages=[
-            {
-                "role": "system",
-                "content": "You are a rigorous research assistant for Project India, focused on incremental updates and verification.",
-            },
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.7,
-        max_tokens=3000,
+        reasoning={"effort": "low"},
+        tools=[{"type": "web_search"}],
+        tool_choice="auto",
+        include=["web_search_call.action.sources"],
+        input=(
+            "You are a rigorous research assistant for Project India, focused on "
+            "incremental updates, verification, and cost discipline.\n\n"
+            f"{prompt}"
+        ),
     )
-    return response.choices[0].message.content or ""
+    return response.output_text
 
 
 def _update_files_incremental(
@@ -261,7 +231,7 @@ def _update_files_incremental(
         raise ValueError(f"Model response missing required tags: {e}")
     
     # Append updates to existing files (not replacing)
-    topic_path = paths.TOPIC_FOLDERS[category] / f"{slug}.md"
+    topic_path = TOPIC_FOLDERS[category] / f"{slug}.md"
     if topic_path.exists():
         existing = topic_path.read_text(encoding="utf-8")
         # Add update section with timestamp
@@ -349,6 +319,7 @@ Gaps: {plan.api_scope}
     _update_config_after_run(slug, strategy, api_cost_usd)  # type: ignore[arg-type]
 
     # Write run record
+    paths.RESEARCH_RUNS.mkdir(parents=True, exist_ok=True)
     run_path = paths.RESEARCH_RUNS / f"{slug}-increment-{datetime.now(UTC).strftime('%Y%m%d-%H%M%S')}.json"
     run_record = {
         "timestamp": datetime.now(UTC).isoformat(),

@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from project_india.configure_topic import TopicScheduleUpdate, update_topic_schedule
 from project_india.deep_research import run_deep_research
 from project_india.increment_research import run_incremental_research
 from project_india.research_db import write_index
@@ -110,6 +111,44 @@ def build_parser() -> argparse.ArgumentParser:
         help="OpenAI model to use for research.",
     )
 
+    schedule_parser = subparsers.add_parser(
+        "configure-schedule",
+        help="Configure a topic for scheduled incremental research.",
+    )
+    schedule_parser.add_argument("--slug", required=True, help="Topic slug to configure.")
+    schedule_parser.add_argument(
+        "--frequency",
+        choices=["manual", "daily", "weekly", "monthly"],
+        default="manual",
+        help="Incremental research frequency.",
+    )
+    schedule_parser.add_argument(
+        "--enabled",
+        action="store_true",
+        help="Enable scheduled incremental research for this topic.",
+    )
+    schedule_parser.add_argument(
+        "--time-utc",
+        default="06:00",
+        help="UTC time in HH:MM for scheduled runs.",
+    )
+    schedule_parser.add_argument(
+        "--day-of-week",
+        default="monday",
+        help="Weekly run day.",
+    )
+    schedule_parser.add_argument(
+        "--day-of-month",
+        type=int,
+        default=1,
+        help="Monthly run day, clamped to 1-28.",
+    )
+    schedule_parser.add_argument(
+        "--strategies",
+        default="developments,gaps,factcheck",
+        help="Comma-separated rotation of developments,gaps,factcheck.",
+    )
+
     return parser
 
 
@@ -175,6 +214,24 @@ def main() -> None:
         print(f"- run record: {outputs.run_path}")
         print(f"- API cost: ${outputs.api_cost_usd}")
         print(f"- changes: {outputs.summary[:200]}...")
+
+    if args.command == "configure-schedule":
+        output = update_topic_schedule(
+            TopicScheduleUpdate(
+                slug=args.slug,
+                frequency=args.frequency,
+                enabled=args.enabled,
+                time_utc=args.time_utc,
+                day_of_week=args.day_of_week,
+                day_of_month=args.day_of_month,
+                strategies=[
+                    strategy.strip()
+                    for strategy in args.strategies.split(",")
+                    if strategy.strip()
+                ],
+            )
+        )
+        print(f"Updated topic schedule: {output}")
 
 
 if __name__ == "__main__":

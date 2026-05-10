@@ -37,3 +37,7 @@ New user-provided topics should start in the Streamlit dashboard's **Start Resea
 The app dispatches `.github/workflows/topic-intake-research.yml` through GitHub's workflow API when Streamlit secrets are configured.
 Because the app is public, workflow dispatch must be protected by an admin PIN and a server-side GitHub token in Streamlit secrets.
 The intake workflow should not generate a PPTX deck or presentation outline by default; the Streamlit dashboard is the presentation mechanism.
+
+Frequency is configured after the first deep research run. Use the dashboard's **Operations -> Schedules** page to dispatch `.github/workflows/configure-topic-schedule.yml` and set a topic to `manual`, `daily`, `weekly`, or `monthly`.
+The hourly `.github/workflows/incremental-research.yml` check should only run topics that are due at their configured UTC hour.
+Incremental updates must stay focused and lower cost: use existing repo context first, then run web-backed API research only for the selected strategy (`developments`, `gaps`, or `factcheck`).

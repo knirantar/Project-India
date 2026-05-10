@@ -49,3 +49,18 @@ PROJECT_INDIA_ADMIN_TOKEN
 7. After the workflow PR merges, refresh the app.
 
 The app is the presentation surface. The intake workflow does not create PPTX decks.
+
+## Incremental Research Cadence
+
+Use this after the first deep research run:
+
+1. Open **Operations**.
+2. Go to **Schedules**.
+3. Choose the topic.
+4. Set `manual`, `daily`, `weekly`, or `monthly`.
+5. Pick the UTC run time and strategy rotation.
+6. Enter the admin PIN and save.
+
+The app dispatches `Configure Topic Schedule`, which opens and auto-merges a PR when `PROJECT_INDIA_ADMIN_TOKEN` is configured.
+
+The `Incremental Research` workflow checks every hour. It only researches topics that are due and uses focused strategies instead of full deep research.

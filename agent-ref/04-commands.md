@@ -30,6 +30,18 @@ Run incremental research:
 OPENAI_API_KEY=... python3 -m project_india.cli research-increment "Topic Name" --slug topic-slug --category sectors --strategy rotate
 ```
 
+Configure an existing topic for incremental scheduling:
+
+```bash
+python3 -m project_india.cli configure-schedule \
+  --slug topic-slug \
+  --frequency weekly \
+  --enabled \
+  --time-utc 06:00 \
+  --day-of-week monday \
+  --strategies developments,gaps,factcheck
+```
+
 Run the dashboard locally after installing Streamlit dependencies:
 
 ```bash
@@ -57,4 +69,13 @@ gh workflow run topic-intake-research.yml \
   -f sources="Source leads" \
   -f research_model="gpt-5" \
   -f depth="deep"
+```
+
+Manually run an incremental update workflow:
+
+```bash
+gh workflow run incremental-research.yml \
+  -f topic_slug="topic-slug" \
+  -f strategy="rotate" \
+  -f model="gpt-5"
 ```

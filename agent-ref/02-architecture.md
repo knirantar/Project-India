@@ -8,6 +8,12 @@ The main public-app flow is:
 topic intake -> research plan -> local context -> deep research -> topic data -> brief -> research index -> Streamlit dashboard
 ```
 
+The recurring update flow is:
+
+```text
+topic schedule -> hourly due check -> focused incremental research -> run record -> PR -> Streamlit dashboard
+```
+
 Core folders:
 
 - `docs/` - human-readable research notes, sector notes, geopolitics notes, and internal-growth notes
@@ -22,7 +28,8 @@ Core folders:
 - `data/processed/research_runs/` - records of AI research runs
 - `project_india/` - Python workflow package
 - `.github/workflows/topic-intake-research.yml` - app-triggered workflow for researching new topics
-- `.github/workflows/scheduled-research.yml` - scheduled and manual incremental research workflow
+- `.github/workflows/configure-topic-schedule.yml` - app-triggered workflow for changing topic cadence
+- `.github/workflows/incremental-research.yml` - scheduled and manual incremental research workflow
 - `.github/dependabot.yml` - dependency and GitHub Actions update checks
 - `dashboard.py` - Streamlit dashboard for topic status, budget, research history, and structured evidence
 - `research_config.json` - topic schedule, strategy, and budget configuration

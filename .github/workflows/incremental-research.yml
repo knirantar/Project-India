@@ -1,0 +1,171 @@
+name: Incremental Research
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+    inputs:
+      topic_slug:
+        description: Topic slug to run, or empty for due scheduled topics
+        required: false
+        type: string
+      strategy:
+        description: Strategy to run
+        required: false
+        default: rotate
+        type: choice
+        options:
+          - rotate
+          - developments
+          - gaps
+          - factcheck
+      model:
+        description: OpenAI model
+        required: false
+        default: gpt-5
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  incremental:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Project India tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[research]"
+
+      - name: Determine topics to run
+        id: topics
+        env:
+          INPUT_TOPIC_SLUG: ${{ inputs.topic_slug || '' }}
+          INPUT_STRATEGY: ${{ inputs.strategy || 'rotate' }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from datetime import UTC, datetime
+
+          from project_india.scheduling import topic_due
+
+          config = json.load(open("research_config.json", encoding="utf-8"))
+          input_slug = os.environ.get("INPUT_TOPIC_SLUG", "").strip()
+          input_strategy = os.environ.get("INPUT_STRATEGY", "rotate").strip() or "rotate"
+          topics = []
+
+          if input_slug:
+              topic = next((item for item in config.get("topics", []) if item.get("slug") == input_slug), None)
+              if topic is None:
+                  raise SystemExit(f"No topic found for slug: {input_slug}")
+              topics.append({
+                  "title": topic["title"],
+                  "slug": topic["slug"],
+                  "category": topic["category"],
+                  "strategy": input_strategy,
+              })
+          else:
+              now = datetime.now(UTC)
+              for topic in config.get("topics", []):
+                  if not topic_due(topic, now):
+                      continue
+                  rotation = topic.get("strategy", {}).get("rotation", ["developments"])
+                  current_index = topic.get("strategy", {}).get("current_index", 0)
+                  topics.append({
+                      "title": topic["title"],
+                      "slug": topic["slug"],
+                      "category": topic["category"],
+                      "strategy": rotation[current_index % len(rotation)] if rotation else "developments",
+                  })
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"topics={json.dumps(topics)}\n")
+              output.write(f"has_topics={str(bool(topics)).lower()}\n")
+
+          print(json.dumps(topics, indent=2))
+          PY
+
+      - name: Run incremental research
+        if: steps.topics.outputs.has_topics == 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TOPICS_JSON: ${{ steps.topics.outputs.topics }}
+          MODEL: ${{ inputs.model || 'gpt-5' }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import sys
+
+          topics = json.loads(os.environ["TOPICS_JSON"])
+          model = os.environ.get("MODEL", "gpt-5")
+
+          for topic in topics:
+              cmd = [
+                  sys.executable, "-m", "project_india.cli", "research-increment",
+                  topic["title"],
+                  "--slug", topic["slug"],
+                  "--category", topic["category"],
+                  "--strategy", topic["strategy"],
+                  "--model", model,
+              ]
+              print("Running:", " ".join(cmd))
+              subprocess.run(cmd, check=True)
+          PY
+
+      - name: Update research index
+        if: steps.topics.outputs.has_topics == 'true'
+        run: project-india index-research
+
+      - name: Open pull request with incremental updates
+        if: steps.topics.outputs.has_topics == 'true'
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Incremental research update"
+          title: "Incremental research update"
+          body: |
+            Automated incremental research update.
+
+            This uses focused update strategies from `research_config.json`, not full deep research.
+          branch: research/incremental-update
+          delete-branch: true
+          labels: |
+            research
+            automated
+          add-paths: |
+            docs
+            sources
+            analyses
+            data/processed
+            research_config.json
+
+      - name: Auto-merge pull request when admin token is configured
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+          ADMIN_TOKEN: ${{ secrets.PROJECT_INDIA_ADMIN_TOKEN }}
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          if [ -z "$ADMIN_TOKEN" ]; then
+            echo "PROJECT_INDIA_ADMIN_TOKEN is not configured. PR remains open for manual merge."
+            exit 0
+          fi
+
+          GH_TOKEN="$ADMIN_TOKEN" gh pr merge "$PR_NUMBER" --merge --delete-branch --admin

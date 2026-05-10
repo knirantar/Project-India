@@ -94,6 +94,20 @@ OPENAI_API_KEY=... python3 -m project_india.cli deep-research "Topic Name" --slu
 
 The current production workflow uses the Streamlit dashboard as the presentation surface. New app-submitted topics run through the GitHub Actions workflow `Topic Intake Research`, which creates research notes, source logs, briefs, structured topic data, and the research index for the dashboard.
 
+After a topic has its first deep research run, configure ongoing updates from the dashboard's **Operations -> Schedules** page. Scheduled tracking uses focused incremental strategies (`developments`, `gaps`, `factcheck`) instead of repeating full deep research every time. The hourly GitHub Actions scheduler only runs topics that are due at their configured UTC time.
+
+Manual schedule configuration is also available:
+
+```bash
+python3 -m project_india.cli configure-schedule \
+  --slug topic-slug \
+  --frequency weekly \
+  --enabled \
+  --time-utc 06:00 \
+  --day-of-week monday \
+  --strategies developments,gaps,factcheck
+```
+
 ## Working Principles
 
 - Use credible primary and secondary sources.
