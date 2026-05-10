@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "brief_path": "analyses/reports/us-iran-war-brief.md",
+    "category": "geopolitics",
+    "slug": "us-iran-war",
+    "source_path": "sources/us-iran-war-sources.md",
+    "title": "US Iran War",
+    "topic_data_path": "data/processed/topic_data/us-iran-war.json",
+    "topic_path": "docs/geopolitics/us-iran-war.md",
+    "updated_at": "uncommitted"
+  }
+]

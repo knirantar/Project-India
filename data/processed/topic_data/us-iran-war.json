@@ -1,0 +1,212 @@
+{
+  "comparisons": [
+    {
+      "items": [
+        {
+          "label": "Strait of Malacca",
+          "value": 23.2
+        },
+        {
+          "label": "Strait of Hormuz",
+          "value": 20.9
+        }
+      ],
+      "source": "U.S. EIA chokepoints",
+      "title": "Chokepoint oil flows (1H 2025)",
+      "unit": "million barrels per day"
+    }
+  ],
+  "data_gaps": [
+    "Official, monthly convoy/escort throughput data through Hormuz post\u2013April 2026 (by cargo type).",
+    "Granular Indian LNG allocation/curtailment protocols under protracted Hormuz disruption (MoPNG/DGH/PPAC).",
+    "Company-level disclosures of war-risk insurance premia and rerouting costs (OMCs, IRDAI filings).",
+    "Final text and enforcement provisions of any U.S.\u2013Iran end\u2011of\u2011war memorandum (shipping guarantees).",
+    "Updated diaspora and remittance exposure breakdowns by GCC country for 2025\u201326 (MEA/RBI)."
+  ],
+  "metrics": [
+    {
+      "confidence": "high",
+      "context": "Scale of chokepoint exposure",
+      "date": "2025-H1",
+      "label": "Oil transiting Strait of Hormuz (1H 2025)",
+      "source": "U.S. EIA World Oil Transit Chokepoints",
+      "unit": "million barrels per day",
+      "value": 20.9
+    },
+    {
+      "confidence": "high",
+      "context": "Higher dependence increases vulnerability to price/flow shocks",
+      "date": "2025",
+      "label": "India crude oil import dependence (FY25)",
+      "source": "Indian Express citing PPAC",
+      "unit": "percent of consumption",
+      "value": 88.2
+    },
+    {
+      "confidence": "high",
+      "context": "Phase-I ISPRL capacity; ~9.5 days at full",
+      "date": "2026-03",
+      "label": "Strategic Petroleum Reserve capacity",
+      "source": "PIB/MoPNG; Business Standard (Parliament reply)",
+      "unit": "MMT",
+      "value": 5.33
+    },
+    {
+      "confidence": "medium",
+      "context": "Government assessment during conflict",
+      "date": "2026-03-26",
+      "label": "Current national stock cover (crude + products + SPR)",
+      "source": "Business Standard summary of MoPNG press note",
+      "unit": "days (approx.)",
+      "value": 60
+    },
+    {
+      "confidence": "medium",
+      "context": "March spike during Hormuz disruption (+41.5% m/m)",
+      "date": "2026-03",
+      "label": "Brent average price",
+      "source": "FIPI Policy & Economic Report (March 2026), citing PPAC",
+      "unit": "USD per barrel",
+      "value": 97.86
+    },
+    {
+      "confidence": "high",
+      "context": "Explains India\u2019s gas-sector exposure",
+      "date": "2025",
+      "label": "LNG dependence on Hormuz",
+      "source": "IEA Strait of Hormuz Factsheet (Feb 2026)",
+      "unit": "percent of Qatar LNG via Hormuz (UAE: 96%)",
+      "value": 93
+    },
+    {
+      "confidence": "high",
+      "context": "Progress of diplomatic/escort efforts",
+      "date": "2026-05-07",
+      "label": "Indian ships exited Hormuz (MEA)",
+      "source": "ET Government (MEA briefing)",
+      "unit": "vessels",
+      "value": 11
+    },
+    {
+      "confidence": "medium",
+      "context": "Inflation sensitivity to oil shocks",
+      "date": "2025",
+      "label": "CPI pass-through from oil",
+      "source": "RBI Bulletin 2025",
+      "unit": "percentage points per +10% crude (peak effect)",
+      "value": 0.2
+    },
+    {
+      "confidence": "medium",
+      "context": "External gap sensitivity",
+      "date": "2025",
+      "label": "CAD impact from oil",
+      "source": "IMF Country Report 2025",
+      "unit": "percent of GDP per +$10/bbl for 1 year",
+      "value": 0.4
+    }
+  ],
+  "status": "researched",
+  "tables": [
+    {
+      "columns": [
+        "Indicator",
+        "Latest value",
+        "Date",
+        "Why it matters",
+        "Source"
+      ],
+      "rows": [
+        [
+          "Oil import dependence",
+          "88.2% of consumption (FY25)",
+          "2025",
+          "Higher vulnerability to price/flow shocks",
+          "Indian Express citing PPAC"
+        ],
+        [
+          "SPR capacity (Phase-I)",
+          "5.33 MMT (~9.5 days at full)",
+          "2026-03",
+          "Emergency crude buffer",
+          "PIB/MoPNG; Business Standard (Parliament)"
+        ],
+        [
+          "National stock cover (incl. commercial)",
+          "~60 days (\u224874 days capacity)",
+          "2026-03-26",
+          "Short-term resilience to import disruption",
+          "Business Standard (MoPNG press note)"
+        ],
+        [
+          "Hormuz oil transit",
+          "20.9 mb/d (1H 2025)",
+          "2025-H1",
+          "Scale of chokepoint risk",
+          "EIA chokepoints"
+        ],
+        [
+          "Qatar LNG via Hormuz",
+          "~93% of exports (UAE ~96%)",
+          "2025",
+          "Gas-sector exposure (CGD/fertilizer)",
+          "IEA Hormuz Factsheet"
+        ],
+        [
+          "March 2026 Brent avg.",
+          "$97.86/bbl (+41.5% m/m)",
+          "2026-03",
+          "Cost shock to imports and CPI/CAD",
+          "FIPI (PPAC)"
+        ]
+      ],
+      "source": "Compiled from EIA, IEA, PPAC/MoPNG, FIPI, MEA.",
+      "title": "India\u2019s exposure and buffers relevant to a Hormuz shock"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2019-06-19",
+      "event": "Operation Sankalp launched",
+      "significance": "Indian Navy maritime security operations for Gulf transits",
+      "source": "PIB (MoD) release"
+    },
+    {
+      "date": "2024-05-13",
+      "event": "India signs 10-year Chabahar terminal contract",
+      "significance": "Long-term logistics/geo-economic stake near Gulf of Oman",
+      "source": "PIB (MoPSW) release"
+    },
+    {
+      "date": "2026-02-28",
+      "event": "War begins; India notes conflict commencement",
+      "significance": "Start of direct U.S.\u2013Iran hostilities affecting Hormuz",
+      "source": "MEA/PIB statement"
+    },
+    {
+      "date": "2026-04-08",
+      "event": "Ceasefire announced (local Middle East date)",
+      "significance": "Temporary de-escalation; flows still constrained",
+      "source": "IEA OMR April 2026"
+    },
+    {
+      "date": "2026-05-03",
+      "event": "CENTCOM launches \u2018Project Freedom\u2019",
+      "significance": "Naval effort to restore navigation through Hormuz",
+      "source": "CENTCOM press release"
+    },
+    {
+      "date": "2026-05-07",
+      "event": "U.S.\u2013Iran exchange fire in Strait of Hormuz",
+      "significance": "Serious test of ceasefire; U.S. \u2018self-defense\u2019 strikes",
+      "source": "AP News / Washington Post"
+    },
+    {
+      "date": "2026-05-07",
+      "event": "MEA: 11 Indian ships exit Hormuz; 13 remain in Gulf",
+      "significance": "Partial relief for Indian cargoes",
+      "source": "ET Government (MEA briefing)"
+    }
+  ],
+  "topic": "US Iran War"
+}
