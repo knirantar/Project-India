@@ -48,6 +48,18 @@
     "updated_at": "2026-05-10T00:16:01+05:30"
   },
   {
+    "brief_path": "analyses/reports/west-bengal-elections-brief.md",
+    "category": "research-notes",
+    "presentation_deck_path": "docs/presentations/west-bengal-elections-generated-deck.pptx",
+    "presentation_outline_path": "docs/presentations/west-bengal-elections-outline.md",
+    "slug": "west-bengal-elections",
+    "source_path": "sources/west-bengal-elections-sources.md",
+    "title": "West Bengal Elections 2026",
+    "topic_data_path": "data/processed/topic_data/west-bengal-elections.json",
+    "topic_path": "docs/research-notes/west-bengal-elections.md",
+    "updated_at": "uncommitted"
+  },
+  {
     "brief_path": "analyses/reports/india-semiconductor-mission-brief.md",
     "category": "sectors",
     "presentation_deck_path": null,

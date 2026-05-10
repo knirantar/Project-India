@@ -1,0 +1,223 @@
+{
+  "comparisons": [
+    {
+      "items": [
+        {
+          "label": "2011 Assembly (WB)",
+          "value": 84.72
+        },
+        {
+          "label": "2026 Assembly (WB, combined)",
+          "value": 92.47
+        }
+      ],
+      "source": "PIB PRID 2256756; ADR (2021 turnout baseline)",
+      "title": "Turnout then and now: 2011 vs 2026",
+      "unit": "percent"
+    }
+  ],
+  "data_gaps": [
+    "ECI\u2019s consolidated Statistical Report for WB Assembly 2026 (vote shares, NOTA, gender/age participation) not yet available as a static PDF.",
+    "Definitive, single-source CAPF headcount and deployment-by-district matrix; current figures are from official briefings reported by media.",
+    "Granular turnout and margin analytics at AC level merged with 2024 LS segment data require a cleaned, joined dataset."
+  ],
+  "metrics": [
+    {
+      "confidence": "high",
+      "context": "Final roll published for WB SIR 2026 with gender and PwD breakdown",
+      "date": "2026-02-28",
+      "label": "Total electors (final roll)",
+      "source": "CEO West Bengal, Press Note CEO/PN-05/2026 (Feb 28, 2026)",
+      "unit": "persons",
+      "value": 64445609
+    },
+    {
+      "confidence": "high",
+      "context": "Improved from 956 (Draft 16-Dec-2025) to 964 on final roll",
+      "date": "2026-02-28",
+      "label": "Gender ratio in rolls",
+      "source": "CEO West Bengal, Press Note CEO/PN-05/2026",
+      "unit": "females per 1000 males",
+      "value": 964
+    },
+    {
+      "confidence": "medium",
+      "context": "PwD on draft roll; final roll notes continued inclusion process",
+      "date": "2025-12-16",
+      "label": "PwD electors",
+      "source": "CEO West Bengal, Press Note CEO/PN-05/2026",
+      "unit": "persons",
+      "value": 460479
+    },
+    {
+      "confidence": "high",
+      "context": "Pending quasi-judicial orders for inclusion/deletion during SIR",
+      "date": "2026-02-28",
+      "label": "Under adjudication entries",
+      "source": "CEO West Bengal, Press Note CEO/PN-05/2026",
+      "unit": "entries",
+      "value": 6006675
+    },
+    {
+      "confidence": "high",
+      "context": "Highest-ever participation recorded by ECI in WB Phase 1",
+      "date": "2026-04-23",
+      "label": "Turnout Phase 1",
+      "source": "PIB PRID 2256756 (ECI)",
+      "unit": "percent",
+      "value": 93.19
+    },
+    {
+      "confidence": "high",
+      "context": "Phase 2 poll participation at close of poll",
+      "date": "2026-04-29",
+      "label": "Turnout Phase 2",
+      "source": "PIB PRID 2256756 (ECI)",
+      "unit": "percent",
+      "value": 91.66
+    },
+    {
+      "confidence": "high",
+      "context": "Weighted combined turnout over two phases",
+      "date": "2026-04-29",
+      "label": "Turnout combined",
+      "source": "PIB PRID 2256756 (ECI)",
+      "unit": "percent",
+      "value": 92.47
+    },
+    {
+      "confidence": "high",
+      "context": "ECI state results; 293/294 declared (Falta pending)",
+      "date": "2026-05-04",
+      "label": "Seats won BJP (declared)",
+      "source": "ECI results portal (WB May 2026)",
+      "unit": "seats",
+      "value": 207
+    },
+    {
+      "confidence": "high",
+      "context": "ECI party-wise tally",
+      "date": "2026-05-04",
+      "label": "Seats won AITC (declared)",
+      "source": "ECI results portal (WB May 2026)",
+      "unit": "seats",
+      "value": 80
+    },
+    {
+      "confidence": "high",
+      "context": "Phase 1: 44,376; Phase 2: 41,001",
+      "date": "2026-04-29",
+      "label": "Polling stations",
+      "source": "PIB PRID 2256756 (ECI)",
+      "unit": "stations",
+      "value": 85377
+    },
+    {
+      "confidence": "medium",
+      "context": "Security blanket before polling; reportage citing ECI/MHA",
+      "date": "2026-03-31",
+      "label": "CAPF deployment (peak reported)",
+      "source": "Indian Express (security plan), Apr 2026",
+      "unit": "companies",
+      "value": 780
+    },
+    {
+      "confidence": "high",
+      "context": "PIB (MHA) briefing on fencing status",
+      "date": "2025-08-20",
+      "label": "WB\u2013Bangladesh border length",
+      "source": "PIB PRID 2158419",
+      "unit": "km",
+      "value": 2216.7
+    }
+  ],
+  "status": "researched",
+  "tables": [
+    {
+      "columns": [
+        "Party",
+        "2026 Seats (declared)",
+        "2021 Seats"
+      ],
+      "rows": [
+        [
+          "BJP",
+          "207",
+          "77"
+        ],
+        [
+          "AITC",
+          "80",
+          "213"
+        ],
+        [
+          "INC",
+          "2",
+          "0"
+        ],
+        [
+          "CPI(M)",
+          "1",
+          "0"
+        ],
+        [
+          "AISF",
+          "1",
+          "1"
+        ],
+        [
+          "AJUP",
+          "2",
+          "\u2014"
+        ]
+      ],
+      "source": "ECI results portal (2026); PRS 2021 profile/ADR for 2021 baseline",
+      "title": "West Bengal 2026 Assembly Results (Declared) vs 2021"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2026-02-28",
+      "event": "Final electoral roll published (SIR 2026)",
+      "significance": "Establishes 6.445 crore electors; notes 60.06 lakh \u2018under adjudication\u2019",
+      "source": "CEO West Bengal, CEO/PN-05/2026"
+    },
+    {
+      "date": "2026-03-15",
+      "event": "ECI announces Bengal poll schedule",
+      "significance": "Two-phase polling Apr 23 and Apr 29; counting May 4",
+      "source": "PIB PRID 2253728"
+    },
+    {
+      "date": "2026-04-23",
+      "event": "Phase 1 polling",
+      "significance": "Turnout 93.19%, record participation",
+      "source": "PIB PRID 2256756"
+    },
+    {
+      "date": "2026-04-29",
+      "event": "Phase 2 polling",
+      "significance": "Turnout 91.66%; combined 92.47%",
+      "source": "PIB PRID 2256756"
+    },
+    {
+      "date": "2026-05-02",
+      "event": "Repoll in 15 booths",
+      "significance": "ECI voids polling at 15 PS in two ACs after complaints",
+      "source": "Times of India; NDTV"
+    },
+    {
+      "date": "2026-05-04",
+      "event": "Counting day (293/294 ACs)",
+      "significance": "ECI posts party-wise tallies; Falta excluded",
+      "source": "ECI results portal"
+    },
+    {
+      "date": "2026-05-21",
+      "event": "Full re-poll in Falta (all 285 PS)",
+      "significance": "Countermanded poll for severe electoral offences; result due May 24",
+      "source": "Economic Times report on ECI order"
+    }
+  ],
+  "topic": "West Bengal Elections 2026"
+}

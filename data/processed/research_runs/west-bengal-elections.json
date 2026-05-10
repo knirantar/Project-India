@@ -1,0 +1,2919 @@
+{
+  "category": "research-notes",
+  "depth": "deep",
+  "generated_at": "2026-05-10T04:59:21+00:00",
+  "model": "gpt-5",
+  "research_plan": {
+    "api_scope": "Use local context first, then search only for missing sources, current facts, datasets, and unexplored subtopics.",
+    "category": "research-notes",
+    "content_hash": "d56a7ef8727dfa50a5d177534b4f7b9d66b8b37b8dba391c05ed42596971aa7c",
+    "existing_assets": [
+      {
+        "bytes": 505,
+        "kind": "topic_note",
+        "path": "docs/research-notes/west-bengal-elections.md",
+        "placeholder_score": 30
+      },
+      {
+        "bytes": 458,
+        "kind": "source_log",
+        "path": "sources/west-bengal-elections-sources.md",
+        "placeholder_score": 17
+      },
+      {
+        "bytes": 204,
+        "kind": "brief",
+        "path": "analyses/reports/west-bengal-elections-brief.md",
+        "placeholder_score": 16
+      },
+      {
+        "bytes": 498,
+        "kind": "presentation_outline",
+        "path": "docs/presentations/west-bengal-elections-outline.md",
+        "placeholder_score": 4
+      }
+    ],
+    "local_context_path": "data/processed/research_context/west-bengal-elections.md",
+    "missing_questions": [
+      "What datasets, metrics, comparisons, or quantitative indicators are required?",
+      "Which claims remain time-sensitive or unverified?"
+    ],
+    "recommendation": "deep-research-required",
+    "related_records": [
+      {
+        "brief_path": "analyses/reports/west-bengal-assembly-election-2026-brief.md",
+        "category": "internal-growth",
+        "presentation_deck_path": "docs/presentations/west-bengal-election-2026-analysis-deck.pptx",
+        "presentation_outline_path": "docs/presentations/west-bengal-assembly-election-2026-outline.md",
+        "slug": "west-bengal-assembly-election-2026",
+        "source_path": "sources/west-bengal-assembly-election-2026-sources.md",
+        "title": "West Bengal Assembly Election 2026",
+        "topic_data_path": "data/processed/topic_data/west-bengal-assembly-election-2026.json",
+        "topic_path": "docs/internal-growth/west-bengal-assembly-election-2026.md",
+        "updated_at": "2026-05-10T00:16:01+05:30"
+      },
+      {
+        "brief_path": "analyses/reports/west-bengal-elections-brief.md",
+        "category": "research-notes",
+        "presentation_deck_path": null,
+        "presentation_outline_path": "docs/presentations/west-bengal-elections-outline.md",
+        "slug": "west-bengal-elections",
+        "source_path": "sources/west-bengal-elections-sources.md",
+        "title": "West Bengal Elections 2026",
+        "topic_data_path": null,
+        "topic_path": "docs/research-notes/west-bengal-elections.md",
+        "updated_at": "uncommitted"
+      }
+    ],
+    "should_call_api": true,
+    "slug": "west-bengal-elections",
+    "title": "West Bengal Elections 2026",
+    "unexplored_subtopics": [
+      "Historical background behind West Bengal Elections 2026",
+      "Key actors and institutions shaping West Bengal Elections 2026",
+      "Latest official data and primary-source evidence for West Bengal Elections 2026",
+      "Risks, bottlenecks, and second-order effects of West Bengal Elections 2026",
+      "Future scenarios and what India should watch next for West Bengal Elections 2026"
+    ]
+  },
+  "response": {
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1778389160.0,
+    "conversation": null,
+    "created_at": 1778388883.0,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "id": "resp_0497a651970ac248006a000f93309c8194beb40c915a320514",
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": null,
+    "max_tool_calls": null,
+    "metadata": {},
+    "model": "gpt-5-2025-08-07",
+    "moderation": null,
+    "object": "response",
+    "output": [
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000f9405208194b91b5b55d5e96cda",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal Assembly election 2026 schedule Election Commission of India",
+            "West Bengal assembly 2026 election dates results ECI",
+            "CEO West Bengal voters 2026 final roll",
+            "West Bengal Assembly election 2021 results vote share Election Commission of India"
+          ],
+          "query": "West Bengal Assembly election 2026 schedule Election Commission of India",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/elections/assembly-elections/west-bengal/schedule"
+            },
+            {
+              "type": "url",
+              "url": "https://statisticstimes.com/politics/west-bengal-assembly-election-results.php"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Results_of_the_2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.com/"
+            },
+            {
+              "type": "url",
+              "url": "https://wbxpress.com/schedule-general-election-west-bengal-legislative-assembly-2026/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.oneindia.com/west-bengal-election-dates-2026/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_elections_in_India"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/elections/west-bengal-assembly-election-results-2021/jalpaiguri"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/elections/west-bengal-assembly-election/schedule/"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/cities/kolkata/west-bengal-election-date-2026-announced-check-wb-assembly-election-schedule-polling-dates-result-date-10587138/lite/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_elections_in_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/West_Bengal_Legislative_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://www.electionin.in/10886.html"
+            },
+            {
+              "type": "url",
+              "url": "https://indiabulletin.in/west-bengal-assembly-elections-2026-full-schedule/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.indiatoday.in/elections/assembly/west-bengal/schedule"
+            },
+            {
+              "type": "url",
+              "url": "https://eciresult2026.in/west-bengal-election-results-2026/"
+            },
+            {
+              "type": "url",
+              "url": "https://assembly.wb.gov.in/OtherPDF/Notification-No.%209-L.A.-E.%2026.02.2026.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://voterlist.co.in/wp-content/uploads/2026/03/election-date-notification_compressed.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2033.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://adrindia.org/sites/default/files/Analysis_of_Vote_Share_Margin_of_Victory_and_Representativeness_of_Winners_West_Bengal_Assembly_2021_English.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/IndianTeenagers/comments/1rumf9t/election_dates_go_vote_adults_of_rindianteenagers/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/IndianPoliticalTalk/comments/1ruc16n/the_election_commission_of_india_announced_the/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/IndiaSpeaks/comments/1t14026/west_bengal_election_eci_orders_repoll_in_15/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/TeenIndians_Politics/comments/1ruc55z/election_dates/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/pondicherry/comments/1ruzvx8/election_dates_go_vote_adults_of_rpondicherry/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/unitedstatesofindia/comments/1rv8b8b/election_dates_go_vote_adults_of/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/politicalhindus/comments/1rg7ba2/west_bengal_2026_clock_running_out_on_the_assembly/"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000f9ff3908194a24942ab7b7143df",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fa23d988194882e26968fc83b8a",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "eci press note schedule assembly elections West Bengal 2026 site:eci.gov.in",
+            "Election Commission of India press note ECI/PN/029/2026 West Bengal schedule"
+          ],
+          "query": "eci press note schedule assembly elections West Bengal 2026 site:eci.gov.in",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://wbxpress.com/schedule-general-election-west-bengal-legislative-assembly-2026/"
+            },
+            {
+              "type": "url",
+              "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2033.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2036.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2251819&lang=2&reg=3"
+            },
+            {
+              "type": "url",
+              "url": "https://wbceo.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2023.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2046.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://wbceo.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2012.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://test.uniindia.com/eci-revises-west-bengal-sir-schedule-following-supreme-court-order/india/news/3736500.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2240566&lang=1&reg=1"
+            },
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/india/election-commission-of-india-press-conference-live-updates-legislative-assembly-elections-2026-date-announcement-assam-tamil-nadu-kerala-west-bengal-puducherry/liveblog/129585709.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+            },
+            {
+              "type": "url",
+              "url": "https://www.financialexpress.com/india-news/assembly-election-dates-2026-west-bengal-tamil-nadu-kerala-assam-puducherry-eci-schedule/4173461/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/election-dates-live-updates-west-bengal-tamil-nadu-kerala-assam-puducherry-election-commission-assembly-election-gyanesh-kumar-ec-announcement-11217287?pfrom=home-ndtv_mainnavigation"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/india/ec-announces-revised-timeline-for-west-bengal-electoral-roll-revision-following-supreme-court-directive-1503554800.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/election-2026-dates-announcement-election-commission-press-conference-west-bengal-tamil-nadu-assam-kerala-puducherry-assembly-polls-11218314?pfrom=home-ndtv_topscroll_Imagetopscroll"
+            },
+            {
+              "type": "url",
+              "url": "https://voterslist.in/eci-press-release-notifications/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_elections_in_India"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_elections_in_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_election_controversies"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_Puducherry_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/West_Bengal_State_Election_Commission"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/india/comments/1qq4zfi/eci_misled_the_supreme_court_on_sir_in_west_bengal/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/unitedstatesofindia/comments/1qq4ya9/eci_misled_the_supreme_court_on_sir_in_west_bengal/"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fa2a0f88194929391bb8b0b85b7",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fa542dc81949e7672b0695ff526",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+        },
+        "id": "ws_0497a651970ac248006a000fa5769081949c40b22ac8710363",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fa652c88194a08930db69cb90a5",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://results.eci.gov.in/ResultAcGenMay2026/voteshareresult-S25.htm"
+        },
+        "id": "ws_0497a651970ac248006a000fa83db08194ac55814909929394",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fa92c6c8194a4a553fb6162490a",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://results.eci.gov.in/ResultAcGenMay2026/chartwiseresult-S25.htm"
+        },
+        "id": "ws_0497a651970ac248006a000fa9f6788194b53495b92df69a60",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000faa8e308194af9af506ba4fd87a",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://results.eci.gov.in/ResultAcGenMay2026/statewiseS251.htm"
+        },
+        "id": "ws_0497a651970ac248006a000fab3e908194932f6c4c54f7beac",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fac17bc81949806c3f5c6a8cb69",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal 2021 assembly results ECI Form 20 West Bengal General Legislative Election 2021 site:eci.gov.in",
+            "Statistical Report on General Election to the Legislative Assembly of West Bengal 2021 pdf ECI"
+          ],
+          "query": "West Bengal 2021 assembly results ECI Form 20 West Bengal General Legislative Election 2021 site:eci.gov.in",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://wbxpress.com/general-election-legislative-assemblies-west-bengal-2021/"
+            },
+            {
+              "type": "url",
+              "url": "https://commons.wikimedia.org/wiki/File%3A2021_West_Bengal_Assembly_Election_Map.png"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.scribd.com/document/981915652/Statistical-Report-On-General-Election-2011-To-The-Legislative-Assembly-Of-West-Bengal-Election-Commission-Of-India"
+            },
+            {
+              "type": "url",
+              "url": "https://www.researchgate.net/publication/365641111_Assembly_Elections_in_West_Bengal_2021_How_Socio-Political_Traditions_Defeated_a_Superior_Electoral_Machinery"
+            },
+            {
+              "type": "url",
+              "url": "https://prsindia.org/files/policy/policy_vital_state/West_Bengal_Profile_2021.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://wbxpress.com/schedule-general-election-wb-legislative-assembly-2021/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Results_of_the_2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://z-library.sk/book/26341786/40d94c/statistical-report-on-general-election-2011-to-the-legislative-assembly-of-west-bengal.html"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia-on-ipfs.org/wiki/2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.bharatpedia.org/wiki/2021_West_Bengal_Legislative_Assembly_election_results"
+            },
+            {
+              "type": "url",
+              "url": "https://everything.explained.today/2021_West_Bengal_Legislative_Assembly_election/"
+            },
+            {
+              "type": "url",
+              "url": "https://results.eci.gov.in/ResultAcGenMay2026/RoundwiseS2520.htm?ac=20"
+            },
+            {
+              "type": "url",
+              "url": "https://wbxpress.com/files/2021/02/West-Bengal-Election-2021.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.kaggle.com/datasets/commandante/res-detailed-westbengal-21"
+            },
+            {
+              "type": "url",
+              "url": "https://www.dl1.en-us.nina.az/2021_West_Bengal_Legislative_Assembly_election.html"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2021%E2%80%932026_West_Bengal_Legislative_Assembly_by-elections"
+            },
+            {
+              "type": "url",
+              "url": "https://www.eci.gov.in/eci-backend/public/api/download?url=LMAhAK6sOPBp%2FNFF0iRfXbEB1EVSLT41NNLRjYNJJP1KivrUxbfqkDatmHy12e%2FzVx8fLfn2ReU7TfrqYobgIoseT0ZHlxSqV5yDBw7qZy8BF%2FVqVfUFZB5kPI2dacyxFUsCtgFOtq6nBgIeTuoJZxx9hqrgzh%2Bp%2FKhICKDnqu%2FEPIcjKuQAupJewJECwP16"
+            },
+            {
+              "type": "url",
+              "url": "https://www.eci.gov.in/eci-backend/public/api/download?url=LMAhAK6sOPBp%2FNFF0iRfXbEB1EVSLT41NNLRjYNJJP1KivrUxbfqkDatmHy12e%2FzVx8fLfn2ReU7TfrqYobgItVaDT1%2FN9NoActktqO4y0Ti6YTNhJb3duBnsypGrGbsFOwC3iVoQ82MxhlUAMbtgRkU2VvXw6n8RkOkaSlgUgdOo00ndBxGzBsC%2B0pwZ4d5"
+            },
+            {
+              "type": "url",
+              "url": "https://advik.net/userfiles/file/04d4e267-c23c-47f0-a0aa-9ded0e9eb241.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Nandigram_in_the_2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/List_of_candidates_in_the_2021_West_Bengal_Legislative_Assembly_election"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fae319881949a4bcf9bb5fd0381",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fb26c9481949e81ba4115fa0014",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "site:eci.gov.in \"Statistical Report\" West Bengal 2021 Legislative Assembly",
+            "eci results 2021 West Bengal vote share PDF"
+          ],
+          "query": "site:eci.gov.in \"Statistical Report\" West Bengal 2021 Legislative Assembly",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://www.adrindia.org/sites/default/files/Analysis_of_Vote_Share_Margin_of_Victory_and_Representativeness_of_Winners_West_Bengal_Assembly_2021_English.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Results_of_the_2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.firstpost.com/politics/west-bengal-election-results-2021-tmc-garners-47-94-vote-share-aimim-isf-fail-to-amass-minority-support-9586601.html"
+            },
+            {
+              "type": "url",
+              "url": "https://results.eci.gov.in/Result2021/search.htm"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://wiki.wikirank.net/en/2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.bharatpedia.org/wiki/2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://adrindia.org/content/west-bengal-assembly-elections-2021-analysis-vote-share-margin-victory-and"
+            },
+            {
+              "type": "url",
+              "url": "https://www.scribd.com/document/704985748/West-Bengal-Audits"
+            },
+            {
+              "type": "url",
+              "url": "https://results.eci.gov.in/ResultAcOct2021/ConstituencywiseS2558.htm"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/elections/west-bengal-assembly-election-results-2021/jalpaiguri"
+            },
+            {
+              "type": "url",
+              "url": "https://advik.net/userfiles/file/04d4e267-c23c-47f0-a0aa-9ded0e9eb241.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.scribd.com/document/717764042/WestBengal2021"
+            },
+            {
+              "type": "url",
+              "url": "https://wbxpress.com/general-election-legislative-assemblies-west-bengal-2021/"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/elections/eci-election-results-2021-how-to-check-live-counting-on-eciresults-nic-in-and-eci-gov-in-7298277/lite/"
+            },
+            {
+              "type": "url",
+              "url": "https://adrindia.org/sites/default/files/Analysis_of_Vote_Share_Margin_of_Victory_and_Representativeness_of_Winners_West_Bengal_Assembly_2021_English.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://results.eci.gov.in/ResultAcOct2021/partywiseresult-S25.htm"
+            },
+            {
+              "type": "url",
+              "url": "https://wbxpress.com/files/2021/02/West-Bengal-Election-2021.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2021%E2%80%932026_West_Bengal_Legislative_Assembly_by-elections"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2021_Kolkata_Municipal_Corporation_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Baranagar_Assembly_constituency"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Nandigram_in_the_2021_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/u_yatidixit24/comments/owchx6"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/IndiaSpeaks/comments/n2wqp9"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/kolkata/comments/1qoivxb/how_ecis_dubious_untested_software_branded_366/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/CivicChangemakers/comments/1orknbs/please_register_official_complaint_on_eci/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/kolkata/comments/1orkmlr"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/IndianLeft/comments/1t6ifcc/the_manufactured_mandate_how_bjp_deleted_its_way/"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fb2b18c8194971d73072f3a7ef0",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fb5fdf881948e81ce0994d57f9d",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://www.reddit.com/r/IndiaSpeaks/comments/1t14026/west_bengal_election_eci_orders_repoll_in_15/"
+        },
+        "id": "ws_0497a651970ac248006a000fb64c5c8194a3c737bc6ba84946",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fb7281881948d65b4ac68d73956",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": null
+        },
+        "id": "ws_0497a651970ac248006a000fb74ad4819499dc1f4f99ed5b14",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fb8bec08194b84cf715a423cc03",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal election repoll 15 booths May 2 2026 The Hindu",
+            "ECI orders repoll 15 booths Diamond Harbour Magrahat Paschim May 2 2026"
+          ],
+          "query": "West Bengal election repoll 15 booths May 2 2026 The Hindu",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/cities/kolkata/west-bengal-repolling-2026-15-polling-stations-10666346/"
+            },
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://www.hindustantimes.com/india-news/west-bengal-elections-ec-orders-repoll-in-15-booths-in-magrahat-paschim-diamond-harbour-101777638834758.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/bengal-assembly-elections-2026-repolling-at-15-booths-in-bengals-diamond-harbour-magrahat-paschim-begins-after-complaints-of-irregularities-trinamool-11437913?pfrom=home-ndtvworld_icymi"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/india/west-bengal-assembly-elections-2026-ec-orders-repolling-in-15-booths-on-may-2-1503588445.html"
+            },
+            {
+              "type": "url",
+              "url": "https://economictimes.indiatimes.com/news/elections/assembly-elections/west-bengal/west-bengal-to-get-repoll-in-15-booths-across-magrahat-paschim-diamond-harbour-on-may-2-report/articleshow/130678428.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://www.onmanorama.com/news/india/2026/05/01/assembly-elections-ec-orders-repoll-in-15-booths-in-west-bengal-on-may-2.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.mid-day.com/news/india-news/article/west-bengal-repolling-ec-orders-repoll-in-15-booths-in-state-after-malpractice-allegations-23628434"
+            },
+            {
+              "type": "url",
+              "url": "https://www.etnownews.com/news/west-bengal-repoll-on-may-2-fresh-voting-ordered-in-15-booths-of-magrahat-paschim-diamond-harbour-details-article-154218297/amp"
+            },
+            {
+              "type": "url",
+              "url": "https://www.hindustantimes.com/india-news/west-bengal-elections-ec-orders-repoll-in-15-booths-in-magrahat-paschim-diamond-harbour-101777638834758-amp.html"
+            },
+            {
+              "type": "url",
+              "url": "https://m.economictimes.com/news/elections/assembly-elections/west-bengal/west-bengal-to-get-repoll-in-15-booths-across-magrahat-paschim-diamond-harbour-on-may-2-report/amp_articleshow/130678428.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://dailypioneer.com/news/west-bengal-elections-2026--ec-orders-repoll-in-15-booths-in-magrahat-paschim--diamond-harbour"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/Kolkatacity/comments/1t0t59c/eci_orders_repolling_in_15_booths_in_magrahat/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/IndiaSpeaks/comments/1t14026/west_bengal_election_eci_orders_repoll_in_15/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/TIMESINDIAauto/comments/1t0t5b8/in_ec_orders_repoll_in_15_booths_across_bengals/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/IndianFocus/comments/1t0yaj9/west_bengal_election_eci_orders_repoll_in_15/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/18th_West_Bengal_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_elections_in_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/15th_West_Bengal_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Special_Intensive_Revision"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_Howrah_Municipal_Corporation_election"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fb8e87c8194b0d85c1f7c933d8b",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fbc1a08819482e42ac6dcb431ea",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+        },
+        "id": "ws_0497a651970ac248006a000fbc69f08194a004c5344758659c",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fbf633081949838020ca975f924",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2251819&lang=2&reg=3"
+        },
+        "id": "ws_0497a651970ac248006a000fc0741c8194b0115e8a809b050d",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fc2274c8194969289918f36b1f8",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "Lok Sabha election 2024 West Bengal results seat share vote share Election Commission of India",
+            "ECI 2024 General Election results West Bengal party-wise seats and vote share"
+          ],
+          "query": "Lok Sabha election 2024 West Bengal results seat share vote share Election Commission of India",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2024_Indian_general_election_in_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://www.oneindia.com/west-bengal-lok-sabha-election-36/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/elections/west-bengal-state-lok-sabha-election-results-2024"
+            },
+            {
+              "type": "url",
+              "url": "https://www.moneycontrol.com/elections/lok-sabha-election/west-bengal/results/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.hindustantimes.com/elections/lok-sabha/states/west-bengal-WB"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Results_of_the_2024_Indian_general_election"
+            },
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/city/kolkata/west-bengal-election-results-2024-live-updates-lok-sabha-general-election-poll-result-2024-winner-real-time-vote-counting-bjp-tmc-congress-abhishek-banerjee-rekha-patra-mamata-banerjee-suvendu-adhikari-mahua-moitra-yusuf-pathan-adhir-ranjan-chowdhury/liveblog/110681225.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://knowyourelection.com/"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/india/west-bengal-election-results-2024-live-updates-lok-sabha-bjp-tmc-congress-india-aitc-9369301/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.moneycontrol.com/elections/lok-sabha-election/west-bengal-election-2024-result-article-12739622.html"
+            },
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/elections/west-bengal-lok-sabha-election/results"
+            },
+            {
+              "type": "url",
+              "url": "https://www.oneindia.com/elections/west-bengal-mp-list-s36/data%3Dvcx4rx49nxmkssutsagvowlq6syqxxvbkzcfxxfasfdjnctn9vidfq49nymcynnnzhhlnuislza1hzejiqylek_cc9qrd-2crmt0qzi5winrg_oe0lfz4kby7niwt_iyvgt3b1wvzes3fzc9ktec0rhbb085kl_krx6hsijncrazf3v-tiugfarn8txvw_zuspswu4f9j3a0ldhtov-vew7z50jl8lyakgle4ilq-tqas5vyxmdd5xmo1gg9j9sqn6shkgqrplnmdozo7qatjfezpmyx3g8tcgs9phz3a_cv8f7p4cfo37c8ntl9g3i8xhqynrxfxrylidkaasd7ep3fp7gjsws9hnud-docuyjzxsxzywubccjaq4vgawvgleib6jbqjxd1yp3ccanr8dgzc-a-ovrvlzpnm6qm7sh_maami6ktt7b3heeqlejyic6t-ldpofy3u6rwznxqdky30yhtbttmt1x6mkzvpxckdmvgqg5gfkfq3lc83rtrcykpreijolacxbabw8o_01dvocane5qcchdotfrcrpktbtbvz2orqxx9oids6wcsankzd_49p20wum7zgsjuadaff82zriq6n6bgo5xmz-h1m4p-0biiye4-gk30yldpumtxvxzfe8ezibrolog4sfl1b4ausfj1p8tfdkbxuxepbwpkglotaxk7haqiqfu5xykalrphjhzp9ljlqrrear1_awtl5xdychyco1krdrk%26trackingid%3De04e2b342d84cc64ad7ad9c5ba8a56a6"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/elections/west-bengal-lok-sabha-elections-2024-a-complete-list-of-winner-candidates-9367116/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.news9live.com/elections/lok-sabha-election/west-bengal-seats"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2024_Rajya_Sabha_elections"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Election_schedule_of_the_2024_Indian_general_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.drishtiias.com/pdf/1735310690.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2024_Jharkhand_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2024_Odisha_Legislative_Assembly_election"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fc2bd8c8194a49797e1494fbc23",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fc686408194b0814fca66d24b32",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": null
+        },
+        "id": "ws_0497a651970ac248006a000fc7861881949f5250d79dda3e72",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fc88e788194a4c4ba40bf82a843",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal Assembly election 2026 countermanded adjourned poll one constituency 293 results",
+            "West Bengal 2026 assembly election result withheld one seat West Bengal 'countermand' 2026 ECI"
+          ],
+          "query": "West Bengal Assembly election 2026 countermanded adjourned poll one constituency 293 results",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.business-standard.com/elections/west-bengal-elections"
+            },
+            {
+              "type": "url",
+              "url": "https://westbengalelections.site/west-bengal-assembly-2026"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/west-bengal-election-result-2026-falta-votes-will-be-counted-only-on-293-seats-tomorrow-heres-why-11441389/amp/1"
+            },
+            {
+              "type": "url",
+              "url": "https://mammothmoving.in/elections/2026/west-bengal/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/18th_West_Bengal_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://m.economictimes.com/news/elections/assembly-elections/west-bengal/ec-orders-fresh-polls-at-all-285-booths-in-bengals-falta-constituency/amp_articleshow/130720846.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/elections/west-bengal-assembly-election/results/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Nalhati_Assembly_constituency"
+            },
+            {
+              "type": "url",
+              "url": "https://eciresult2026.in/west-bengal-election-results-2026/"
+            },
+            {
+              "type": "url",
+              "url": "https://newsable.asianetnews.com/amp/india/bengal-poll-twist-why-results-will-skip-1-seat-falta-repoll-explained-articleshow-wqu2eon"
+            },
+            {
+              "type": "url",
+              "url": "https://elections.boomlive.in/elections/west-bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/india/storm-modi-sweeps-bengal-1503589893.html"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Bhabanipur%2C_West_Bengal_Assembly_constituency"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_elections_in_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://www.oneindia.com/west-bengal-assembly-elections/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.republicworld.com/elections/west-bengal-assembly-election-results-2026-live-updates-tmc-vs-bjp-mamata-banerjee-suvendu-adhikari-counting-trends-winners-leading-trailing-live-news"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Baranagar_Assembly_constituency"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2033.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://assembly.wb.gov.in/OtherPDF/Notification-No.%209-L.A.-E.%2026.02.2026.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://wbceo.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2023.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://cdn.poliq.in/79487792-71e7-4edf-b202-58e66f54b5f5.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://placng.org/i/wp-content/uploads/2026/03/ElectoralAct2026.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/KolkataLife/comments/1ss04qq/west_bengal_2026_election_map_website_search_your/"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fca4810819492aaa08925cd749a",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fd0bb208194b8ed77405e67fa6b",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal Assembly Elections 2026 voter turnout phase 1 April 23 2026 turnout Election Commission PIB press note West Bengal",
+            "ECI voter turnout West Bengal 2026 phase-wise turnout PDF"
+          ],
+          "query": "West Bengal Assembly Elections 2026 voter turnout phase 1 April 23 2026 turnout Election Commission PIB press note West Bengal",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+            },
+            {
+              "type": "url",
+              "url": "https://www.republicworld.com/india/west-bengal-assembly-election-2026-live-updates-phase-1-voting-today-tmc-vs-bjp-election-commission-live-news"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/west-bengal-election-2026-phase-1-voting-live-updates-trinamool-tmc-bjp-fight-for-152-seats-pm-modi-mamata-banerjee-11395947?pfrom=home-ndtv_mainnavigation"
+            },
+            {
+              "type": "url",
+              "url": "https://aspirant.academy/current-affairs/1ff04f54-b29b-432e-a453-d390c1d85f5b"
+            },
+            {
+              "type": "url",
+              "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728"
+            },
+            {
+              "type": "url",
+              "url": "https://www.moneycontrol.com/elections/assembly-election/west-bengal/phase-1-west-bengal-polls-state-sees-record-turnout-of-89-9-article-13897729.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thedailystar.net/news/asia/india/news/west-bengal-logs-highest-ever-turnout-9288-phase-1-final-count-awaited-4159486"
+            },
+            {
+              "type": "url",
+              "url": "https://www.etnownews.com/news/west-bengal-elections-2026-record-turnout-violence-claims-and-mamata-suvendu-battle-mark-phase-1-voting-article-154149220"
+            },
+            {
+              "type": "url",
+              "url": "https://economictimes.indiatimes.com/news/newsblogs/west-bengal-assembly-elections-2026-phase-1-voting-live-news-updates-election-commission-of-india-wb-chunav-voter-turnout-tmc-bjp-mamata-banerjee-suvendu-adhikari/liveblog/msid-130454380%2Ccurpg-2.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://thelivingdraft.com/states/west-bengal/west-bengal-assembly-elections-2026-phase-1"
+            },
+            {
+              "type": "url",
+              "url": "https://publish.wonderslate.com/gptsirdaily/noteDetail/3972"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/india/west-bengal-assembly-elections-2026-78-68-voter-turnout-till-3-p-m-1503587562.html"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2033.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2046.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://wbceo.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2023.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2042.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/18th_West_Bengal_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/West_Bengal_Legislative_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2036.pdf"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fd109a0819498e3e8f97be6061f",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fd4cc2c8194ba9f1a03e586a852",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+        },
+        "id": "ws_0497a651970ac248006a000fd522c0819480df93cbe8b5bcd4",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fd7a314819495e863f09b91603c",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal Legislative Assembly reserved seats SC ST numbers 2021 68 16 site:eci.gov.in",
+            "West Bengal assembly constituencies reserved list SC ST West Bengal 294 68 16 CEO"
+          ],
+          "query": "West Bengal Legislative Assembly reserved seats SC ST numbers 2021 68 16 site:eci.gov.in",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/List_of_constituencies_of_the_West_Bengal_Legislative_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://westbengalelection.com/constituencies"
+            },
+            {
+              "type": "url",
+              "url": "https://everything.explained.today/List_of_constituencies_of_the_West_Bengal_Vidhan_Sabha/"
+            },
+            {
+              "type": "url",
+              "url": "https://mr.kuchewar.com/list-of-constituencies-of-the-west-bengal-legislative-assembly/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/List_of_constituencies_of_the_Lok_Sabha"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia-on-ipfs.org/wiki/List_of_constituencies_of_the_West_Bengal_Legislative_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/bjp-sweeps-scheduled-caste-tribal-belts-in-bengal-assam-11462134"
+            },
+            {
+              "type": "url",
+              "url": "https://www.wonderslate.com/gptsirdaily/noteDetail/6268"
+            },
+            {
+              "type": "url",
+              "url": "https://assembly.wb.gov.in/"
+            },
+            {
+              "type": "url",
+              "url": "https://economictimes.indiatimes.com/news/elections/assembly-elections/west-bengal/west-bengal-sir-sc-mandates-hearing-for-discrepancies-across-294-constituencies/articleshow/128644226.cms?from=mdr"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Arambagh_Assembly_constituency"
+            },
+            {
+              "type": "url",
+              "url": "https://www.electionawaaz.org/west-bengal/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Gosaba_Assembly_constituency"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Bagdah_Assembly_constituency"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Rajganj_Assembly_constituency"
+            },
+            {
+              "type": "url",
+              "url": "https://wb.gov.in/upload/Note-Press-210512111628037.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.eci.gov.in/eci-backend/public/api/download?url=LMAhAK6sOPBp%2FNFF0iRfXbEB1EVSLT41NNLRjYNJJP1KivrUxbfqkDatmHy12e%2FzVx8fLfn2ReU7TfrqYobgInejDW5bk8Run17HUcIOCSMHPO6F%2BEeWmMYWYjYFZpSVuXsb1pgA548lA9OSgsSPwZdR1KkmtTFrBbzpUTYf2tQhaFvt50VZdR%2BS7JzmbwIKcbagA5rQl0ebj4gfSNsDxrCwa5ZBpCIrD5%2FijMNwcjpOSybyqjhF18yFMUTWCis%2Bx1oT3LOnRCp%2BzB%2Fb%2FmAerCxTifx8CpAgz15AXwkjDNUrnQgf60KgEqkJS7t%2FITeQ"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2033.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.eci.gov.in/eci-backend/public/api/download?url=LMAhAK6sOPBp%2FNFF0iRfXbEB1EVSLT41NNLRjYNJJP1KivrUxbfqkDatmHy12e%2FzVx8fLfn2ReU7TfrqYobgItVaDT1%2FN9NoActktqO4y0Ti6YTNhJb3duBnsypGrGbsFOwC3iVoQ82MxhlUAMbtgRkU2VvXw6n8RkOkaSlgUgdOo00ndBxGzBsC%2B0pwZ4d5"
+            },
+            {
+              "type": "url",
+              "url": "https://assembly.wb.gov.in/OtherPDF/LMLA.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.hindustantimes.com/ht-img/img/2026/03/15/original/WB_Assembly_Election_List_1773572841010.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/westbengal/comments/1smaeaq/whos_contesting_from_your_constituency_i_built_a/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/kolkata/comments/1sn8u83/whos_contesting_from_your_constituency_i_built_a/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/SideProject/comments/1sidhpj/built_a_live_civic_issue_map_for_west_bengal_294/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/westbengal/comments/1sn8kds/whos_contesting_from_your_constituency_i_built_a/"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fd8bfac819490220bd459cadf89",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fde74dc8194a096d52aa8211ba1",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://assembly.wb.gov.in/OtherPDF/LMLA.pdf"
+        },
+        "id": "ws_0497a651970ac248006a000fded4c0819498903618cd3a9efd",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fe1461c819491a66e4432ec13a1",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "Supreme Court order WP(C) No. 1089/2025 West Bengal Special Intensive Revision electoral rolls February 9 2026 order PDF",
+            "Supreme Court of India order West Bengal voter list SIR 2026 case 1089/2025"
+          ],
+          "query": "Supreme Court order WP(C) No. 1089/2025 West Bengal Special Intensive Revision electoral rolls February 9 2026 order PDF",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://test.uniindia.com/eci-revises-west-bengal-sir-schedule-following-supreme-court-order/india/news/3736500.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.scribd.com/document/1002957084/ddebd5b0-29a2-4474-aec2-f0b2573fbfd3"
+            },
+            {
+              "type": "url",
+              "url": "https://www.sci.gov.in/latest-orders/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.moneycontrol.com/news/india/supreme-court-orders-eci-to-publish-1-25-crore-voter-names-with-logical-discrepancy-flagged-in-west-bengal-sir-13779442.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.lekhanews.in/supreme-court/orders/sup-mostari-banu-vs-the-election-commission-of-india-mlvz5pdl/"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/legal-news/bengal-sir-hearing-live-updates-supreme-court-to-resume-hearing-10633896/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.newsonair.gov.in/supreme-court-orders-extension-of-time-for-objections-in-west-bengal-sir-case/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/unfortunate-blame-game-supreme-court-tells-high-court-to-appoint-judicial-officers-for-sir-process-11112091?pfrom=home-ndtv_indianews"
+            },
+            {
+              "type": "url",
+              "url": "https://www.business-standard.com/india-news/sc-curbs-micro-observers-role-in-bengal-roll-revision-extends-deadline-126020901335_1.html"
+            },
+            {
+              "type": "url",
+              "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.scconline.com/blog/post/2026/02/24/directions-on-west-bengal-sir-claims-adjudication-sc/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.casemine.com/judgement/in/698ae2ed67fc200a319b9ab7/amp"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/legal-news/supreme-court-west-bengal-voter-list-sir-cutoff-date-assembly-polls-10640196/"
+            },
+            {
+              "type": "url",
+              "url": "https://api.sci.gov.in/supremecourt/2025/64235/64235_2025_1_301_69128_Order_24-Feb-2026.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.livelaw.in/pdf_upload/2026/04/20/64235202515370166order13-apr-2026-668832.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/SIR2026/SIR_PressNote/CEO%20PN%2025_28.10.2025.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/SIR2026/SIR_PRESSBULLETIN/Press%20Bulletin%2018.12.2025.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://api.sci.gov.in/supremecourt/2026/19822/19822_2026_1_51_69596_Order_02-Apr-2026.pdf"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000fe321d88194a226c58659b48f25",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000fe813048194a892b8530362036f",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "BJP West Bengal president 2026 Sukanta Majumdar replaced 2025 2026",
+            "TMC general secretary Abhishek Banerjee 2026 West Bengal assembly elections role",
+            "Left Front West Bengal convenor 2026 Biman Bose Mohammed Salim CPI(M) state secretary 2026"
+          ],
+          "query": "BJP West Bengal president 2026 Sukanta Majumdar replaced 2025 2026",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Sukanta_Majumdar"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Left_Front_%28West_Bengal%29"
+            },
+            {
+              "type": "url",
+              "url": "https://www.deccanchronicle.com/nation/left-front-fields-192-candidates-among-294-wb-seats-1944350"
+            },
+            {
+              "type": "url",
+              "url": "https://www.newindianexpress.com/nation/2026/Mar/04/cpi-m-stages-sit-in-at-bengal-ceo-office-says-no-polls-without-rectified-voters-list"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Biman_Bose"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/bengal/2026-polls-a-vote-of-protest-time-to-uproot-bjp-from-bengal-abhishek-1503535253.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/bengal/abhishek-sets-target-to-win-all-nine-west-burdwan-assembly-seats-1503486056.html"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Samik_Bhattacharya"
+            },
+            {
+              "type": "url",
+              "url": "https://m.economictimes.com/news/elections/assembly-elections/west-bengal/abhishek-banerjee-the-rising-star-of-tmc-politics-and-strategic-change-in-west-bengal/amp_articleshow/130437623.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/west-bengal-assembly-election-2026-is-a-big-test-for-trinamool-congress-abhishek-banerjees-future-11346608"
+            },
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/india/new-west-bengal-bjp-president-samik-bhattacharya-replaces-sukanta-majumdar-unanimously-elected-state-chief/articleshow/122223958.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Bharatiya_Janata_Party_%E2%80%93_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/cities/kolkata/tmc-candidates-list-for-west-bengal-assembly-election-2026-trinamool-congress-10586789/"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/political-pulse/as-abhishek-banerjee-begins-bengal-yatra-why-tmc-sees-it-as-a-poll-game-changer-10450616/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.business-standard.com/politics/tmc-releases-291-candidates-for-bengal-polls-drops-over-third-of-mlas-126031701222_1.html"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/cities/kolkata/dont-leave-counting-centres-till-process-over-mamata-abhishek-brief-tmc-agents-10668199/"
+            },
+            {
+              "type": "url",
+              "url": "https://english.deshabhimani.com/deshabhimani-english-/national-76192/west-bengal-elections-left-front-releases-first-list-of-candidates-52498"
+            },
+            {
+              "type": "url",
+              "url": "https://images-prd.leftviews.in/LEFTFRONTWBCANDIDATELISTPART-II-19MARCH.pdf-1773928470930-f496eb15-293b-4223-abe3-ad6593efa7fb"
+            },
+            {
+              "type": "url",
+              "url": "https://bjpbengal.org/wp-content/uploads/2023/08/District-President-05-08-2023.pdf"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000feadc8481948bd71db7bd355572",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000ff1a45c8194a2ef445402966dde",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal 2026 Assembly seat sharing Congress Left Front ISF seat-sharing 2026",
+            "Congress Left alliance West Bengal 2026 assembly seats list announced"
+          ],
+          "query": "West Bengal 2026 Assembly seat sharing Congress Left Front ISF seat-sharing 2026",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://commons.wikimedia.org/wiki/File%3A2026_West_Bengal_Legislative_Assembly_Election_Left_Front_Seat_Sharing_Map.svg"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.moneycontrol.com/news/india/seat-sharing-row-brews-between-left-front-and-isf-ahead-of-2026-bengal-polls-13828700.html"
+            },
+            {
+              "type": "url",
+              "url": "https://bengali.indianexpress.com/west-bengal/isf-seat-sharing-left-2026-election-29-seats-nandigram-contest-west-bengal-11248978"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Left_Front_%28West_Bengal%29"
+            },
+            {
+              "type": "url",
+              "url": "https://www.hindustantimes.com/india-news/full-list-of-congress-candidates-for-2026-west-bengal-assembly-elections-101775543215919-amp.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.moneycontrol.com/news/india/seat-sharing-row-brews-between-left-front-and-isf-ahead-of-2026-bengal-polls-13828700.html/amp"
+            },
+            {
+              "type": "url",
+              "url": "https://www.theweek.in/news/india/2026/05/03/west-bengal-assembly-election-results-live-isf-candidates-canning-east-magrahat-west-bhangar-uluberia-east-jagatballavpur-haripal-khanakul-mahishadal-salboni-barabani-bolpur.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thehawk.in/news/india/forward-bloc-opposes-left-fronts-seat-sharing-arrangement-for-bengal-assembly-polls"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/bengal/isf-to-contest-29-seats-after-pact-with-left-signals-fights-in-4-more-1503572422.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.devdiscourse.com/article/politics/3859018-left-fronts-strategic-seat-sharing-deal-a-new-hope-for-west-bengal-polls"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Left_Front-led_Alliance"
+            },
+            {
+              "type": "url",
+              "url": "https://www.millenniumpost.in/bengal/bengal-polls-left-front-isf-seat-sharing-deadlock-continues-649634"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/bengal/uncertainty-looms-over-left-isf-alliance-ahead-of-bengal-polls-1503568763.html"
+            },
+            {
+              "type": "url",
+              "url": "https://theprint.in/india/left-front-to-contest-252-seats-isf-30-cpiml-liberation-eight-in-bengal-assembly-polls/2894367/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/18th_West_Bengal_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Left_Front_government_in_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Left_Front-led_alliance"
+            },
+            {
+              "type": "url",
+              "url": "https://assembly.wb.gov.in/OtherPDF/Notification-No.%209-L.A.-E.%2026.02.2026.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2033.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/KeralaDesham/comments/1sb7xtz/good_to_see_the_secular_alliance_partners_of_left/"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000ff2ff208194ac8cd9f63c6299b2",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a000ffa4dc4819481ee73508484b4a3",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal Lakshmir Bhandar official site beneficiaries 2024 2025 2026 Department of Women & Child Development and Social Welfare",
+            "West Bengal Kanyashree Prakalpa beneficiaries official website statistics 2024",
+            "Swasthya Sathi scheme West Bengal official website coverage households",
+            "Krishak Bandhu scheme official website West Bengal benefits amount 2026",
+            "Duare Sarkar camps total services delivered official site"
+          ],
+          "query": "West Bengal Lakshmir Bhandar official site beneficiaries 2024 2025 2026 Department of Women & Child Development and Social Welfare",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://socialsecurity.wb.gov.in/"
+            },
+            {
+              "type": "url",
+              "url": "https://krishakbandhu.wb.gov.in/about_kb"
+            },
+            {
+              "type": "url",
+              "url": "https://purulia.gov.in/service/swastha-sathi/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Department_of_Women_and_Child_Development_and_Social_Welfare"
+            },
+            {
+              "type": "url",
+              "url": "https://dietmunger.org/west-bengal-kanyashree-prakalpa-scheme/"
+            },
+            {
+              "type": "url",
+              "url": "https://joinditto.in/articles/health-insurance/swasthya-sathi/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.tataaig.com/knowledge-center/health-insurance/swasthya-sathi-scheme"
+            },
+            {
+              "type": "url",
+              "url": "https://www.insuranceliya.com/health-insurance/swasthya-sathi-scheme-of-west-bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://www.coverfox.com/health-insurance/swasthya-sathi/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Krishak_Bandhu_Scheme"
+            },
+            {
+              "type": "url",
+              "url": "https://www.india.gov.in/services/details/west-bengal-swasthya-sathi-scheme"
+            },
+            {
+              "type": "url",
+              "url": "https://www.schemesseva.com/scheme/lakshmir-bhandar-status-check"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Kanyashree_Prakalpa"
+            },
+            {
+              "type": "url",
+              "url": "https://mywestbengal.com/social-security-wb-gov-in/"
+            },
+            {
+              "type": "url",
+              "url": "https://wb.gov.in/upload/MCLNEWS-180515160316399.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.bajajgeneralinsurance.com/download-documents/health-insurance/Swasthya-Sathi-Scheme-wb/Swasthya-Sathi-Scheme-wb-Policywordings.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://swasthyasathi.gov.in/Content/HomeTabItems/SS_REPORT_JAN_20212021-04-3--14-04-30.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://popularschemes.com/sites/default/files/2022-11/West%20Bengal%20Swasthya%20Sathi%20Scheme%20Guidelines.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://westbengalyuvasathi.com/wp-content/uploads/2026/02/Bhumihin-Krishak-Bandhu-Form-In-English-pdf.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Bangla_Sahayata_Kendra"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Subhadra_Yojana"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Healthcare_in_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/kolkata/comments/1lqpnmb"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/westbengal/comments/1s6peea/the_tmcs_2021_manifesto_was_built_on_10_pledges/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/kolkata/comments/1q6bn3d/so_this_is_the_reality_of_sastha_sathi_card/"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a000ffd04948194868bb03c7b5dd77a",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a0010065fd48194848ed98ad84680bc",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "type": "open_page",
+          "url": "https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf"
+        },
+        "id": "ws_0497a651970ac248006a001006f7d48194a8c58c22cae27a43",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a00100918a0819480197221214fdebd",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal GSDP 2022-23 2023-24 current prices MOSPI or RBI data",
+            "West Bengal per capita NSDP 2022-23 MOSPI",
+            "West Bengal unemployment rate Periodic Labour Force Survey PLFS 2022-23 state"
+          ],
+          "query": "West Bengal GSDP 2022-23 2023-24 current prices MOSPI or RBI data",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://prsindia.org/budgets/states/west-bengal-budget-analysis-2022-23"
+            },
+            {
+              "type": "url",
+              "url": "https://prsindia.org/files/budget/budget_state/west-bengal/2023/State_Budget_Analysis_2023-24-West_Bengal.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://prsindia.org/budgets/states/west-bengal-budget-analysis-2023-24"
+            },
+            {
+              "type": "url",
+              "url": "https://db.puthi.com/node/130"
+            },
+            {
+              "type": "url",
+              "url": "https://www.adda247.com/upsc-exam/periodic-labour-force-survey/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.telangana360.com/2025/11/2022-2023-real-nsdp-per-capita-income.html"
+            },
+            {
+              "type": "url",
+              "url": "https://affairscloud.com/unemployment-rate-at-6-year-low-of-3-2-in-2022-23-6th-nsso-annual-plfs/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.wikizero.org/wiki/en/Economy_of_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://www.scribd.com/document/756511209/AR-PLFS-2022-23N"
+            },
+            {
+              "type": "url",
+              "url": "https://ruralindiaonline.org/bn/library/resource/periodic-labour-force-survey-plfs-annual-report-july-2022-june-2023/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.data.gov.in/resource/stateut-wise-details-unemployment-rate-usual-status-psss-estimated-periodic-labour-force"
+            },
+            {
+              "type": "url",
+              "url": "https://www.livemint.com/economy/states-witness-sharp-increase-in-per-capita-income-during-202223-11690205942472.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.indiastat.com/specimen-tables/per-capita-availability"
+            },
+            {
+              "type": "url",
+              "url": "https://www.niti.gov.in/sites/default/files/2025-03/Macro-and-Fiscal-Landscape-of-the-State-of-West-Bengal.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Economy_of_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/List_of_Indian_states_and_union_territories_by_GDP"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/List_of_Indian_states_and_union_territories_by_GDP_per_capita"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a00100a905881949dfb0c8905d4a61a",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a00101260548194907eec5d07179c8c",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "Length of West Bengal international border with Bangladesh kilometers official border security force South Bengal frontier",
+            "India-Bangladesh border length in West Bengal km site:bsf.gov.in"
+          ],
+          "query": "Length of West Bengal international border with Bangladesh kilometers official border security force South Bengal frontier",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Borders_of_Bangladesh"
+            },
+            {
+              "type": "url",
+              "url": "https://www.telegraphindia.com/west-bengal/border-security-force-using-both-ultra-modern-conventional-methods-to-guard-border-with-bangladesh-official/cid/2076259"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Border_Security_Force"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Bangladesh%E2%80%93Myanmar_border"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Bangladesh%E2%80%93India_border"
+            },
+            {
+              "type": "url",
+              "url": "https://www.satp.org/faultline-chapter-details/volume-14/india-bangladesh-restoring-sovereignty-on-neglected-borders"
+            },
+            {
+              "type": "url",
+              "url": "https://thebengal.in/2024/12/02/bsf-frontier-headquarters-south-bengal-annual-press-release-2024-60-years-of-excellence-and-service/"
+            },
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/india/centre-blames-bengal-for-border-fencing-delay/articleshow/105945703.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://www.telegraphindia.com/west-bengal/border-security-force-vigil-push-for-unfenced-areas-and-prevent-illegal-activities/cid/1849222"
+            },
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/india/west-bengal-bsf-tightens-security-along-india-bangladesh-border/articleshow/114621934.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia-on-ipfs.org/wiki/Bangladesh%E2%80%93India_border"
+            },
+            {
+              "type": "url",
+              "url": "https://www.firstpost.com/india/india-installs-latest-surveillance-equipment-at-unfenced-border-with-bangladesh-13851168.html/amp"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/cities/kolkata/night-vision-cameras-alarms-deployed-along-unfenced-border-with-bangladesh-9768039/lite/"
+            },
+            {
+              "type": "url",
+              "url": "https://en.prothomalo.com/bangladesh/bangladesh-in-world-media/fencing-bangladesh-india-border-a-major-challenge-bsf"
+            },
+            {
+              "type": "url",
+              "url": "https://twocircles.net/2008dec01/bsf_steps_vigil_along_west_bengals_porous_border.html"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Border_Guard_Bangladesh"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Benapole_Border_Crossing"
+            },
+            {
+              "type": "url",
+              "url": "https://www.svpnpa.gov.in/static/gallery/docs/6982177988d04f2d9b0004c11c5d66b9.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://usiofindia.org/pdf/USI%20Journal%20October-December%202011-14-16.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.satp.org/satporgtp/countries/India/document/papers/BM_MAN-IN-BANG-270813.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://old.satp.org/satporgtp/publication/faultlines/volume14/pdf/article7.pdf"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a001014385c819497fca7e54141448a",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a00101bc7e08194bcfb0f1c1c51f139",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "Citizenship Amendment Rules 2024 notified March 11 2024 Gazette notification India",
+            "MHA notification Citizenship (Amendment) Rules, 2024 gazette"
+          ],
+          "query": "Citizenship Amendment Rules 2024 notified March 11 2024 Gazette notification India",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://timesofindia.indiatimes.com/india/centre-notifies-implementation-of-citizenship-amendment-act/articleshow/108398473.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://www.scconline.com/blog/post/2024/03/11/citizenship-amendment-rules-2024-notified/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.opindia.com/2024/03/government-of-india-notifies-citizenship-amendment-act-caa/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.jurist.org/news/2024/03/india-notifies-rules-to-implement-controversial-legislation-amending-citizenship-laws/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.loc.gov/item/global-legal-monitor/2024-06-02/india-government-begins-implementing-controversial-citizenship-amendment-act/?loclr=bloglaw"
+            },
+            {
+              "type": "url",
+              "url": "https://www.legitquest.com/act/citizenship-amendment-rules-2024/F80D"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/india/centre-citizenship-amendment-act-rules-notification-9208093/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.thestatesman.com/india/centre-notifies-caa-rules-days-ahead-of-lok-sabha-elections-1503278339.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.dnyanyatritantrasnehi.com/2024/03/citizenship-amendment-act-notification.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.gstimes.in/current-affairs/mha-notifies-citizenship-amendment-act-rules-2024/"
+            },
+            {
+              "type": "url",
+              "url": "https://desikaanoon.in/central-government-notifies-citizenship-amendment-act-rules-effective-from-march-11/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.business-standard.com/india-news/citizenship-amendment-rules-2024-rules-explained-what-you-need-to-know-124031200146_1.html"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Citizenship_%28Amendment%29_Act%2C_2019"
+            },
+            {
+              "type": "url",
+              "url": "https://www.mha.gov.in/sites/default/files/2024-09/TheCitizenshipAmendmentRule_10092024.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://rsdebate.nic.in/bitstream/123456789/751482/1/PD_265_07082024_p5_p10_518.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://sabrangindia.in/wp-content/uploads/2024/05/Press-Information-Bureau-14-given-citizenship.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/Citizenship_Amendment_Act_protests"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/MHOCMP/comments/1byutk5"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/u_InternetFreedomIn/comments/1rqnq2m/supreme_court_of_india_issued_notice_but_refused/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/india/comments/1bc2fen/modi_government_announces_implementation_of/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/unitedstatesofindia/comments/1bc73tr"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/MHOC/comments/1bo5sns"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/MHOCMP/comments/1cy649w"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a00101c18d0819495e3f0f142ae27ca",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a00102437fc8194a91f848e1ee6e58f",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "action": {
+          "queries": [
+            "West Bengal Assembly elections 2026 CAPF companies deployed Election Commission West Bengal",
+            "ECI deploys CAPF West Bengal 2026 number of companies press note"
+          ],
+          "query": "West Bengal Assembly elections 2026 CAPF companies deployed Election Commission West Bengal",
+          "sources": [
+            {
+              "type": "url",
+              "url": "https://www.ndtv.com/india-news/west-bengal-assembly-election-2026-election-commission-deploys-record-2-4-lakh-capf-personnel-in-west-bengal-11304883/amp/1"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_West_Bengal_Legislative_Assembly_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.business-standard.com/elections/west-bengal-elections/ec-to-continue-deployment-of-500-capf-companies-in-bengal-post-elections-126040300469_1.html"
+            },
+            {
+              "type": "url",
+              "url": "https://www.business-standard.com/elections/west-bengal-elections/centre-deploys-150-more-capf-state-police-companies-in-bengal-for-polls-126040900002_1.html"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/"
+            },
+            {
+              "type": "url",
+              "url": "https://currentaffairsai.com/daily-current-affairs/780-capf-companies-72-hour-lockdown-eci-plans-break-cycle-election-violence-west-bengal-article4098"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/lite/"
+            },
+            {
+              "type": "url",
+              "url": "https://www.scribd.com/document/1001745984/CAPF-Deployment-for-WBGELA-2026"
+            },
+            {
+              "type": "url",
+              "url": "https://www.oneindia.com/india/west-bengal-assembly-elections-150-more-capf-companies-deployed-011-8052057.html"
+            },
+            {
+              "type": "url",
+              "url": "https://indianexpress.com/article/cities/kolkata/west-bengal-assembly-elections-2026-capf-deployment-eci-security-plan-10598859/"
+            },
+            {
+              "type": "url",
+              "url": "https://economictimes.indiatimes.com/news/elections/assembly-elections/west-bengal/west-bengal-assembly-polls-240-capf-companies-to-arrive-by-march-1-purba-medinipur-gets-highest-deployment/articleshow/128807038.cms"
+            },
+            {
+              "type": "url",
+              "url": "https://economictimes.indiatimes.com/news/elections/assembly-elections/west-bengal/ec-decides-to-keep-500-capf-companies-deployed-in-bengal-post-poll/articleshow/129998232.cms?from=mdr"
+            },
+            {
+              "type": "url",
+              "url": "https://www.hindustantimes.com/india-news/eci-deploys-capf-in-bengal-ahead-of-final-electoral-roll-publication-101772133137685.html"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_elections_in_West_Bengal"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/18th_West_Bengal_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://ceowestbengal.wb.gov.in/Downloads/PressNoteMenu/Press%20note%2033.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_Howrah_Municipal_Corporation_election"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/17th_West_Bengal_Assembly"
+            },
+            {
+              "type": "url",
+              "url": "https://en.wikipedia.org/wiki/2026_Kolkata_Municipal_Corporation_election"
+            },
+            {
+              "type": "url",
+              "url": "https://www.newsonair.gov.in/wp-content/uploads/2026/04/NATIONAL-TELUGU-NEWS-BULLETIN-07-2.pdf"
+            },
+            {
+              "type": "url",
+              "url": "https://www.reddit.com/r/kolkata/comments/1qoivxb/how_ecis_dubious_untested_software_branded_366/"
+            }
+          ],
+          "type": "search"
+        },
+        "id": "ws_0497a651970ac248006a0010297b448194925bbd125c34a451",
+        "status": "completed",
+        "type": "web_search_call"
+      },
+      {
+        "content": null,
+        "encrypted_content": null,
+        "id": "rs_0497a651970ac248006a0010331aa481949b98bf3640f3219f",
+        "status": null,
+        "summary": [],
+        "type": "reasoning"
+      },
+      {
+        "content": [
+          {
+            "annotations": [
+              {
+                "end_index": 452,
+                "start_index": 379,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 791,
+                "start_index": 700,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 1119,
+                "start_index": 1026,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf"
+              },
+              {
+                "end_index": 1423,
+                "start_index": 1350,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 1790,
+                "start_index": 1717,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728"
+              },
+              {
+                "end_index": 2108,
+                "start_index": 2015,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 2481,
+                "start_index": 2276,
+                "title": "EC orders repoll in 15 booths across Bengal's Magrahat Paschim, Diamond Harbour on May 2 | India News - The Times of India",
+                "type": "url_citation",
+                "url": "https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai"
+              },
+              {
+                "end_index": 2862,
+                "start_index": 2761,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 3236,
+                "start_index": 3062,
+                "title": "Bengal 2026 poll preparations: MHA to deploy 480 CAPF companies by March 10 | Kolkata News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/?utm_source=openai"
+              },
+              {
+                "end_index": 3480,
+                "start_index": 3412,
+                "title": "LMLA.pdf",
+                "type": "url_citation",
+                "url": "https://assembly.wb.gov.in/OtherPDF/LMLA.pdf"
+              },
+              {
+                "end_index": 3794,
+                "start_index": 3620,
+                "title": "West Bengal Election Results 2024 Highlights: TMC wins 29 seats, BJP\u2019s share reduces to 12 | India News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/india/west-bengal-election-results-2024-live-updates-lok-sabha-bjp-tmc-congress-india-aitc-9369301/?utm_source=openai"
+              },
+              {
+                "end_index": 4323,
+                "start_index": 4098,
+                "title": "New West Bengal BJP president: Samik Bhattacharya replaces Sukanta Majumdar; flags threat under TMC rule | India News - The Times of India",
+                "type": "url_citation",
+                "url": "https://timesofindia.indiatimes.com/india/new-west-bengal-bjp-president-samik-bhattacharya-replaces-sukanta-majumdar-unanimously-elected-state-chief/articleshow/122223958.cms?utm_source=openai"
+              },
+              {
+                "end_index": 4582,
+                "start_index": 4481,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 4777,
+                "start_index": 4686,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 5147,
+                "start_index": 4979,
+                "title": "West Bengal Assembly elections 2026: EC orders repolling in 15 booths on May 2 - The Statesman",
+                "type": "url_citation",
+                "url": "https://www.thestatesman.com/india/west-bengal-assembly-elections-2026-ec-orders-repolling-in-15-booths-on-may-2-1503588445.html?utm_source=openai"
+              },
+              {
+                "end_index": 5442,
+                "start_index": 5314,
+                "title": "ITEM NO.51               COURT NO.1               SECTION X",
+                "type": "url_citation",
+                "url": "https://api.sci.gov.in/supremecourt/2026/19822/19822_2026_1_51_69596_Order_02-Apr-2026.pdf?utm_source=openai"
+              },
+              {
+                "end_index": 5696,
+                "start_index": 5555,
+                "title": "Centre notifies CAA rules ahead of Lok Sabha polls schedule announcement | India News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/india/centre-citizenship-amendment-act-rules-notification-9208093/?utm_source=openai"
+              },
+              {
+                "end_index": 6113,
+                "start_index": 6020,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf"
+              },
+              {
+                "end_index": 6364,
+                "start_index": 6263,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 6533,
+                "start_index": 6460,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 6704,
+                "start_index": 6618,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2251819&lang=2&reg=3"
+              },
+              {
+                "end_index": 6848,
+                "start_index": 6775,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 7051,
+                "start_index": 6958,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 7168,
+                "start_index": 7100,
+                "title": "LMLA.pdf",
+                "type": "url_citation",
+                "url": "https://assembly.wb.gov.in/OtherPDF/LMLA.pdf"
+              },
+              {
+                "end_index": 7447,
+                "start_index": 7278,
+                "title": "West Bengal Election 2026: 780 CAPF Companies Deployed; Phase 1 Polls on April 23",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/cities/kolkata/west-bengal-assembly-elections-2026-capf-deployment-eci-security-plan-10598859/?utm_source=openai"
+              },
+              {
+                "end_index": 7727,
+                "start_index": 7626,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 7921,
+                "start_index": 7834,
+                "title": "Election Commission of India",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/statewiseS251.htm"
+              },
+              {
+                "end_index": 8212,
+                "start_index": 8111,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 8533,
+                "start_index": 8328,
+                "title": "EC orders repoll in 15 booths across Bengal's Magrahat Paschim, Diamond Harbour on May 2 | India News - The Times of India",
+                "type": "url_citation",
+                "url": "https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai"
+              },
+              {
+                "end_index": 8798,
+                "start_index": 8725,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 9098,
+                "start_index": 9007,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 9341,
+                "start_index": 9248,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf"
+              },
+              {
+                "end_index": 9738,
+                "start_index": 9502,
+                "title": "EC decides to keep 500 CAPF companies deployed in Bengal post poll - The Economic Times",
+                "type": "url_citation",
+                "url": "https://economictimes.indiatimes.com/news/elections/assembly-elections/west-bengal/ec-decides-to-keep-500-capf-companies-deployed-in-bengal-post-poll/articleshow/129998232.cms?from=mdr&utm_source=openai"
+              },
+              {
+                "end_index": 9937,
+                "start_index": 9846,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 10256,
+                "start_index": 10163,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 10617,
+                "start_index": 10401,
+                "title": "EC orders fresh polls at all 285 booths in Bengal\u2019s Falta constituency - The Economic Times",
+                "type": "url_citation",
+                "url": "https://m.economictimes.com/news/elections/assembly-elections/west-bengal/ec-orders-fresh-polls-at-all-285-booths-in-bengals-falta-constituency/amp_articleshow/130720846.cms?utm_source=openai"
+              },
+              {
+                "end_index": 10861,
+                "start_index": 10788,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 11303,
+                "start_index": 11087,
+                "title": "EC orders fresh polls at all 285 booths in Bengal\u2019s Falta constituency - The Economic Times",
+                "type": "url_citation",
+                "url": "https://m.economictimes.com/news/elections/assembly-elections/west-bengal/ec-orders-fresh-polls-at-all-285-booths-in-bengals-falta-constituency/amp_articleshow/130720846.cms?utm_source=openai"
+              },
+              {
+                "end_index": 11712,
+                "start_index": 11619,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/voteshareresult-S25.htm"
+              },
+              {
+                "end_index": 11889,
+                "start_index": 11796,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 12031,
+                "start_index": 11958,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728"
+              },
+              {
+                "end_index": 12190,
+                "start_index": 12089,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 12313,
+                "start_index": 12245,
+                "title": "LMLA.pdf",
+                "type": "url_citation",
+                "url": "https://assembly.wb.gov.in/OtherPDF/LMLA.pdf"
+              },
+              {
+                "end_index": 12677,
+                "start_index": 12472,
+                "title": "EC orders repoll in 15 booths across Bengal's Magrahat Paschim, Diamond Harbour on May 2 | India News - The Times of India",
+                "type": "url_citation",
+                "url": "https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai"
+              },
+              {
+                "end_index": 13129,
+                "start_index": 13036,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 13346,
+                "start_index": 13273,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728"
+              },
+              {
+                "end_index": 13614,
+                "start_index": 13541,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 13900,
+                "start_index": 13799,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 14270,
+                "start_index": 14065,
+                "title": "EC orders repoll in 15 booths across Bengal's Magrahat Paschim, Diamond Harbour on May 2 | India News - The Times of India",
+                "type": "url_citation",
+                "url": "https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai"
+              },
+              {
+                "end_index": 14513,
+                "start_index": 14422,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 14891,
+                "start_index": 14715,
+                "title": "Why One Of 294 Seats In West Bengal Will Not Get Its Leader Tomorrow",
+                "type": "url_citation",
+                "url": "https://www.ndtv.com/india-news/west-bengal-election-result-2026-falta-votes-will-be-counted-only-on-293-seats-tomorrow-heres-why-11441389/amp/1?utm_source=openai"
+              },
+              {
+                "end_index": 15211,
+                "start_index": 15009,
+                "title": "Centre deploys 150 more CAPF, state police companies in Bengal for polls | West Bengal Elections - Business Standard",
+                "type": "url_citation",
+                "url": "https://www.business-standard.com/elections/west-bengal-elections/centre-deploys-150-more-capf-state-police-companies-in-bengal-for-polls-126040900002_1.html?utm_source=openai"
+              },
+              {
+                "end_index": 15514,
+                "start_index": 15335,
+                "title": "Bengal 2026 poll preparations: MHA to deploy 480 CAPF companies by March 10 | Kolkata News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/lite/?utm_source=openai"
+              },
+              {
+                "end_index": 15823,
+                "start_index": 15660,
+                "title": "West Bengal Polls: Supreme Court sets strict April deadlines for thousands of deleted voters to reclaim ballots",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/legal-news/supreme-court-west-bengal-voter-list-sir-cutoff-date-assembly-polls-10640196/?utm_source=openai"
+              },
+              {
+                "end_index": 16100,
+                "start_index": 15944,
+                "title": "Left Front to contest 252 seats, ISF 30, CPI(ML) Liberation eight in Bengal assembly polls \u2013 ThePrint \u2013 PTIFeed",
+                "type": "url_citation",
+                "url": "https://theprint.in/india/left-front-to-contest-252-seats-isf-30-cpiml-liberation-eight-in-bengal-assembly-polls/2894367/?utm_source=openai"
+              },
+              {
+                "end_index": 16327,
+                "start_index": 16234,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf"
+              },
+              {
+                "end_index": 16597,
+                "start_index": 16510,
+                "title": "Election Commission of India",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/statewiseS251.htm"
+              },
+              {
+                "end_index": 16811,
+                "start_index": 16710,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 16993,
+                "start_index": 16920,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 17260,
+                "start_index": 17086,
+                "title": "West Bengal Election Results 2024 Highlights: TMC wins 29 seats, BJP\u2019s share reduces to 12 | India News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/india/west-bengal-election-results-2024-live-updates-lok-sabha-bjp-tmc-congress-india-aitc-9369301/?utm_source=openai"
+              },
+              {
+                "end_index": 17527,
+                "start_index": 17334,
+                "title": "25th May, 2021",
+                "type": "url_citation",
+                "url": "https://www.adrindia.org/sites/default/files/Analysis_of_Vote_Share_Margin_of_Victory_and_Representativeness_of_Winners_West_Bengal_Assembly_2021_English.pdf?utm_source=openai"
+              },
+              {
+                "end_index": 17778,
+                "start_index": 17685,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/voteshareresult-S25.htm"
+              },
+              {
+                "end_index": 18050,
+                "start_index": 17876,
+                "title": "Bengal 2026 poll preparations: MHA to deploy 480 CAPF companies by March 10 | Kolkata News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/?utm_source=openai"
+              },
+              {
+                "end_index": 18296,
+                "start_index": 18122,
+                "title": "West Bengal Election Results 2024 Highlights: TMC wins 29 seats, BJP\u2019s share reduces to 12 | India News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/india/west-bengal-election-results-2024-live-updates-lok-sabha-bjp-tmc-congress-india-aitc-9369301/?utm_source=openai"
+              },
+              {
+                "end_index": 18709,
+                "start_index": 18616,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 18908,
+                "start_index": 18835,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 19090,
+                "start_index": 18997,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 19301,
+                "start_index": 19200,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 19586,
+                "start_index": 19412,
+                "title": "Bengal 2026 poll preparations: MHA to deploy 480 CAPF companies by March 10 | Kolkata News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/?utm_source=openai"
+              },
+              {
+                "end_index": 19787,
+                "start_index": 19696,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 20125,
+                "start_index": 20034,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 20393,
+                "start_index": 20300,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 20615,
+                "start_index": 20522,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf"
+              },
+              {
+                "end_index": 20804,
+                "start_index": 20713,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 21000,
+                "start_index": 20927,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 22158,
+                "start_index": 22085,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728"
+              },
+              {
+                "end_index": 22459,
+                "start_index": 22366,
+                "title": "Election",
+                "type": "url_citation",
+                "url": "https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm"
+              },
+              {
+                "end_index": 22788,
+                "start_index": 22687,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf"
+              },
+              {
+                "end_index": 23224,
+                "start_index": 23045,
+                "title": "Bengal 2026 poll preparations: MHA to deploy 480 CAPF companies by March 10 | Kolkata News - The Indian Express",
+                "type": "url_citation",
+                "url": "https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/lite/?utm_source=openai"
+              },
+              {
+                "end_index": 23637,
+                "start_index": 23432,
+                "title": "EC orders repoll in 15 booths across Bengal's Magrahat Paschim, Diamond Harbour on May 2 | India News - The Times of India",
+                "type": "url_citation",
+                "url": "https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai"
+              },
+              {
+                "end_index": 23914,
+                "start_index": 23823,
+                "title": "Press Release Page | Press Information Bureau",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai"
+              },
+              {
+                "end_index": 24220,
+                "start_index": 24127,
+                "title": "",
+                "type": "url_citation",
+                "url": "https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf"
+              },
+              {
+                "end_index": 24528,
+                "start_index": 24455,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756"
+              },
+              {
+                "end_index": 24833,
+                "start_index": 24760,
+                "title": "\n\tPress Release Page | Press Information Bureau\n",
+                "type": "url_citation",
+                "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728"
+              },
+              {
+                "end_index": 25283,
+                "start_index": 25067,
+                "title": "EC orders fresh polls at all 285 booths in Bengal\u2019s Falta constituency - The Economic Times",
+                "type": "url_citation",
+                "url": "https://m.economictimes.com/news/elections/assembly-elections/west-bengal/ec-orders-fresh-polls-at-all-285-booths-in-bengals-falta-constituency/amp_articleshow/130720846.cms?utm_source=openai"
+              }
+            ],
+            "logprobs": [],
+            "text": "<TOPIC_NOTE>\n# West Bengal Elections 2026\n\n## One-Line Summary\nWest Bengal voted in two phases on April 23 and 29, 2026, recording a combined turnout of 92.47%; the Election Commission of India (ECI) shows the BJP winning 207 of 293 declared seats, AITC 80, INC 2, CPI(M) 1, AISF 1, and AJUP 2, with Falta (AC-144) countermanded for a fresh poll on May 21 and result due May 24. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n\n## Why This Matters\n- Geopolitics: Bengal borders Bangladesh over 2,216.7 km\u2014India\u2019s longest international land frontier for a single state\u2014so state leadership affects border management, migration, and trade corridors (e.g., Petrapole-Benapole). ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai))\n- Internal growth: The state\u2019s policy mix (large welfare schemes and MSME-heavy economy) and Centre\u2013state dynamics shape fiscal space, investment climate, and delivery of benefits (e.g., Lakshmir Bhandar, Kanyashree, Swasthya Sathi). ([finance.wb.gov.in](https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf))\n- Democratic process quality: Record participation, heavy CAPF deployment, and Supreme Court\u2013supervised voter roll revision (SIR) make Bengal 2026 a national benchmark for election administration and rights adjudication at scale. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n\n## Current State\n- Schedule and turnout: ECI announced the Bengal poll schedule on March 15, 2026; Phase 1 on April 23 and Phase 2 on April 29. Phase-wise participation reached 93.19% and 91.66% respectively; combined 92.47%\u2014a West Bengal high since Independence. Counting was set for May 4. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728))\n- Results status (as of May 10, 2026): BJP 207, AITC 80, INC 2, CPI(M) 1, AISF 1, AJUP 2 out of 293 declared; Falta re-poll across all 285 booths on May 21 after ECI voided the April 29 poll for \u201csevere electoral offences.\u201d ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm))\n- Repolls: ECI ordered repolling in 15 booths (Magrahat Paschim and Diamond Harbour) on May 2 following complaints; these do not change the overall state tally logic. ([timesofindia.indiatimes.com](https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai))\n- Electors and rolls: Final roll published Feb 28, 2026 lists 6.445 crore electors (male 3.281 cr; female 3.164 cr; third gender 1,152); gender ratio improved from 956 to 964; 60.06 lakh entries remained \u201cunder adjudication\u201d pending quasi-judicial orders for inclusion/deletion. ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf))\n- Security: The Commission and MHA staged an unprecedented security plan\u2014initial 480 CAPF companies, later augmented; reportage indicates ~780 companies by March 31 and ~2.4 lakh personnel in total. ([indianexpress.com](https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/?utm_source=openai))\n\n## Historical Context\n- 2011/2016/2021: AITC ended the Left Front\u2019s 34-year rule in 2011, retained power in 2016 and 2021 (213/294 seats in 2021). Turnout in 2021 was 82.3%. ([assembly.wb.gov.in](https://assembly.wb.gov.in/OtherPDF/LMLA.pdf))\n- 2024 Lok Sabha: TMC won 29 of 42 seats in West Bengal, BJP 12\u2014setting a competitive two-pole landscape before the 2026 Assembly contest. ([indianexpress.com](https://indianexpress.com/article/india/west-bengal-election-results-2024-live-updates-lok-sabha-bjp-tmc-congress-india-aitc-9369301/?utm_source=openai))\n\n## Key Actors and Institutions\n- Parties and leaders: AITC (Mamata Banerjee; Abhishek Banerjee), BJP (Suvendu Adhikari; state president Samik Bhattacharya since July 3, 2025), Left Front (Chair Biman Bose; CPI(M) state secretary Mohammad Salim), INC (state unit contested solo), ISF (Nawsad Siddique). ([timesofindia.indiatimes.com](https://timesofindia.indiatimes.com/india/new-west-bengal-bjp-president-samik-bhattacharya-replaces-sukanta-majumdar-unanimously-elected-state-chief/articleshow/122223958.cms?utm_source=openai))\n- Election management: ECI; CEO West Bengal; Supreme Court oversight of SIR (WP(C) No. 1089/2025); extensive CAPF deployment for polls and post-poll period. ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf))\n- Border/security stakeholders: MHA; BSF South and North Bengal Frontiers along the Bangladesh border. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai))\n\n## Relevant Policies, Laws, and Programs\n- Election law and conduct: RP Act, 1951, Sections 58/58A used to void polling; Model Code of Conduct; repolls ordered May 2 and Falta full re-poll on May 21. ([thestatesman.com](https://www.thestatesman.com/india/west-bengal-assembly-elections-2026-ec-orders-repolling-in-15-booths-on-may-2-1503588445.html?utm_source=openai))\n- Supreme Court directions: SIR to proceed with judicial officers and revised timelines; appeals do not automatically confer voting rights if undecided by deadlines. ([api.sci.gov.in](https://api.sci.gov.in/supremecourt/2026/19822/19822_2026_1_51_69596_Order_02-Apr-2026.pdf?utm_source=openai))\n- Central policy context: CAA Rules notified March 11, 2024\u2014salient for a border state with historic migration. ([indianexpress.com](https://indianexpress.com/article/india/centre-citizenship-amendment-act-rules-notification-9208093/?utm_source=openai))\n- Flagship state schemes (indicative scale FY2023\u201324): Lakshmir Bhandar (1.98 crore beneficiaries; Rs 10,101.87 cr spend YTD), Kanyashree (85.53 lakh cumulative beneficiaries), Rupashree (1.93 lakh in FY24), Swasthya Sathi (universal state health cover framework), Krishak Bandhu (income support, Rs 2 lakh death benefit). ([finance.wb.gov.in](https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf))\n\n## Data and Indicators\n- Electors (final roll, Feb 28, 2026): 64,445,609; Gender ratio 964; PwD electors 4,60,479; 60.06 lakh \u201cunder adjudication.\u201d ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf))\n- Turnout: Phase 1 93.19%; Phase 2 91.66%; combined 92.47% (provisional-to-final ECI figures). ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n- Candidates: 2,926 (Phase 1: 1,478 across 152 ACs; Phase 2: 1,448 across 142 ACs). ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2251819&lang=2&reg=3))\n- Polling stations: 85,377 across both phases (44,376 P1; 41,001 P2). ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n- Results (declared May 4; updated May 5): BJP 207; AITC 80; INC 2; AJUP 2; CPI(M) 1; AISF 1; Falta pending. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm))\n- Reserved seats: SC 68; ST 16 (total ACs 294). ([assembly.wb.gov.in](https://assembly.wb.gov.in/OtherPDF/LMLA.pdf))\n- Security: ~780 CAPF companies by Mar 31; ECI/MHA continued ~500 companies post-counting to deter violence. ([indianexpress.com](https://indianexpress.com/article/cities/kolkata/west-bengal-assembly-elections-2026-capf-deployment-eci-security-plan-10598859/?utm_source=openai))\n\n## Strengths\n- Extremely high and broad-based participation; gender ratio improvement in rolls; dense polling station network; 100% webcasting (per ECI) increased transparency. ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf))\n- Clear, rapidly published constituency-level results and margins on ECI portal enable granular analysis. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/statewiseS251.htm))\n\n## Bottlenecks\n- Voter roll SIR left 60.06 lakh entries under adjudication as of Feb 28; Supreme Court-set deadlines limited late inclusion, raising representation concerns in some areas. ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf))\n- Multiple repolls (May 2; full Falta re-poll May 21) indicate localized irregularities and administrative strain. ([timesofindia.indiatimes.com](https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai))\n\n## Global Comparison\n- Turnout rose from 84.72% (2011) and 82.3% (2016/2021 benchmark) to 92.47% in 2026\u2014placing Bengal among the highest-turnout large-scale subnational elections globally. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n\n## Opportunities\n- Border governance: strengthen fencing gaps and surveillance along the 2,216.7 km WB\u2013Bangladesh frontier; leverage Centre\u2013state coordination to speed infrastructure and trade facilitation. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai))\n- Program efficiency: align high-coverage state schemes with fiscal sustainability; target leakages post-SIR with better beneficiary authentication. ([finance.wb.gov.in](https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf))\n\n## Risks\n- Post-poll law and order and partisan contestation over SIR outcomes; prolonged litigation could delay local delivery or deter investment sentiment. ([economictimes.indiatimes.com](https://economictimes.indiatimes.com/news/elections/assembly-elections/west-bengal/ec-decides-to-keep-500-capf-companies-deployed-in-bengal-post-poll/articleshow/129998232.cms?from=mdr&utm_source=openai))\n- Border vulnerabilities (riverine stretches, unfenced segments) remain security and smuggling challenges. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai))\n\n## Future Scenarios\n- Consolidation: A stable BJP-led government (per ECI tallies) aligns with Centre on security, infrastructure, and CAA implementation; watch fiscal/budget reprioritization and scheme audits in FY2026\u201327. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm))\n- Contention: Legal challenges and constituency-level disputes (e.g., Falta) modestly delay full assembly composition; limited policy overhang. ([m.economictimes.com](https://m.economictimes.com/news/elections/assembly-elections/west-bengal/ec-orders-fresh-polls-at-all-285-booths-in-bengals-falta-constituency/amp_articleshow/130720846.cms?utm_source=openai))\n- Coexistence: High-turnout, high-security model prompts permanent upgrades to electoral operations (roll management, live webcasting, CAPF protocols) for future cycles. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n\n## What India Should Watch Next\n- Falta re-poll (May 21) and result consolidation; swearing-in, portfolio allocations, and first 100-day policy signals; FY2026\u201327 budget priorities and any recalibration of flagship schemes. ([m.economictimes.com](https://m.economictimes.com/news/elections/assembly-elections/west-bengal/ec-orders-fresh-polls-at-all-285-booths-in-bengals-falta-constituency/amp_articleshow/130720846.cms?utm_source=openai))\n\n## Open Questions\n- Final vote-share breakdown by party (statewide) and micro-patterns (SC/ST reserved seats, border districts) are not yet fully compiled in a single official statistical report. Data gap: ECI\u2019s state \u201cvote share\u201d page loads dynamically; a consolidated PDF/statistical report for 2026 is awaited. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/voteshareresult-S25.htm))\n\n## Sources\nPrimary and official:\n- ECI results and constituency pages (May 2026). ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm))\n- PIB press notes on schedule/turnout (Apr 20, 2026; Apr 29, 2026). ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728))\n- CEO West Bengal press note (Final Roll, Feb 28, 2026). ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf))\n- WB Legislative Assembly reference (reserved seats). ([assembly.wb.gov.in](https://assembly.wb.gov.in/OtherPDF/LMLA.pdf))\nSecondary and datasets:\n- ET/TOI/NDTV/Indian Express on repolls and CAPF; Indian Express/TOI on LS 2024 outcomes; PRS Budget profiles; WB Budget Speech 2024. ([timesofindia.indiatimes.com](https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai))\n</TOPIC_NOTE>\n\n<SOURCE_LOG>\n# Source Log: West Bengal Elections 2026\n\n## Primary Sources\n| Date | Source | Link | Notes |\n| --- | --- | --- | --- |\n| 2026-05-04/05 | Election Commission of India \u2013 WB Assembly Trends & Results May 2026 | results.eci.gov.in (party-wise; statewise S25) | Official seat tallies by party and AC; 293/294 declared; Falta pending. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm)) |\n| 2026-04-20 | PIB: Dry Day and counting schedule note | pib.gov.in (PRID 2253728) | Confirms phases (Apr 23, 29) and counting date (May 4). ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728)) |\n| 2026-04-29 | PIB: Turnout Phase-II; combined participation | pib.gov.in (PRID 2256756) | Phase-wise turnout: 93.19% (P1), 91.66% (P2), combined 92.47%; polling stations/candidates by phase. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756)) |\n| 2026-02-28 | CEO West Bengal Press Note CEO/PN-05/2026 | ceowestbengal.wb.gov.in (PDF) | Final electoral roll: 6.445 crore electors; gender ratio; PwD; \u201cunder adjudication\u201d cases. ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf)) |\n| 2026-05-01 | ECI order on repoll (media-reported) | \u2014 | Repoll in 15 booths on May 2; referenced across multiple national dailies; underlying ECI order quoted. ([timesofindia.indiatimes.com](https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai)) |\n| 2025-08-20 | PIB (MHA): Indo\u2013Bangladesh border fencing status | pib.gov.in (PRID 2158419) | WB\u2013Bangladesh border length 2,216.7 km; length fenced. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai)) |\n\n## Secondary Sources\n| Date | Source | Link | Notes |\n| --- | --- | --- | --- |\n| 2026-05-03/04 | NDTV/ET/Statesman | Various | 293/294 counting; Falta result deferred; CAPF continuation post-poll. ([ndtv.com](https://www.ndtv.com/india-news/west-bengal-election-result-2026-falta-votes-will-be-counted-only-on-293-seats-tomorrow-heres-why-11441389/amp/1?utm_source=openai)) |\n| 2026-04-09 | Business Standard (CAPF) | economictimes/bs | Augmentation of CAPF companies; continued deployment. ([business-standard.com](https://www.business-standard.com/elections/west-bengal-elections/centre-deploys-150-more-capf-state-police-companies-in-bengal-for-polls-126040900002_1.html?utm_source=openai)) |\n| 2026-03-01\u201304 | Indian Express (CAPF; schedule) | indianexpress.com | Initial 480 CAPF companies; schedule explainers. ([indianexpress.com](https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/lite/?utm_source=openai)) |\n| 2026-03\u201304 | Supreme Court SIR coverage | Indian Express/Business Standard/LiveLaw | Orders on SIR timelines, adjudication, micro-observers. ([indianexpress.com](https://indianexpress.com/article/legal-news/supreme-court-west-bengal-voter-list-sir-cutoff-date-assembly-polls-10640196/?utm_source=openai)) |\n| 2026-03\u201304 | Left/ISF seat-sharing | ThePrint PTI/Moneycontrol/Statesman | LF\u2013ISF seat distribution; Congress solo. ([theprint.in](https://theprint.in/india/left-front-to-contest-252-seats-isf-30-cpiml-liberation-eight-in-bengal-assembly-polls/2894367/?utm_source=openai)) |\n| 2024\u20132026 | WB schemes and budget | finance.wb.gov.in (Budget Speech 2024) | Beneficiary and spend metrics for flagship schemes. ([finance.wb.gov.in](https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf)) |\n\n## Datasets\n| Date | Dataset | Link | Notes |\n| --- | --- | --- | --- |\n| 2026-05 | ECI WB 2026 live results | results.eci.gov.in | Party/AC-wise winners, margins; dynamic pages. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/statewiseS251.htm)) |\n| 2026-02-28 | Final Electoral Roll 2026 | CEO WB (PDF) | Elector counts; demographics; adjudication backlog. ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf)) |\n| 2026-04-29 | Turnout tables | PIB PRID 2256756 | Phase-wise electors, polling stations, staff, turnout. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756)) |\n| 2024 | LS 2024 WB results | Indian Express live | TMC 29, BJP 12 (state-level context). ([indianexpress.com](https://indianexpress.com/article/india/west-bengal-election-results-2024-live-updates-lok-sabha-bjp-tmc-congress-india-aitc-9369301/?utm_source=openai)) |\n| 2021 | 2021 turnout/seats | ADR/PRS | Turnout 82.3%; AITC 213 seats. ([adrindia.org](https://www.adrindia.org/sites/default/files/Analysis_of_Vote_Share_Margin_of_Victory_and_Representativeness_of_Winners_West_Bengal_Assembly_2021_English.pdf?utm_source=openai)) |\n\n## Claims To Verify\n- Final statewide vote-share by party (2026) once ECI issues consolidated statistical report/PDF (vote-share page currently dynamic). ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/voteshareresult-S25.htm))\n- Exact CAPF headcount deployed (range reported from 480\u2192780 companies and ~2.4 lakh personnel). ([indianexpress.com](https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/?utm_source=openai))\n- Constituency-wise pattern shifts vs. 2024 LS (needs merged dataset). ([indianexpress.com](https://indianexpress.com/article/india/west-bengal-election-results-2024-live-updates-lok-sabha-bjp-tmc-congress-india-aitc-9369301/?utm_source=openai))\n</SOURCE_LOG>\n\n<BRIEF>\n# Brief: West Bengal Elections 2026\n\n## Bottom Line\nBengal\u2019s 2026 assembly polls produced a decisive BJP majority (207 of 293 declared) on record turnout (92.47%), amid unprecedented security deployment and Supreme Court\u2013supervised roll revision; one constituency (Falta) will re-poll on May 21. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm))\n\n## Key Takeaways\n- Participation: 93.19% (Phase 1) and 91.66% (Phase 2); 92.47% combined\u2014highest since Independence for WB. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n- Mandate: ECI results show BJP 207; AITC 80; others 6; Falta pending post countermand. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm))\n- Rolls: Final electors 6.445 crore; 60.06 lakh \u201cunder adjudication\u201d entries awaiting quasi-judicial orders. ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf))\n- Security: Initial 480 CAPF companies scaled up; reportage indicates ~780 companies and ~2.4 lakh personnel. ([indianexpress.com](https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/?utm_source=openai))\n- Border context: WB\u2013Bangladesh frontier 2,216.7 km\u2014governance has national security and trade implications. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai))\n\n## Strategic Context\n- Bengal\u2019s outcome realigns Center\u2013state ties in a sensitive border state; potential acceleration in fencing, logistics, and investment facilitation; but SIR-related litigation and localized repolls highlight process risks. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai))\n\n## Evidence\n- ECI results portal; PIB turnout/schedule notes; CEO WB final roll; EC/MHA CAPF communications reported by national dailies; WB Budget Speech for scheme scale. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm))\n\n## Implications\n- Governance: Expect policy resets and audits of flagship schemes, with fiscal re-prioritization in FY2026\u201327. ([finance.wb.gov.in](https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf))\n- Security: Faster closure of unfenced stretches and tech-enabled surveillance along the border. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai))\n- Politics: Record turnout with tight oversight may become a new operational baseline for high-stakes Indian state polls. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n\n## Recommended Next Research\n- Assemble a constituency-level merged dataset (ECI 2026 AC results + 2024 LS booth/segment) to quantify swing patterns, especially in SC/ST and border ACs.\n- Track ECI\u2019s final statistical report for 2026 (vote shares, NOTA, turnout by gender/age).\n- Map CAPF deployment vs. incidents and repolls to evaluate deterrence efficacy.\n</BRIEF>\n\n<PRESENTATION_OUTLINE>\n# Presentation Outline: West Bengal Elections 2026\n\n## Audience\nPolicy, security, and economic planners; investment and border management stakeholders.\n\n## Core Message\nBengal 2026 delivered a record-turnout mandate with a BJP majority and process innovations amid legal scrutiny of voter rolls; the outcome reshapes border governance and welfare\u2013growth choices.\n\n## Slide Outline\nFor each slide, write:\n1. Claim title\n   - Proof object:\n   - Evidence:\n   - Source:\n\n1. Record participation, compressed schedule\n   - Proof object: Phase-wise turnout table (P1, P2, combined) and dates\n   - Evidence: 93.19%, 91.66%, 92.47%; Apr 23/29; May 4 counting\n   - Source: PIB PRIDs 2253728, 2256756. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728))\n\n2. The mandate map: who won where\n   - Proof object: Party-wise seats, district heat map; Falta flagged \u201cpending\u201d\n   - Evidence: BJP 207; AITC 80; others 6; 293/294 declared\n   - Source: ECI results pages. ([results.eci.gov.in](https://results.eci.gov.in/ResultAcGenMay2026/partywiseresult-S25.htm))\n\n3. Voter rolls at scale: what changed in 2026\n   - Proof object: Final roll metrics (6.445 cr; GR 964; 60.06 lakh under adjudication)\n   - Evidence: CEO PN-05/2026 table\n   - Source: CEO West Bengal press note (Feb 28, 2026). ([wbceo.wb.gov.in](https://wbceo.wb.gov.in/Downloads/News/Final%20Press%20Note%20CEO-PN-05-2026.pdf))\n\n4. Security footprint\n   - Proof object: CAPF companies over time (480\u2192~780) and post-poll 500 companies retained\n   - Evidence: MHA/ECI communications via national dailies; NDTV 2.4 lakh personnel\n   - Source: Indian Express, Business Standard/ET, NDTV. ([indianexpress.com](https://indianexpress.com/article/cities/kolkata/bengal-2026-poll-preparations-mha-to-deploy-480-capf-companies-by-march-10-10544569/lite/?utm_source=openai))\n\n5. Repolls and red flags\n   - Proof object: May 2 (15 booths) and Falta full re-poll order\n   - Evidence: Constituencies affected; Section 58/58A references\n   - Source: TOI/NDTV/ET coverage of ECI orders. ([timesofindia.indiatimes.com](https://timesofindia.indiatimes.com/india/ec-orders-repoll-in-15-booths-across-bengals-magrahat-paschim-diamond-harbour-on-may-2/articleshow/130678633.cms?utm_source=openai))\n\n6. Border state, national stakes\n   - Proof object: Border length/fencing status; Petrapole corridor\n   - Evidence: 2,216.7 km WB\u2013BD border; coverage fenced\n   - Source: PIB (MHA) PR. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2158419&utm_source=openai))\n\n7. Policy continuity vs. reset\n   - Proof object: Scale of flagship schemes (LB, Kanyashree, etc.)\n   - Evidence: 1.98 cr LB beneficiaries; 85.53 lakh Kanyashree; FY24 spends\n   - Source: WB Budget Speech 2024. ([finance.wb.gov.in](https://finance.wb.gov.in/writereaddata/Budget_Speech/2024_English.pdf))\n\n8. Comparative lens\n   - Proof object: Turnout trend (2011\u21922026); 2021 vs 2026 seat bars\n   - Evidence: 84.72% (2011) to 92.47% (2026); AITC 213 (2021) vs BJP 207 (2026)\n   - Source: PIB turnout table; PRS 2021 profile; ECI results. ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2256756))\n\n9. Scenarios for 2026\u201327\n   - Proof object: 2x2 matrix (policy alignment x institutional friction)\n   - Evidence: Cabinet, budget timing; litigation pipeline; border investments\n   - Source: Aggregated primary docs (ECI/PIB/CEO). ([pib.gov.in](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253728))\n\n10. What to watch next\n   - Proof object: Timeline to Falta result; swearing-in; budget session\n   - Evidence: May 21 re-poll; May 24 result; expected government formation window\n   - Source: ET report on Falta; ECI schedule notes. ([m.economictimes.com](https://m.economictimes.com/news/elections/assembly-elections/west-bengal/ec-orders-fresh-polls-at-all-285-booths-in-bengals-falta-constituency/amp_articleshow/130720846.cms?utm_source=openai))\n\n## Visual Ideas\n- Turnout line and bar charts; party seat treemap; map by party leads; SIR funnel infographic (draft\u2192final\u2192adjudication); border infographic with fencing status.\n\n## Speaker Notes To Build\n- Emphasize the provenance of all figures (ECI/PIB/CEO WB).\n- Flag that statewide vote-share PDF/statistical report for 2026 is awaited; current shares are portal-dynamic.\n- Explain how border governance links to trade and security outcomes.\n</PRESENTATION_OUTLINE>\n\n<TOPIC_DATA>\n{\n  \"topic\": \"West Bengal Elections 2026\",\n  \"status\": \"researched\",\n  \"metrics\": [\n    {\n      \"label\": \"Total electors (final roll)\",\n      \"value\": 64445609,\n      \"unit\": \"persons\",\n      \"date\": \"2026-02-28\",\n      \"context\": \"Final roll published for WB SIR 2026 with gender and PwD breakdown\",\n      \"source\": \"CEO West Bengal, Press Note CEO/PN-05/2026 (Feb 28, 2026)\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"Gender ratio in rolls\",\n      \"value\": 964,\n      \"unit\": \"females per 1000 males\",\n      \"date\": \"2026-02-28\",\n      \"context\": \"Improved from 956 (Draft 16-Dec-2025) to 964 on final roll\",\n      \"source\": \"CEO West Bengal, Press Note CEO/PN-05/2026\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"PwD electors\",\n      \"value\": 460479,\n      \"unit\": \"persons\",\n      \"date\": \"2025-12-16\",\n      \"context\": \"PwD on draft roll; final roll notes continued inclusion process\",\n      \"source\": \"CEO West Bengal, Press Note CEO/PN-05/2026\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"label\": \"Under adjudication entries\",\n      \"value\": 6006675,\n      \"unit\": \"entries\",\n      \"date\": \"2026-02-28\",\n      \"context\": \"Pending quasi-judicial orders for inclusion/deletion during SIR\",\n      \"source\": \"CEO West Bengal, Press Note CEO/PN-05/2026\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"Turnout Phase 1\",\n      \"value\": 93.19,\n      \"unit\": \"percent\",\n      \"date\": \"2026-04-23\",\n      \"context\": \"Highest-ever participation recorded by ECI in WB Phase 1\",\n      \"source\": \"PIB PRID 2256756 (ECI)\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"Turnout Phase 2\",\n      \"value\": 91.66,\n      \"unit\": \"percent\",\n      \"date\": \"2026-04-29\",\n      \"context\": \"Phase 2 poll participation at close of poll\",\n      \"source\": \"PIB PRID 2256756 (ECI)\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"Turnout combined\",\n      \"value\": 92.47,\n      \"unit\": \"percent\",\n      \"date\": \"2026-04-29\",\n      \"context\": \"Weighted combined turnout over two phases\",\n      \"source\": \"PIB PRID 2256756 (ECI)\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"Seats won BJP (declared)\",\n      \"value\": 207,\n      \"unit\": \"seats\",\n      \"date\": \"2026-05-04\",\n      \"context\": \"ECI state results; 293/294 declared (Falta pending)\",\n      \"source\": \"ECI results portal (WB May 2026)\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"Seats won AITC (declared)\",\n      \"value\": 80,\n      \"unit\": \"seats\",\n      \"date\": \"2026-05-04\",\n      \"context\": \"ECI party-wise tally\",\n      \"source\": \"ECI results portal (WB May 2026)\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"Polling stations\",\n      \"value\": 85377,\n      \"unit\": \"stations\",\n      \"date\": \"2026-04-29\",\n      \"context\": \"Phase 1: 44,376; Phase 2: 41,001\",\n      \"source\": \"PIB PRID 2256756 (ECI)\",\n      \"confidence\": \"high\"\n    },\n    {\n      \"label\": \"CAPF deployment (peak reported)\",\n      \"value\": 780,\n      \"unit\": \"companies\",\n      \"date\": \"2026-03-31\",\n      \"context\": \"Security blanket before polling; reportage citing ECI/MHA\",\n      \"source\": \"Indian Express (security plan), Apr 2026\",\n      \"confidence\": \"medium\"\n    },\n    {\n      \"label\": \"WB\u2013Bangladesh border length\",\n      \"value\": 2216.7,\n      \"unit\": \"km\",\n      \"date\": \"2025-08-20\",\n      \"context\": \"PIB (MHA) briefing on fencing status\",\n      \"source\": \"PIB PRID 2158419\",\n      \"confidence\": \"high\"\n    }\n  ],\n  \"comparisons\": [\n    {\n      \"title\": \"Turnout then and now: 2011 vs 2026\",\n      \"unit\": \"percent\",\n      \"source\": \"PIB PRID 2256756; ADR (2021 turnout baseline)\",\n      \"items\": [\n        {\"label\": \"2011 Assembly (WB)\", \"value\": 84.72},\n        {\"label\": \"2026 Assembly (WB, combined)\", \"value\": 92.47}\n      ]\n    }\n  ],\n  \"timeline\": [\n    {\n      \"date\": \"2026-02-28\",\n      \"event\": \"Final electoral roll published (SIR 2026)\",\n      \"significance\": \"Establishes 6.445 crore electors; notes 60.06 lakh \u2018under adjudication\u2019\",\n      \"source\": \"CEO West Bengal, CEO/PN-05/2026\"\n    },\n    {\n      \"date\": \"2026-03-15\",\n      \"event\": \"ECI announces Bengal poll schedule\",\n      \"significance\": \"Two-phase polling Apr 23 and Apr 29; counting May 4\",\n      \"source\": \"PIB PRID 2253728\"\n    },\n    {\n      \"date\": \"2026-04-23\",\n      \"event\": \"Phase 1 polling\",\n      \"significance\": \"Turnout 93.19%, record participation\",\n      \"source\": \"PIB PRID 2256756\"\n    },\n    {\n      \"date\": \"2026-04-29\",\n      \"event\": \"Phase 2 polling\",\n      \"significance\": \"Turnout 91.66%; combined 92.47%\",\n      \"source\": \"PIB PRID 2256756\"\n    },\n    {\n      \"date\": \"2026-05-02\",\n      \"event\": \"Repoll in 15 booths\",\n      \"significance\": \"ECI voids polling at 15 PS in two ACs after complaints\",\n      \"source\": \"Times of India; NDTV\"\n    },\n    {\n      \"date\": \"2026-05-04\",\n      \"event\": \"Counting day (293/294 ACs)\",\n      \"significance\": \"ECI posts party-wise tallies; Falta excluded\",\n      \"source\": \"ECI results portal\"\n    },\n    {\n      \"date\": \"2026-05-21\",\n      \"event\": \"Full re-poll in Falta (all 285 PS)\",\n      \"significance\": \"Countermanded poll for severe electoral offences; result due May 24\",\n      \"source\": \"Economic Times report on ECI order\"\n    }\n  ],\n  \"tables\": [\n    {\n      \"title\": \"West Bengal 2026 Assembly Results (Declared) vs 2021\",\n      \"columns\": [\"Party\", \"2026 Seats (declared)\", \"2021 Seats\"],\n      \"rows\": [\n        [\"BJP\", \"207\", \"77\"],\n        [\"AITC\", \"80\", \"213\"],\n        [\"INC\", \"2\", \"0\"],\n        [\"CPI(M)\", \"1\", \"0\"],\n        [\"AISF\", \"1\", \"1\"],\n        [\"AJUP\", \"2\", \"\u2014\"]\n      ],\n      \"source\": \"ECI results portal (2026); PRS 2021 profile/ADR for 2021 baseline\"\n    }\n  ],\n  \"data_gaps\": [\n    \"ECI\u2019s consolidated Statistical Report for WB Assembly 2026 (vote shares, NOTA, gender/age participation) not yet available as a static PDF.\",\n    \"Definitive, single-source CAPF headcount and deployment-by-district matrix; current figures are from official briefings reported by media.\",\n    \"Granular turnout and margin analytics at AC level merged with 2024 LS segment data require a cleaned, joined dataset.\"\n  ]\n}\n</TOPIC_DATA>",
+            "type": "output_text"
+          }
+        ],
+        "id": "msg_0497a651970ac248006a001053712c8194aee730684b61ceb6",
+        "phase": null,
+        "role": "assistant",
+        "status": "completed",
+        "type": "message"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "in_memory",
+    "reasoning": {
+      "effort": "high",
+      "generate_summary": null,
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "status": "completed",
+    "store": true,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "text"
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tools": [
+      {
+        "filters": null,
+        "return_token_budget": "default",
+        "search_context_size": "medium",
+        "type": "web_search",
+        "user_location": {
+          "city": null,
+          "country": "US",
+          "region": null,
+          "timezone": null,
+          "type": "approximate"
+        }
+      }
+    ],
+    "top_logprobs": 0,
+    "top_p": 1.0,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 106527,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 15473,
+      "output_tokens_details": {
+        "reasoning_tokens": 6720
+      },
+      "total_tokens": 122000
+    },
+    "user": null
+  },
+  "response_id": "resp_0497a651970ac248006a000f93309c8194beb40c915a320514",
+  "skipped_api_call": false,
+  "slug": "west-bengal-elections",
+  "title": "West Bengal Elections 2026"
+}

@@ -1,0 +1,73 @@
+{
+  "api_scope": "Use local context first, then search only for missing sources, current facts, datasets, and unexplored subtopics.",
+  "category": "research-notes",
+  "content_hash": "d56a7ef8727dfa50a5d177534b4f7b9d66b8b37b8dba391c05ed42596971aa7c",
+  "existing_assets": [
+    {
+      "bytes": 505,
+      "kind": "topic_note",
+      "path": "docs/research-notes/west-bengal-elections.md",
+      "placeholder_score": 30
+    },
+    {
+      "bytes": 458,
+      "kind": "source_log",
+      "path": "sources/west-bengal-elections-sources.md",
+      "placeholder_score": 17
+    },
+    {
+      "bytes": 204,
+      "kind": "brief",
+      "path": "analyses/reports/west-bengal-elections-brief.md",
+      "placeholder_score": 16
+    },
+    {
+      "bytes": 498,
+      "kind": "presentation_outline",
+      "path": "docs/presentations/west-bengal-elections-outline.md",
+      "placeholder_score": 4
+    }
+  ],
+  "local_context_path": "data/processed/research_context/west-bengal-elections.md",
+  "missing_questions": [
+    "What datasets, metrics, comparisons, or quantitative indicators are required?",
+    "Which claims remain time-sensitive or unverified?"
+  ],
+  "recommendation": "deep-research-required",
+  "related_records": [
+    {
+      "brief_path": "analyses/reports/west-bengal-assembly-election-2026-brief.md",
+      "category": "internal-growth",
+      "presentation_deck_path": "docs/presentations/west-bengal-election-2026-analysis-deck.pptx",
+      "presentation_outline_path": "docs/presentations/west-bengal-assembly-election-2026-outline.md",
+      "slug": "west-bengal-assembly-election-2026",
+      "source_path": "sources/west-bengal-assembly-election-2026-sources.md",
+      "title": "West Bengal Assembly Election 2026",
+      "topic_data_path": "data/processed/topic_data/west-bengal-assembly-election-2026.json",
+      "topic_path": "docs/internal-growth/west-bengal-assembly-election-2026.md",
+      "updated_at": "2026-05-10T00:16:01+05:30"
+    },
+    {
+      "brief_path": "analyses/reports/west-bengal-elections-brief.md",
+      "category": "research-notes",
+      "presentation_deck_path": null,
+      "presentation_outline_path": "docs/presentations/west-bengal-elections-outline.md",
+      "slug": "west-bengal-elections",
+      "source_path": "sources/west-bengal-elections-sources.md",
+      "title": "West Bengal Elections 2026",
+      "topic_data_path": null,
+      "topic_path": "docs/research-notes/west-bengal-elections.md",
+      "updated_at": "uncommitted"
+    }
+  ],
+  "should_call_api": true,
+  "slug": "west-bengal-elections",
+  "title": "West Bengal Elections 2026",
+  "unexplored_subtopics": [
+    "Historical background behind West Bengal Elections 2026",
+    "Key actors and institutions shaping West Bengal Elections 2026",
+    "Latest official data and primary-source evidence for West Bengal Elections 2026",
+    "Risks, bottlenecks, and second-order effects of West Bengal Elections 2026",
+    "Future scenarios and what India should watch next for West Bengal Elections 2026"
+  ]
+}
