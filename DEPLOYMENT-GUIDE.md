@@ -21,10 +21,10 @@
 ### Step 4: Access Your Dashboard
 Once deployed, Streamlit will give you a public `*.streamlit.app` URL. If the custom subdomain is available, use:
 ```
-https://project-india-research.streamlit.app
+https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 ```
 
-If that subdomain is unavailable, use the generated URL shown by Streamlit.
+This generated URL is the current production URL.
 
 ---
 
@@ -264,7 +264,7 @@ Share the link on:
 
 Once deployed, your dashboard will be available at:
 
-🌐 **https://project-india-research.streamlit.app** if the custom subdomain is available; otherwise use the generated Streamlit app URL.
+🌐 **https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/**
 
 (Or your custom domain if configured)
 

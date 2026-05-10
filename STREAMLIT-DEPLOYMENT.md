@@ -22,7 +22,13 @@ Then open http://localhost:8501
    - Main file path: `dashboard.py`
 6. **Click "Deploy"**
 
-Choose the custom subdomain `project-india-research` if it is available. Otherwise, Streamlit will assign a generated `*.streamlit.app` URL.
+Production URL:
+
+```text
+https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
+```
+
+If the app is redeployed later, keep this URL as the canonical production URL unless Streamlit assigns a replacement.
 
 ## Features
 

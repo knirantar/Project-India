@@ -1,159 +1,221 @@
-"""Project India Research Dashboard — Streamlit App"""
+"""Project India public research dashboard."""
+
+from __future__ import annotations
 
 import json
-import os
-from pathlib import Path
-from datetime import datetime, UTC, timedelta
 import re
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
 
-import streamlit as st
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
+import streamlit as st
 
-# Page config
-st.set_page_config(
-    page_title="Project India Research Dashboard",
-    page_icon="🇮🇳",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
 
-# Custom CSS for branding
-st.markdown("""
-<style>
-    .main {
-        background-color: #f5f5f5;
-    }
-    .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        margin: 10px 0;
-    }
-    .topic-card {
-        background: white;
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 10px 0;
-    }
-    .status-active {
-        color: #00b894;
-        font-weight: bold;
-    }
-    .status-disabled {
-        color: #d63031;
-        font-weight: bold;
-    }
-    h1 {
-        color: #1e3c72;
-    }
-    h2 {
-        color: #2a5298;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# Constants
 ROOT = Path(__file__).parent
 CONFIG_PATH = ROOT / "research_config.json"
 DATA_DIR = ROOT / "data" / "processed"
 DOCS_DIR = ROOT / "docs"
+REPORTS_DIR = ROOT / "analyses" / "reports"
+SOURCES_DIR = ROOT / "sources"
+PROD_URL = "https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/"
 
-# ============================================================================
-# DATA LOADING & UTILITIES
-# ============================================================================
 
-@st.cache_data(ttl=300)  # Refresh every 5 minutes
-def load_config():
-    """Load research configuration."""
-    if CONFIG_PATH.exists():
-        return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
-    return {}
+st.set_page_config(
+    page_title="Project India Intelligence Dashboard",
+    page_icon="IN",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+st.markdown(
+    """
+<style>
+    .block-container { padding-top: 1.4rem; padding-bottom: 2rem; }
+    .pi-kicker {
+        color: #4f5d75;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+    }
+    .pi-hero {
+        border-left: 4px solid #1b998b;
+        padding: 0.25rem 0 0.25rem 1rem;
+        margin: 0.5rem 0 1rem 0;
+    }
+    .pi-muted { color: #5d6676; }
+    .pi-chip {
+        display: inline-block;
+        border: 1px solid #d8dee8;
+        border-radius: 999px;
+        padding: 0.12rem 0.55rem;
+        margin: 0 0.25rem 0.25rem 0;
+        color: #354052;
+        background: #f7f9fc;
+        font-size: 0.78rem;
+    }
+    .pi-section-note {
+        border: 1px solid #d8dee8;
+        border-radius: 8px;
+        padding: 0.75rem 0.9rem;
+        background: #fbfcfe;
+        color: #354052;
+    }
+    h1, h2, h3 { letter-spacing: 0; }
+</style>
+""",
+    unsafe_allow_html=True,
+)
+
 
 @st.cache_data(ttl=300)
-def load_research_index():
-    """Load research index."""
-    index_path = DATA_DIR / "research_index.json"
-    if index_path.exists():
-        return json.loads(index_path.read_text(encoding="utf-8"))
-    return {}
+def read_json(path: Path, fallback: Any) -> Any:
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
+    return fallback
+
 
 @st.cache_data(ttl=300)
-def load_all_runs():
-    """Load all research run records."""
+def read_text(path: Path) -> str:
+    if path.exists():
+        return path.read_text(encoding="utf-8")
+    return ""
+
+
+@st.cache_data(ttl=300)
+def load_config() -> dict[str, Any]:
+    return read_json(CONFIG_PATH, {})
+
+
+@st.cache_data(ttl=300)
+def load_research_index() -> list[dict[str, Any]]:
+    data = read_json(DATA_DIR / "research_index.json", [])
+    return data if isinstance(data, list) else []
+
+
+@st.cache_data(ttl=300)
+def load_topic_data(slug: str) -> dict[str, Any]:
+    data = read_json(DATA_DIR / "topic_data" / f"{slug}.json", {})
+    return data if isinstance(data, dict) else {}
+
+
+@st.cache_data(ttl=300)
+def load_research_runs() -> list[dict[str, Any]]:
     runs_dir = DATA_DIR / "research_runs"
-    runs = []
-    if runs_dir.exists():
-        for run_file in sorted(runs_dir.glob("*.json"), reverse=True):
-            try:
-                run_data = json.loads(run_file.read_text(encoding="utf-8"))
-                runs.append(run_data)
-            except:
-                pass
+    runs: list[dict[str, Any]] = []
+    if not runs_dir.exists():
+        return runs
+
+    for run_file in sorted(runs_dir.glob("*.json"), reverse=True):
+        try:
+            data = json.loads(run_file.read_text(encoding="utf-8"))
+            if isinstance(data, dict):
+                runs.append(data)
+        except json.JSONDecodeError:
+            continue
     return runs
 
-@st.cache_data(ttl=300)
-def load_topic_data(slug):
-    """Load structured topic data."""
-    data_path = DATA_DIR / "topic_data" / f"{slug}.json"
-    if data_path.exists():
-        return json.loads(data_path.read_text(encoding="utf-8"))
-    return {}
 
-def get_topic_summary(slug):
-    """Get brief summary of a topic from docs."""
-    for category in ["geopolitics", "internal-growth", "sectors", "research-notes"]:
-        topic_path = DOCS_DIR / category / f"{slug}.md"
-        if topic_path.exists():
-            content = topic_path.read_text(encoding="utf-8")
-            # Extract first paragraph
-            lines = [l for l in content.split("\n") if l.strip() and not l.startswith("#")]
-            return " ".join(lines[:3])[:200] + "..."
-    return "No content available"
-
-def get_status_color(status):
-    """Return color for status badge."""
-    colors = {
-        "mature": "#00b894",
-        "active": "#fdcb6e",
-        "stub": "#e17055",
-        "disabled": "#d63031",
-    }
-    return colors.get(status, "#636e72")
+def section_text(markdown: str, heading: str) -> str:
+    """Extract a markdown section by heading text."""
+    pattern = re.compile(
+        rf"^##\s+{re.escape(heading)}\s*$([\s\S]*?)(?=^##\s+|\Z)",
+        re.MULTILINE,
+    )
+    match = pattern.search(markdown)
+    return match.group(1).strip() if match else ""
 
 
-def format_metric_value(metric):
-    """Format a structured topic metric for display."""
-    if isinstance(metric, dict):
-        value = metric.get("value", "N/A")
-        unit = metric.get("unit")
-        if unit and unit not in {"number", "count"}:
-            return f"{value} {unit}"
-        return value
-    return metric
+def first_paragraph(markdown: str, limit: int = 340) -> str:
+    lines = []
+    for line in markdown.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        lines.append(stripped)
+        if len(" ".join(lines)) >= limit:
+            break
+    text = " ".join(lines)
+    return text[:limit].rstrip() + ("..." if len(text) > limit else "")
 
 
-def display_topic_metrics(topic_data):
-    """Display topic metrics from either dict or list-based structured data."""
-    metrics = topic_data.get("metrics", {})
+def file_label(path: str | None) -> str:
+    return path or "Not available"
+
+
+def topic_markdown_path(record: dict[str, Any]) -> Path | None:
+    path = record.get("topic_path")
+    return ROOT / path if path else None
+
+
+def brief_markdown_path(record: dict[str, Any]) -> Path | None:
+    path = record.get("brief_path")
+    return ROOT / path if path else None
+
+
+def topic_summary(record: dict[str, Any]) -> str:
+    topic_path = topic_markdown_path(record)
+    if topic_path and topic_path.exists():
+        return first_paragraph(read_text(topic_path))
+    brief_path = brief_markdown_path(record)
+    if brief_path and brief_path.exists():
+        return first_paragraph(read_text(brief_path))
+    return "Research note is present in the index, but no readable summary has been added yet."
+
+
+def merged_topics() -> list[dict[str, Any]]:
+    config = load_config()
+    index = load_research_index()
+    by_slug: dict[str, dict[str, Any]] = {}
+
+    for item in index:
+        slug = item.get("slug")
+        if slug:
+            by_slug[slug] = dict(item)
+
+    for topic in config.get("topics", []):
+        slug = topic.get("slug")
+        if not slug:
+            continue
+        record = by_slug.setdefault(slug, {})
+        record.update(
+            {
+                "title": topic.get("title", record.get("title", slug)),
+                "slug": slug,
+                "category": topic.get("category", record.get("category", "research-notes")),
+                "enabled": topic.get("enabled", True),
+                "schedule": topic.get("schedule", {}),
+                "strategy": topic.get("strategy", {}),
+                "metadata": topic.get("metadata", {}),
+            }
+        )
+
+    return sorted(
+        by_slug.values(),
+        key=lambda item: (
+            0 if load_topic_data(item.get("slug", "")) else 1,
+            item.get("category", ""),
+            item.get("title", ""),
+        ),
+    )
+
+
+def display_metric_cards(topic_data: dict[str, Any]) -> None:
+    metrics = topic_data.get("metrics")
     if not metrics:
         return
 
-    st.markdown("**Key Metrics:**")
-
     if isinstance(metrics, dict):
         metric_items = [
-            {"label": metric_name, "value": metric_value}
-            for metric_name, metric_value in metrics.items()
+            {"label": str(label), "value": value, "unit": ""}
+            for label, value in metrics.items()
         ]
     elif isinstance(metrics, list):
         metric_items = [
-            metric
-            for metric in metrics
-            if isinstance(metric, dict) and metric.get("label") is not None
+            metric for metric in metrics if isinstance(metric, dict) and metric.get("label")
         ]
     else:
         return
@@ -161,471 +223,372 @@ def display_topic_metrics(topic_data):
     if not metric_items:
         return
 
-    metric_cols = st.columns(min(len(metric_items), 4))
-    for idx, metric in enumerate(metric_items):
-        if isinstance(metric, dict):
-            label = str(metric.get("label", "Metric"))
-            value = format_metric_value(metric)
-            help_text = metric.get("context") or metric.get("source")
-        else:
-            label = "Metric"
-            value = metric
-            help_text = None
+    st.subheader("Evidence Metrics")
+    cols = st.columns(min(4, len(metric_items)))
+    for idx, metric in enumerate(metric_items[:8]):
+        value = metric.get("value", "N/A")
+        unit = metric.get("unit")
+        display_value = f"{value} {unit}" if unit and unit not in {"count", "number"} else value
+        with cols[idx % len(cols)]:
+            st.metric(
+                str(metric.get("label", "Metric")),
+                display_value,
+                help=metric.get("context") or metric.get("source"),
+            )
 
-        with metric_cols[idx % len(metric_cols)]:
-            st.metric(label, value, help=help_text)
+    with st.expander("Metric evidence table", expanded=False):
+        st.dataframe(pd.DataFrame(metric_items), width="stretch", hide_index=True)
 
-# ============================================================================
-# SIDEBAR NAVIGATION
-# ============================================================================
+
+def display_comparisons(topic_data: dict[str, Any]) -> None:
+    comparisons = topic_data.get("comparisons")
+    if not isinstance(comparisons, list) or not comparisons:
+        return
+
+    st.subheader("Comparisons")
+    for comparison in comparisons:
+        if not isinstance(comparison, dict):
+            continue
+        items = comparison.get("items")
+        if not isinstance(items, list) or not items:
+            continue
+        df = pd.DataFrame(items)
+        title = comparison.get("title", "Comparison")
+        unit = comparison.get("unit", "")
+
+        left, right = st.columns([1.3, 1])
+        with left:
+            fig = px.bar(
+                df,
+                x="label",
+                y="value",
+                title=title,
+                labels={"label": "", "value": unit or "Value"},
+                color="label",
+                color_discrete_sequence=px.colors.qualitative.Safe,
+            )
+            fig.update_layout(showlegend=False)
+            st.plotly_chart(fig, width="stretch")
+        with right:
+            st.dataframe(df, width="stretch", hide_index=True)
+            if comparison.get("source"):
+                st.caption(f"Source: {comparison['source']}")
+
+
+def display_timeline(topic_data: dict[str, Any]) -> None:
+    timeline = topic_data.get("timeline")
+    if not isinstance(timeline, list) or not timeline:
+        return
+
+    st.subheader("Timeline")
+    df = pd.DataFrame(timeline)
+    st.dataframe(df, width="stretch", hide_index=True)
+
+
+def display_tables(topic_data: dict[str, Any]) -> None:
+    tables = topic_data.get("tables")
+    if not isinstance(tables, list) or not tables:
+        return
+
+    st.subheader("Tables")
+    for table in tables:
+        if not isinstance(table, dict):
+            continue
+        title = table.get("title", "Table")
+        columns = table.get("columns", [])
+        rows = table.get("rows", [])
+        if not rows:
+            continue
+        st.markdown(f"**{title}**")
+        st.dataframe(pd.DataFrame(rows, columns=columns or None), width="stretch", hide_index=True)
+        if table.get("source"):
+            st.caption(f"Source: {table['source']}")
+
+
+def display_gaps(topic_data: dict[str, Any]) -> None:
+    gaps = topic_data.get("data_gaps")
+    if not isinstance(gaps, list) or not gaps:
+        return
+
+    st.subheader("Open Research Questions")
+    for gap in gaps:
+        st.markdown(f"- {gap}")
+
+
+def display_brief(record: dict[str, Any]) -> None:
+    brief_path = brief_markdown_path(record)
+    if not brief_path or not brief_path.exists():
+        st.info("No written brief has been added for this topic yet.")
+        return
+
+    brief = read_text(brief_path)
+    bottom_line = section_text(brief, "Bottom Line")
+    takeaways = section_text(brief, "Key Takeaways")
+    context = section_text(brief, "Strategic Context")
+    implications = section_text(brief, "Implications")
+    next_research = section_text(brief, "Recommended Next Research")
+
+    if bottom_line:
+        st.subheader("Bottom Line")
+        st.markdown(bottom_line)
+
+    if takeaways:
+        st.subheader("Key Takeaways")
+        st.markdown(takeaways)
+
+    if context or implications:
+        tab_context, tab_implications = st.tabs(["Strategic Context", "Implications"])
+        with tab_context:
+            st.markdown(context or "No strategic context has been written yet.")
+        with tab_implications:
+            st.markdown(implications or "No implication analysis has been written yet.")
+
+    if next_research:
+        with st.expander("Recommended next research", expanded=False):
+            st.markdown(next_research)
+
+
+def display_topic(record: dict[str, Any], *, expanded_evidence: bool = True) -> None:
+    title = record.get("title", record.get("slug", "Untitled topic"))
+    slug = record.get("slug", "")
+    category = record.get("category", "research-notes")
+    topic_data = load_topic_data(slug)
+    metadata = record.get("metadata", {})
+    status = topic_data.get("status") or metadata.get("development_status", "developing")
+
+    st.markdown(f"<div class='pi-kicker'>{category} / {status}</div>", unsafe_allow_html=True)
+    st.header(title)
+    st.markdown(f"<div class='pi-section-note'>{topic_summary(record)}</div>", unsafe_allow_html=True)
+
+    st.caption(
+        " | ".join(
+            [
+                f"Slug: {slug}",
+                f"Updated: {record.get('updated_at', 'unknown')}",
+                f"Topic note: {file_label(record.get('topic_path'))}",
+                f"Brief: {file_label(record.get('brief_path'))}",
+            ]
+        )
+    )
+
+    st.divider()
+    display_brief(record)
+
+    if topic_data:
+        with st.expander("Structured evidence board", expanded=expanded_evidence):
+            display_metric_cards(topic_data)
+            display_comparisons(topic_data)
+            display_timeline(topic_data)
+            display_tables(topic_data)
+            display_gaps(topic_data)
+    else:
+        st.info(
+            "This topic has prose research but no structured topic-data file yet. "
+            "Add metrics, timelines, comparisons, and tables under data/processed/topic_data/ "
+            "to unlock charts and evidence boards."
+        )
+
+
+def display_topic_cards(records: list[dict[str, Any]]) -> None:
+    cols = st.columns(3)
+    for idx, record in enumerate(records):
+        slug = record.get("slug", "")
+        topic_data = load_topic_data(slug)
+        metric_count = len(topic_data.get("metrics", [])) if topic_data else 0
+        gap_count = len(topic_data.get("data_gaps", [])) if topic_data else 0
+        with cols[idx % 3]:
+            st.markdown(f"**{record.get('title', slug)}**")
+            st.caption(f"{record.get('category', 'research-notes')} | {record.get('updated_at', 'unknown')}")
+            st.write(topic_summary(record))
+            st.markdown(
+                f"<span class='pi-chip'>{metric_count} metrics</span>"
+                f"<span class='pi-chip'>{gap_count} gaps</span>"
+                f"<span class='pi-chip'>{'structured' if topic_data else 'prose only'}</span>",
+                unsafe_allow_html=True,
+            )
+
 
 with st.sidebar:
-    st.title("🇮🇳 Project India")
+    st.title("Project India")
+    st.caption("Public research intelligence dashboard")
+    st.link_button("Open production app", PROD_URL)
     st.divider()
-    
+
     page = st.radio(
         "Navigation",
-        ["📊 Overview", "🌍 Geopolitics", "🏛️ Internal Growth", "⚙️ Sectors", 
-         "📈 Research History", "⚙️ Admin"],
+        ["Insight Briefs", "Topic Explorer", "Research Library", "Operations"],
     )
-    
-    st.divider()
-    
-    config = load_config()
-    if config:
-        st.subheader("💰 Budget Status")
-        budget = config.get("budget", {})
-        spent = budget.get("current_month_spent_usd", 0)
-        limit = budget.get("monthly_limit_usd", 50)
-        remaining = limit - spent
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.metric("Spent", f"${spent:.2f}")
-        with col2:
-            st.metric("Remaining", f"${remaining:.2f}")
-        
-        # Progress bar
-        progress = min(spent / limit, 1.0)
-        st.progress(progress)
-        
-        if progress > 0.8:
-            st.warning("⚠️ Budget > 80%")
 
-# ============================================================================
-# PAGE: OVERVIEW
-# ============================================================================
-
-if page == "📊 Overview":
-    st.title("📊 Project India Research Dashboard")
-    st.markdown("Automated research on India's geopolitics, internal growth, and sectors — powered by GPT-5 and optimized for accuracy.")
     st.divider()
-    
-    config = load_config()
+    st.caption("Insight pages show research conclusions. API spend and workflow controls are kept in Operations.")
+
+
+topics = merged_topics()
+config = load_config()
+runs = load_research_runs()
+structured_topics = [topic for topic in topics if load_topic_data(topic.get("slug", ""))]
+
+
+if page == "Insight Briefs":
+    st.markdown("<div class='pi-kicker'>Project India</div>", unsafe_allow_html=True)
+    st.title("Research Intelligence Dashboard")
+    st.markdown(
+        "<div class='pi-hero'>A public-facing surface for India's geopolitical, electoral, "
+        "and sector research. This page leads with conclusions, evidence, timelines, and "
+        "open questions rather than workflow costs.</div>",
+        unsafe_allow_html=True,
+    )
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Tracked topics", len(topics))
+    c2.metric("Structured datasets", len(structured_topics))
+    c3.metric("Research runs", len(runs))
+    c4.metric("Source logs", len(list(SOURCES_DIR.glob("*-sources.md"))))
+
+    st.divider()
+    st.subheader("Featured Research")
+
+    featured = structured_topics or topics
+    if not featured:
+        st.info("No topics are indexed yet.")
+    else:
+        labels = [f"{record.get('title', record.get('slug'))} ({record.get('category')})" for record in featured]
+        selected_label = st.selectbox("Select a topic", labels, label_visibility="collapsed")
+        selected = featured[labels.index(selected_label)]
+        display_topic(selected, expanded_evidence=True)
+
+    st.divider()
+    st.subheader("Coverage Map")
+    display_topic_cards(topics)
+
+
+elif page == "Topic Explorer":
+    st.title("Topic Explorer")
+    st.markdown("Browse research by category and open the full evidence board for each topic.")
+
+    categories = ["all"] + sorted({topic.get("category", "research-notes") for topic in topics})
+    selected_category = st.segmented_control("Category", categories, default="all")
+    only_structured = st.toggle("Only topics with structured data", value=False)
+
+    filtered = [
+        topic
+        for topic in topics
+        if (selected_category == "all" or topic.get("category") == selected_category)
+        and (not only_structured or load_topic_data(topic.get("slug", "")))
+    ]
+
+    if not filtered:
+        st.info("No topics match this filter.")
+    for record in filtered:
+        with st.expander(record.get("title", record.get("slug", "Untitled")), expanded=False):
+            display_topic(record, expanded_evidence=False)
+
+
+elif page == "Research Library":
+    st.title("Research Library")
+    st.markdown("Indexed files that power the dashboard and future research reuse.")
+
     index = load_research_index()
-    
-    if not config or "topics" not in config:
-        st.error("No configuration found. Please check research_config.json.")
-        st.stop()
-    
-    # Key Metrics
-    st.subheader("📈 Key Metrics")
-    
-    topics = config.get("topics", [])
-    enabled_topics = [t for t in topics if t.get("enabled", True)]
-    
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("Total Topics", len(topics))
-    with col2:
-        st.metric("Active Research", len(enabled_topics))
-    with col3:
-        budget = config.get("budget", {})
-        st.metric("Monthly Budget", f"${budget.get('monthly_limit_usd', 0)}")
-    with col4:
-        runs = load_all_runs()
-        st.metric("Research Runs", len(runs))
-    
-    st.divider()
-    
-    # Topics Grid
-    st.subheader("📑 Topics")
-    
-    # Filter by status
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        show_disabled = st.checkbox("Show disabled topics", value=False)
-    
-    display_topics = topics if show_disabled else enabled_topics
-    
-    # Display topics as cards
-    cols = st.columns(3)
-    for idx, topic in enumerate(display_topics):
-        col = cols[idx % 3]
-        
-        with col:
-            status = topic.get("metadata", {}).get("development_status", "unknown")
-            enabled = topic.get("enabled", True)
-            
-            status_color = get_status_color(status)
-            status_text = "🟢 ACTIVE" if enabled else "🔴 DISABLED"
-            
-            st.markdown(f"""
-            <div class="topic-card">
-                <h4>{topic['title']}</h4>
-                <p><small>{get_topic_summary(topic['slug'])}</small></p>
-                <p>
-                    <b>Schedule:</b> {topic['schedule']['frequency'].capitalize()}<br>
-                    <b>Status:</b> {status_text}<br>
-                    <b>Last Run:</b> {topic['schedule'].get('last_run_date', 'Never')}<br>
-                    <b>Cost (month):</b> ${topic.get('metadata', {}).get('last_cost_usd', 0):.2f}
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-    
-    st.divider()
-    
-    # Research Cost Breakdown
-    st.subheader("💸 Cost Breakdown")
-    
-    cost_data = []
-    for topic in topics:
-        cost_data.append({
-            "Topic": topic["title"],
-            "Cost": topic.get("metadata", {}).get("last_cost_usd", 0),
-            "Calls": topic.get("metadata", {}).get("api_calls_month", 0),
-        })
-    
-    df_costs = pd.DataFrame(cost_data)
-    
-    if not df_costs.empty:
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            fig = px.pie(
-                df_costs,
-                values="Cost",
-                names="Topic",
-                title="Cost Distribution",
-                color_discrete_sequence=px.colors.qualitative.Set2,
-            )
-            st.plotly_chart(fig, width="stretch")
-        
-        with col2:
-            fig = px.bar(
-                df_costs,
-                x="Topic",
-                y="Calls",
-                title="API Calls by Topic",
-                color="Topic",
-                color_discrete_sequence=px.colors.qualitative.Set2,
-            )
-            st.plotly_chart(fig, width="stretch")
-
-# ============================================================================
-# PAGE: GEOPOLITICS
-# ============================================================================
-
-elif page == "🌍 Geopolitics":
-    st.title("🌍 Geopolitics")
-    st.markdown("Strategic analysis of India's international relations and global positioning.")
-    st.divider()
-    
-    config = load_config()
-    geopolitics_topics = [t for t in config.get("topics", []) if t["category"] == "geopolitics"]
-    
-    if not geopolitics_topics:
-        st.info("No geopolitics topics configured yet.")
+    if not index:
+        st.info("No research index has been generated yet.")
     else:
-        for topic in geopolitics_topics:
-            with st.expander(f"📌 {topic['title']}", expanded=True):
-                col1, col2, col3 = st.columns(3)
-                
-                with col1:
-                    status = topic.get("metadata", {}).get("development_status", "unknown")
-                    st.metric("Status", status.upper())
-                
-                with col2:
-                    st.metric("Schedule", topic["schedule"]["frequency"].capitalize())
-                
-                with col3:
-                    st.metric("Monthly Cost", f"${topic.get('metadata', {}).get('last_cost_usd', 0):.2f}")
-                
-                st.markdown("**Topic Summary:**")
-                st.write(get_topic_summary(topic["slug"]))
-                
-                # Load and display structured data if available
-                topic_data = load_topic_data(topic["slug"])
-                
-                if topic_data:
-                    display_topic_metrics(topic_data)
-                    
-                    # Display comparisons
-                    if "comparisons" in topic_data:
-                        st.markdown("**Comparisons:**")
-                        comparisons = topic_data["comparisons"]
-                        if isinstance(comparisons, list) and comparisons:
-                            df_comp = pd.DataFrame(comparisons)
-                            st.dataframe(df_comp, width="stretch")
-                    
-                    # Display timeline
-                    if "timeline" in topic_data:
-                        st.markdown("**Timeline:**")
-                        timeline = topic_data["timeline"]
-                        if isinstance(timeline, list) and timeline:
-                            df_timeline = pd.DataFrame(timeline)
-                            st.dataframe(df_timeline, width="stretch")
+        df = pd.DataFrame(index)
+        visible_cols = [
+            "title",
+            "slug",
+            "category",
+            "topic_path",
+            "brief_path",
+            "source_path",
+            "topic_data_path",
+            "updated_at",
+        ]
+        st.dataframe(df[[col for col in visible_cols if col in df.columns]], width="stretch", hide_index=True)
 
-# ============================================================================
-# PAGE: INTERNAL GROWTH
-# ============================================================================
+    with st.expander("Raw index JSON", expanded=False):
+        st.json(index)
 
-elif page == "🏛️ Internal Growth":
-    st.title("🏛️ Internal Growth")
-    st.markdown("Analysis of India's internal development, governance, and elections.")
-    st.divider()
-    
-    config = load_config()
-    internal_topics = [t for t in config.get("topics", []) if t["category"] == "internal-growth"]
-    
-    if not internal_topics:
-        st.info("No internal growth topics configured yet.")
-    else:
-        for topic in internal_topics:
-            with st.expander(f"📌 {topic['title']}", expanded=True):
-                col1, col2, col3 = st.columns(3)
-                
-                with col1:
-                    status = topic.get("metadata", {}).get("development_status", "unknown")
-                    st.metric("Status", status.upper())
-                
-                with col2:
-                    st.metric("Schedule", topic["schedule"]["frequency"].capitalize())
-                
-                with col3:
-                    st.metric("Monthly Cost", f"${topic.get('metadata', {}).get('last_cost_usd', 0):.2f}")
-                
-                st.markdown("**Topic Summary:**")
-                st.write(get_topic_summary(topic["slug"]))
-                
-                # Load and display structured data if available
-                topic_data = load_topic_data(topic["slug"])
-                
-                if topic_data:
-                    display_topic_metrics(topic_data)
-                    
-                    # Display comparisons
-                    if "comparisons" in topic_data:
-                        st.markdown("**Comparisons:**")
-                        comparisons = topic_data["comparisons"]
-                        if isinstance(comparisons, list) and comparisons:
-                            df_comp = pd.DataFrame(comparisons)
-                            st.dataframe(df_comp, width="stretch")
 
-# ============================================================================
-# PAGE: SECTORS
-# ============================================================================
+elif page == "Operations":
+    st.title("Operations")
+    st.markdown("Workflow, schedule, budget, and API-use controls live here so public insight pages stay clean.")
 
-elif page == "⚙️ Sectors":
-    st.title("⚙️ Sectors")
-    st.markdown("India's sectoral analysis: semiconductors, infrastructure, economy, and strategic industries.")
-    st.divider()
-    
-    config = load_config()
-    sectors_topics = [t for t in config.get("topics", []) if t["category"] == "sectors"]
-    
-    if not sectors_topics:
-        st.info("No sector topics configured yet.")
-    else:
-        for topic in sectors_topics:
-            with st.expander(f"📌 {topic['title']}", expanded=True):
-                col1, col2, col3 = st.columns(3)
-                
-                with col1:
-                    status = topic.get("metadata", {}).get("development_status", "unknown")
-                    st.metric("Status", status.upper())
-                
-                with col2:
-                    st.metric("Schedule", topic["schedule"]["frequency"].capitalize())
-                
-                with col3:
-                    st.metric("Monthly Cost", f"${topic.get('metadata', {}).get('last_cost_usd', 0):.2f}")
-                
-                st.markdown("**Topic Summary:**")
-                st.write(get_topic_summary(topic["slug"]))
-                
-                # Load and display structured data if available
-                topic_data = load_topic_data(topic["slug"])
-                
-                if topic_data:
-                    display_topic_metrics(topic_data)
-
-# ============================================================================
-# PAGE: RESEARCH HISTORY
-# ============================================================================
-
-elif page == "📈 Research History":
-    st.title("📈 Research History")
-    st.markdown("Track all incremental research runs, costs, and changes over time.")
-    st.divider()
-    
-    runs = load_all_runs()
-    
-    if not runs:
-        st.info("No research runs recorded yet.")
-    else:
-        st.subheader(f"📊 {len(runs)} Research Runs")
-        
-        # Create dataframe from runs
-        runs_data = []
-        for run in runs:
-            runs_data.append({
-                "Timestamp": run.get("timestamp", "Unknown"),
-                "Topic": run.get("title", "Unknown"),
-                "Strategy": run.get("strategy", "Unknown"),
-                "Cost": run.get("api_cost_usd", 0),
-                "Summary": run.get("summary", "No summary")[:100] + "...",
-            })
-        
-        df_runs = pd.DataFrame(runs_data)
-        
-        # Display table
-        st.dataframe(df_runs, width="stretch", hide_index=True)
-        
-        st.divider()
-        
-        # Cost trend
-        st.subheader("💰 Cost Trend")
-        df_runs["Timestamp"] = pd.to_datetime(df_runs["Timestamp"])
-        df_runs = df_runs.sort_values("Timestamp")
-        df_runs["Cumulative Cost"] = df_runs["Cost"].cumsum()
-        
-        fig = px.line(
-            df_runs,
-            x="Timestamp",
-            y="Cumulative Cost",
-            title="Cumulative API Cost Over Time",
-            markers=True,
-        )
-        st.plotly_chart(fig, width="stretch")
-        
-        # Strategy distribution
-        st.subheader("🎯 Strategy Distribution")
-        strategy_counts = df_runs["Strategy"].value_counts()
-        
-        fig = px.pie(
-            values=strategy_counts.values,
-            names=strategy_counts.index,
-            title="Research Runs by Strategy",
-            color_discrete_sequence=px.colors.qualitative.Set2,
-        )
-        st.plotly_chart(fig, width="stretch")
-
-# ============================================================================
-# PAGE: ADMIN
-# ============================================================================
-
-elif page == "⚙️ Admin":
-    st.title("⚙️ Administration")
-    st.markdown("Manage topics, schedules, and research configuration.")
-    st.divider()
-    
-    admin_tab1, admin_tab2, admin_tab3 = st.tabs(
-        ["Topics", "Schedules", "Configuration"]
+    tab_budget, tab_schedules, tab_history, tab_config = st.tabs(
+        ["Budget", "Schedules", "Research History", "Configuration"]
     )
-    
-    with admin_tab1:
-        st.subheader("📝 Topic Management")
-        
-        config = load_config()
-        topics = config.get("topics", [])
-        
-        st.markdown("**Current Topics:**")
-        for topic in topics:
-            col1, col2, col3 = st.columns([2, 1, 1])
-            
-            with col1:
-                st.write(f"**{topic['title']}** ({topic['slug']})")
-            with col2:
-                status = "🟢 Active" if topic.get("enabled") else "🔴 Disabled"
-                st.write(status)
-            with col3:
-                if st.button("Edit", key=f"edit_{topic['slug']}"):
-                    st.info("Edit functionality coming soon. Use GitHub Issues to modify topics.")
-        
-        st.divider()
-        
-        st.markdown("**Add New Topic:**")
-        st.info("To add a new topic, create a GitHub Issue using the 'Add New Research Topic' template.")
-        st.markdown("👉 [Go to GitHub Issues](https://github.com/knirantar/Project-India/issues/new?template=01-add-topic.md)")
-    
-    with admin_tab2:
-        st.subheader("⏰ Schedule Management")
-        
-        config = load_config()
-        topics = config.get("topics", [])
-        
-        st.markdown("**Current Schedules:**")
-        for topic in topics:
-            col1, col2, col3, col4 = st.columns(4)
-            
-            with col1:
-                st.write(f"**{topic['title']}**")
-            with col2:
-                st.write(f"Frequency: {topic['schedule']['frequency']}")
-            with col3:
-                st.write(f"Time: {topic['schedule']['time_utc']} UTC")
-            with col4:
-                next_run = topic['schedule'].get('next_scheduled_run', 'Unknown')
-                st.write(f"Next: {next_run}")
-        
-        st.divider()
-        
-        st.markdown("**Modify Schedule:**")
-        st.info("To modify a topic's schedule, create a GitHub Issue using the 'Modify Research Schedule' template.")
-        st.markdown("👉 [Go to GitHub Issues](https://github.com/knirantar/Project-India/issues/new?template=02-modify-schedule.md)")
-    
-    with admin_tab3:
-        st.subheader("⚙️ Configuration")
-        
-        config = load_config()
-        
-        st.markdown("**Budget Configuration:**")
+
+    with tab_budget:
         budget = config.get("budget", {})
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            st.metric("Monthly Limit", f"${budget.get('monthly_limit_usd', 50)}")
-        with col2:
-            st.metric("Current Month Spent", f"${budget.get('current_month_spent_usd', 0):.2f}")
-        with col3:
-            remaining = budget.get("monthly_limit_usd", 50) - budget.get("current_month_spent_usd", 0)
-            st.metric("Remaining", f"${remaining:.2f}")
-        
-        st.divider()
-        
-        st.markdown("**Research Strategies:**")
-        strategies = config.get("strategies", {})
-        for strategy_name, strategy_config in strategies.items():
-            st.markdown(f"**{strategy_name.upper()}**")
-            st.write(f"Description: {strategy_config.get('description', 'N/A')}")
-            st.write(f"Est. Cost: ${strategy_config.get('api_cost_estimate_usd', 0)}")
-        
-        st.divider()
-        
-        st.markdown("**Raw Configuration:**")
+        spent = float(budget.get("current_month_spent_usd", 0))
+        limit = float(budget.get("monthly_limit_usd", 50))
+        remaining = max(limit - spent, 0)
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Monthly limit", f"${limit:.2f}")
+        c2.metric("Current spend", f"${spent:.2f}")
+        c3.metric("Remaining", f"${remaining:.2f}")
+        st.progress(min(spent / limit, 1.0) if limit else 0)
+
+        cost_rows = []
+        for topic in config.get("topics", []):
+            metadata = topic.get("metadata", {})
+            cost_rows.append(
+                {
+                    "Topic": topic.get("title"),
+                    "Last cost": metadata.get("last_cost_usd", 0),
+                    "Calls this month": metadata.get("api_calls_month", 0),
+                    "Total cost this month": metadata.get("total_cost_month", 0),
+                }
+            )
+        if cost_rows:
+            st.dataframe(pd.DataFrame(cost_rows), width="stretch", hide_index=True)
+
+    with tab_schedules:
+        rows = []
+        for topic in config.get("topics", []):
+            schedule = topic.get("schedule", {})
+            rows.append(
+                {
+                    "Topic": topic.get("title"),
+                    "Enabled": topic.get("enabled", True),
+                    "Frequency": schedule.get("frequency"),
+                    "Time UTC": schedule.get("time_utc"),
+                    "Last run": schedule.get("last_run_date"),
+                    "Next run": schedule.get("next_scheduled_run"),
+                    "Strategy rotation": ", ".join(topic.get("strategy", {}).get("rotation", [])),
+                }
+            )
+        st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+
+    with tab_history:
+        if not runs:
+            st.info("No research runs recorded yet.")
+        else:
+            df_runs = pd.DataFrame(runs)
+            st.dataframe(df_runs, width="stretch", hide_index=True)
+            if "timestamp" in df_runs.columns and "api_cost_usd" in df_runs.columns:
+                trend = df_runs.copy()
+                trend["timestamp"] = pd.to_datetime(trend["timestamp"], errors="coerce")
+                trend = trend.dropna(subset=["timestamp"]).sort_values("timestamp")
+                trend["cumulative_cost"] = trend["api_cost_usd"].fillna(0).cumsum()
+                fig = px.line(
+                    trend,
+                    x="timestamp",
+                    y="cumulative_cost",
+                    color="title" if "title" in trend.columns else None,
+                    markers=True,
+                    title="Cumulative API cost over time",
+                )
+                st.plotly_chart(fig, width="stretch")
+
+    with tab_config:
+        st.markdown("**Production URL**")
+        st.code(PROD_URL)
+        st.markdown("**Raw research configuration**")
         st.json(config)
 
-# ============================================================================
-# FOOTER
-# ============================================================================
 
 st.divider()
-st.markdown("""
----
-<div style="text-align: center;">
-    <p>🇮🇳 <b>Project India</b> — Research Dashboard</p>
-    <p><small>Powered by Streamlit • Data updated every 5 minutes</small></p>
-    <p><small>Last Updated: {}</small></p>
-</div>
-""".format(datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")), unsafe_allow_html=True)
+st.caption(
+    f"Project India research dashboard | Production: {PROD_URL} | "
+    f"Last rendered {datetime.now(UTC).strftime('%Y-%m-%d %H:%M UTC')}"
+)
