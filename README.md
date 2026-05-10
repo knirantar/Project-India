@@ -67,7 +67,14 @@ python3 -m pip install -e ".[presentation]"
 python3 -m project_india.cli build-presentation "West Bengal Assembly Election 2026" --slug west-bengal-assembly-election-2026 --category internal-growth
 ```
 
-The GitHub Actions workflow `Generate Topic Presentation` can run the same process from GitHub using manual inputs for title, slug, and category.
+Run source-backed AI research before building outputs:
+
+```bash
+python3 -m pip install -e ".[research]"
+OPENAI_API_KEY=... python3 -m project_india.cli deep-research "India's Semiconductor Mission" --slug india-semiconductor-mission --category sectors
+```
+
+The GitHub Actions workflow `Generate Topic Presentation` can run the same process from GitHub using manual inputs for title, slug, and category. Set `research_mode` to `deep` to run AI web research first. This requires an `OPENAI_API_KEY` repository secret.
 
 ## Working Principles
 

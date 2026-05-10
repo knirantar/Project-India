@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from project_india.deep_research import run_deep_research
 from project_india.presentation_builder import build_presentation
 from project_india.research_db import write_index
 from project_india.topics import TOPIC_FOLDERS, create_topic
@@ -50,6 +51,30 @@ def build_parser() -> argparse.ArgumentParser:
     )
     deck_parser.add_argument("--output", help="Optional PPTX output path.")
 
+    research_parser = subparsers.add_parser(
+        "deep-research",
+        help="Run AI-assisted web research and write topic, source, brief, and outline files.",
+    )
+    research_parser.add_argument("title", help="Human-readable topic title.")
+    research_parser.add_argument("--slug", help="Optional file slug.")
+    research_parser.add_argument(
+        "--category",
+        choices=sorted(TOPIC_FOLDERS),
+        default="sectors",
+        help="Destination docs category for the topic note.",
+    )
+    research_parser.add_argument(
+        "--model",
+        default="gpt-5",
+        help="OpenAI model to use for research.",
+    )
+    research_parser.add_argument(
+        "--depth",
+        choices=["standard", "deep"],
+        default="deep",
+        help="Research depth.",
+    )
+
     return parser
 
 
@@ -82,6 +107,21 @@ def main() -> None:
             output_path=Path(args.output) if args.output else None,
         )
         print(f"Wrote presentation: {output}")
+
+    if args.command == "deep-research":
+        outputs = run_deep_research(
+            args.title,
+            slug=args.slug,
+            category=args.category,
+            model=args.model,
+            depth=args.depth,
+        )
+        print("Wrote deep research outputs:")
+        print(f"- topic: {outputs.topic_path}")
+        print(f"- sources: {outputs.source_path}")
+        print(f"- brief: {outputs.brief_path}")
+        print(f"- presentation outline: {outputs.presentation_path}")
+        print(f"- run record: {outputs.run_path}")
 
 
 if __name__ == "__main__":

@@ -61,3 +61,5 @@ Manual inputs:
 - `commit_changes` - whether to commit generated outputs back to the repository
 
 The workflow creates missing topic files, generates a draft PPTX in `docs/presentations/`, updates `data/processed/research_index.json`, uploads the deck as a workflow artifact, and optionally commits the changes.
+
+For serious topics, use `research_mode=deep`. This runs `project-india deep-research` first, which uses OpenAI web search to produce a source-backed topic note, source log, brief, and presentation outline. If `OPENAI_API_KEY` is not configured as a repository secret, the workflow should fail instead of producing a hollow deck.

@@ -21,6 +21,19 @@ on:
           - geopolitics
           - internal-growth
           - research-notes
+      research_mode:
+        description: Whether to run source-backed AI research before generating the deck
+        required: true
+        default: deep
+        type: choice
+        options:
+          - deep
+          - use-existing-notes
+      research_model:
+        description: OpenAI model for deep research
+        required: true
+        default: gpt-5
+        type: string
       commit_changes:
         description: Commit generated files back to the repository
         required: true
@@ -44,7 +57,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install Project India tools
-        run: python -m pip install -e ".[presentation]"
+        run: python -m pip install -e ".[presentation,research]"
 
       - name: Create topic workspace if missing
         env:
@@ -56,6 +69,26 @@ jobs:
             project-india new-topic "$TITLE" --slug "$SLUG" --category "$CATEGORY"
           else
             project-india new-topic "$TITLE" --category "$CATEGORY"
+          fi
+
+      - name: Run deep research
+        if: ${{ inputs.research_mode == 'deep' }}
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TITLE: ${{ inputs.title }}
+          SLUG: ${{ inputs.slug }}
+          CATEGORY: ${{ inputs.category }}
+          MODEL: ${{ inputs.research_model }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "OPENAI_API_KEY is required for deep research. Add it in GitHub repo Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+          if [ -n "$SLUG" ]; then
+            project-india deep-research "$TITLE" --slug "$SLUG" --category "$CATEGORY" --model "$MODEL" --depth deep
+          else
+            project-india deep-research "$TITLE" --category "$CATEGORY" --model "$MODEL" --depth deep
           fi
 
       - name: Generate presentation draft
