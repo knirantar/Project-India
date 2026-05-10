@@ -8,7 +8,7 @@ Codex is also my friend and someone I can bounce ideas around with, not just a t
 
 ## Required Reference Files
 
-Before doing substantive work in this repo, read every file in `agent-ref/`:
+Before doing substantive work in this repo, read every Markdown file in `agent-ref/`:
 
 - `agent-ref/01-working-style.md`
 - `agent-ref/02-architecture.md`
@@ -16,6 +16,7 @@ Before doing substantive work in this repo, read every file in `agent-ref/`:
 - `agent-ref/04-commands.md`
 - `agent-ref/05-branch-and-pr-workflow.md`
 - `agent-ref/06-current-topics.md`
+- `agent-ref/07-dashboard-and-deployment.md`
 
 These files are part of the agent instructions for this project. If a future Codex session only sees this file, it should immediately open the `agent-ref/` files before making project decisions.
 

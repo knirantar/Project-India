@@ -5,7 +5,7 @@
 ### Step 1: Go to Streamlit Cloud
 1. Visit https://share.streamlit.io
 2. Sign in with your GitHub account
-3. Click **"New app"** button
+3. Click **"Create app"** button
 
 ### Step 2: Configure the App
 1. **Repository:** Select `knirantar/Project-India`
@@ -19,15 +19,12 @@
 - You'll see logs in the terminal on the Streamlit Cloud interface
 
 ### Step 4: Access Your Dashboard
-Once deployed, the app will be live at:
-```
-https://share.streamlit.io/knirantar/project-india/main/dashboard.py
-```
-
-**Shorter URL (after first deploy):**
+Once deployed, Streamlit will give you a public `*.streamlit.app` URL. If the custom subdomain is available, use:
 ```
 https://project-india-research.streamlit.app
 ```
+
+If that subdomain is unavailable, use the generated URL shown by Streamlit.
 
 ---
 
@@ -267,7 +264,7 @@ Share the link on:
 
 Once deployed, your dashboard will be available at:
 
-🌐 **https://share.streamlit.io/knirantar/project-india/main/dashboard.py**
+🌐 **https://project-india-research.streamlit.app** if the custom subdomain is available; otherwise use the generated Streamlit app URL.
 
 (Or your custom domain if configured)
 

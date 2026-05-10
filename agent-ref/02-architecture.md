@@ -22,5 +22,9 @@ Core folders:
 - `data/processed/research_runs/` - records of AI research runs
 - `project_india/` - Python workflow package
 - `.github/workflows/generate-presentation.yml` - manual GitHub workflow for generating topic presentations
+- `.github/workflows/scheduled-research.yml` - scheduled and manual incremental research workflow
 - `.github/dependabot.yml` - dependency and GitHub Actions update checks
-
+- `dashboard.py` - Streamlit dashboard for topic status, budget, research history, and structured evidence
+- `research_config.json` - topic schedule, strategy, and budget configuration
+- `.streamlit/config.toml` - Streamlit Cloud theme and server configuration
+- `requirements.txt` - Streamlit Cloud dependency entrypoint

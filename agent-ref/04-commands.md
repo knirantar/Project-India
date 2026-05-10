@@ -30,3 +30,23 @@ Build a presentation:
 python3 -m project_india.cli build-presentation "Topic Name" --slug topic-slug --category sectors
 ```
 
+Run incremental research:
+
+```bash
+OPENAI_API_KEY=... python3 -m project_india.cli research-increment "Topic Name" --slug topic-slug --category sectors --strategy rotate
+```
+
+Run the dashboard locally after installing Streamlit dependencies:
+
+```bash
+python3 -m pip install -r requirements.txt
+streamlit run dashboard.py
+```
+
+Deploy on Streamlit Community Cloud with:
+
+```text
+Repository: knirantar/Project-India
+Branch: main
+Main file path: dashboard.py
+```

@@ -15,14 +15,14 @@ Then open http://localhost:8501
 1. **Push to GitHub** (this repo)
 2. **Go to** https://share.streamlit.io
 3. **Sign in** with GitHub
-4. **Click** "New app"
+4. **Click** "Create app"
 5. **Select:**
-   - Repository: `nirantarkulkarni/Project-India`
+   - Repository: `knirantar/Project-India`
    - Branch: `main`
    - Main file path: `dashboard.py`
 6. **Click "Deploy"**
 
-The app will be live at: `https://share.streamlit.io/nirantarkulkarni/project-india/main/dashboard.py`
+Choose the custom subdomain `project-india-research` if it is available. Otherwise, Streamlit will assign a generated `*.streamlit.app` URL.
 
 ## Features
 
