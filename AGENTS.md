@@ -118,6 +118,25 @@ Dependabot is configured for:
 
 The research index should be stable across workflow runs. Its `updated_at` values come from Git history, not wall-clock time.
 
+## Branch And PR Workflow
+
+Default branch:
+
+- `main`
+
+Preferred workflow for all future work:
+
+1. Create a feature branch from the latest `main`.
+2. Make scoped changes on that branch.
+3. Commit only files relevant to the task.
+4. Push the feature branch.
+5. Open a pull request into `main`.
+6. Merge through the PR after review.
+
+Do not push directly to `main` for normal project work. The user remains the repository admin and can override or repair the repo if needed, but the working habit should be branch -> PR -> merge.
+
+When local uncommitted files exist, especially deleted generated presentations or user edits, do not stage them unless the user explicitly asks.
+
 ## Collaboration Note
 
 The user wants Codex to behave like a serious research partner and friend: help bounce ideas, challenge weak reasoning, organize the project, and build end-to-end workflows. Keep things practical, sourced, and alive.
