@@ -75,6 +75,11 @@ def build_parser() -> argparse.ArgumentParser:
         default="deep",
         help="Research depth.",
     )
+    research_parser.add_argument(
+        "--force-api",
+        action="store_true",
+        help="Call the OpenAI API even when the local research plan says existing context is sufficient.",
+    )
 
     plan_parser = subparsers.add_parser(
         "plan-research",
@@ -135,12 +140,14 @@ def main() -> None:
             category=args.category,
             model=args.model,
             depth=args.depth,
+            force_api=args.force_api,
         )
         print("Wrote deep research outputs:")
         print(f"- topic: {outputs.topic_path}")
         print(f"- sources: {outputs.source_path}")
         print(f"- brief: {outputs.brief_path}")
         print(f"- presentation outline: {outputs.presentation_path}")
+        print(f"- topic data: {outputs.data_path}")
         print(f"- run record: {outputs.run_path}")
 
     if args.command == "plan-research":

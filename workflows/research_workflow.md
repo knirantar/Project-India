@@ -27,6 +27,16 @@ python3 -m project_india.cli plan-research "<Topic>" --slug <topic-slug> --categ
 Use the generated research plan to decide whether deep research is needed. This
 keeps API spending focused on gaps rather than re-researching existing notes.
 
+For each serious topic, maintain structured evidence in:
+
+```text
+data/processed/topic_data/<topic-slug>.json
+```
+
+This file should contain metrics, comparisons, timelines, tables, source links,
+confidence levels, and data gaps. Presentation generation should use this data
+before using prose.
+
 Gather sources in this order:
 
 1. Primary sources: government documents, laws, budgets, speeches, official datasets.

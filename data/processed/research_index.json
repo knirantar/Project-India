@@ -7,6 +7,7 @@
     "slug": "us-iran-war-2026",
     "source_path": "sources/us-iran-war-2026-sources.md",
     "title": "US Iran War",
+    "topic_data_path": null,
     "topic_path": "docs/geopolitics/us-iran-war-2026.md",
     "updated_at": "2026-05-10T03:32:27Z"
   },
@@ -18,6 +19,7 @@
     "slug": "west-bengal-assembly-election-2026",
     "source_path": "sources/west-bengal-assembly-election-2026-sources.md",
     "title": "West Bengal Assembly Election 2026",
+    "topic_data_path": "data/processed/topic_data/west-bengal-assembly-election-2026.json",
     "topic_path": "docs/internal-growth/west-bengal-assembly-election-2026.md",
     "updated_at": "2026-05-10T00:16:01+05:30"
   },
@@ -29,6 +31,7 @@
     "slug": "ideas",
     "source_path": null,
     "title": "Project Ideas",
+    "topic_data_path": null,
     "topic_path": "docs/research-notes/ideas.md",
     "updated_at": "2026-05-09T23:25:39+05:30"
   },
@@ -40,6 +43,7 @@
     "slug": "project-roadmap",
     "source_path": null,
     "title": "Project India Roadmap",
+    "topic_data_path": null,
     "topic_path": "docs/research-notes/project-roadmap.md",
     "updated_at": "2026-05-10T00:16:01+05:30"
   },
@@ -51,6 +55,7 @@
     "slug": "india-semiconductor-mission",
     "source_path": "sources/india-semiconductor-mission-sources.md",
     "title": "India's Semiconductor Mission",
+    "topic_data_path": null,
     "topic_path": "docs/sectors/india-semiconductor-mission.md",
     "updated_at": "2026-05-10T00:16:01+05:30"
   }

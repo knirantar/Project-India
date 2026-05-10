@@ -68,6 +68,9 @@ def _topic_files(slug: str, category: str) -> list[tuple[str, Path]]:
 
 def _data_assets(slug: str) -> list[tuple[str, Path]]:
     assets: list[tuple[str, Path]] = []
+    topic_data = paths.TOPIC_DATA / f"{slug}.json"
+    if topic_data.exists():
+        assets.append(("topic_data", topic_data))
     for root in [paths.RAW_DATA, paths.PROCESSED_DATA]:
         if not root.exists():
             continue
@@ -75,6 +78,8 @@ def _data_assets(slug: str) -> list[tuple[str, Path]]:
             if not path.is_file() or slug not in path.name:
                 continue
             relative_parts = path.relative_to(paths.PROCESSED_DATA).parts
+            if path == topic_data:
+                continue
             if relative_parts and relative_parts[0] in {
                 "research_context",
                 "research_plans",
@@ -140,8 +145,8 @@ def _missing_questions(asset_kinds: set[str]) -> list[str]:
         questions.append("What is the bottom-line strategic brief for this topic?")
     if "presentation_outline" not in asset_kinds:
         questions.append("What claim-led slide outline best communicates this topic?")
-    if "data" not in asset_kinds:
-        questions.append("What datasets or quantitative indicators are required?")
+    if "data" not in asset_kinds and "topic_data" not in asset_kinds:
+        questions.append("What datasets, metrics, comparisons, or quantitative indicators are required?")
     questions.append("Which claims remain time-sensitive or unverified?")
     return questions
 
@@ -176,8 +181,9 @@ def plan_research(
     asset_kinds = {asset.kind for asset in assets}
     placeholder_total = sum(asset.placeholder_score for asset in assets)
     content_bytes = sum(asset.bytes for asset in assets if asset.kind != "generated_deck")
+    missing_structured_data = "topic_data" not in asset_kinds and "data" not in asset_kinds
 
-    should_call_api = force_api or placeholder_total > 0 or content_bytes < 6000
+    should_call_api = force_api or placeholder_total > 0 or content_bytes < 6000 or missing_structured_data
     recommendation = "deep-research-required" if should_call_api else "use-local-context-first"
     api_scope = (
         "Use local context first, then search only for missing sources, current facts, datasets, and unexplored subtopics."

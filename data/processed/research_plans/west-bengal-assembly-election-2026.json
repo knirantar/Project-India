@@ -1,7 +1,7 @@
 {
   "api_scope": "Use local context first, then search only for missing sources, current facts, datasets, and unexplored subtopics.",
   "category": "internal-growth",
-  "content_hash": "db2e3f58b91a96d101e403dc7cb9d06bd9300b53b9d042ed71b8bd4843a38051",
+  "content_hash": "d4e0b57c068c3159cff80e22cbc517d7f1406eadf65bdaac42da029bc4a6ed1a",
   "existing_assets": [
     {
       "bytes": 6752,
@@ -26,11 +26,16 @@
       "kind": "presentation_outline",
       "path": "docs/presentations/west-bengal-assembly-election-2026-outline.md",
       "placeholder_score": 0
+    },
+    {
+      "bytes": 3864,
+      "kind": "topic_data",
+      "path": "data/processed/topic_data/west-bengal-assembly-election-2026.json",
+      "placeholder_score": 0
     }
   ],
   "local_context_path": "data/processed/research_context/west-bengal-assembly-election-2026.md",
   "missing_questions": [
-    "What datasets or quantitative indicators are required?",
     "Which claims remain time-sensitive or unverified?"
   ],
   "recommendation": "deep-research-required",
@@ -43,6 +48,7 @@
       "slug": "west-bengal-assembly-election-2026",
       "source_path": "sources/west-bengal-assembly-election-2026-sources.md",
       "title": "West Bengal Assembly Election 2026",
+      "topic_data_path": "data/processed/topic_data/west-bengal-assembly-election-2026.json",
       "topic_path": "docs/internal-growth/west-bengal-assembly-election-2026.md",
       "updated_at": "2026-05-10T00:16:01+05:30"
     }

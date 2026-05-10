@@ -60,6 +60,14 @@ python3 -m project_india.cli index-research
 
 The index is written to `data/processed/research_index.json` and acts as the project's lightweight research database. It links topic notes, source logs, briefs, presentation outlines, and generated decks by slug.
 
+Structured evidence for each topic belongs in:
+
+```text
+data/processed/topic_data/<topic-slug>.json
+```
+
+This is where metrics, comparisons, timelines, tables, sources, and data gaps live. Generated presentations use this file for charts and evidence slides.
+
 Plan research from local repo memory before spending API calls:
 
 ```bash

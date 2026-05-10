@@ -16,6 +16,7 @@ TAG_NAMES = [
     "SOURCE_LOG",
     "BRIEF",
     "PRESENTATION_OUTLINE",
+    "TOPIC_DATA",
 ]
 
 
@@ -30,6 +31,7 @@ class ResearchOutputs:
     source_path: str
     brief_path: str
     presentation_path: str
+    data_path: str
     run_path: str
 
 
@@ -58,6 +60,7 @@ def _existing_context(files: TopicFiles) -> str:
         ("source log", files.sources),
         ("brief", files.brief),
         ("presentation outline", files.presentation),
+        ("topic data", paths.TOPIC_DATA / f"{files.topic.stem}.json"),
     ]:
         if path.exists():
             parts.append(f"--- Existing {label}: {path.relative_to(paths.ROOT)} ---\n")
@@ -99,9 +102,14 @@ Rules:
 - Separate facts, interpretation, hypotheses, and open questions.
 - For elections or current affairs, mark early reporting as provisional until
   official data is available.
+- Extract concrete numbers, dates, comparisons, timelines, and tables into
+  TOPIC_DATA. The presentation builder depends on this structured evidence.
+- Include at least 5 metrics, 1 comparison with numeric values, 5 timeline
+  events, 1 table, and explicit data gaps unless the topic genuinely lacks
+  public data. If data is missing, say what source would be needed.
 - Make the presentation outline specific enough to become an actual deck, not a
   generic template.
-- Return exactly the four XML-like blocks below and nothing outside them.
+- Return exactly the five XML-like blocks below and nothing outside them.
 
 Existing repository context to improve, replace, or build on:
 {planning_context}
@@ -225,6 +233,54 @@ For each slide, write:
 ## Speaker Notes To Build
 ...
 </PRESENTATION_OUTLINE>
+
+<TOPIC_DATA>
+{{
+  "topic": "{title}",
+  "status": "researched",
+  "metrics": [
+    {{
+      "label": "Example metric name",
+      "value": 0,
+      "unit": "example unit",
+      "date": "YYYY-MM-DD or year",
+      "context": "Why the metric matters",
+      "source": "Source name and URL",
+      "confidence": "high|medium|low"
+    }}
+  ],
+  "comparisons": [
+    {{
+      "title": "Comparison title",
+      "unit": "unit",
+      "source": "Source name and URL",
+      "items": [
+        {{"label": "A", "value": 0}},
+        {{"label": "B", "value": 0}}
+      ]
+    }}
+  ],
+  "timeline": [
+    {{
+      "date": "YYYY-MM-DD or year",
+      "event": "Event",
+      "significance": "Why it matters",
+      "source": "Source name and URL"
+    }}
+  ],
+  "tables": [
+    {{
+      "title": "Table title",
+      "columns": ["Column A", "Column B"],
+      "rows": [["A", "B"]],
+      "source": "Source name and URL"
+    }}
+  ],
+  "data_gaps": [
+    "Specific missing dataset, official confirmation, or unresolved metric"
+  ]
+}}
+</TOPIC_DATA>
 """.strip()
 
 
@@ -234,9 +290,44 @@ def run_deep_research(
     category: str = "sectors",
     model: str = "gpt-5",
     depth: str = "deep",
+    force_api: bool = False,
 ) -> ResearchOutputs:
     if category not in TOPIC_FOLDERS:
         raise ValueError(f"Unknown category: {category}")
+
+    topic_slug = slugify(slug or title)
+    files = _files_for(title, topic_slug, category)
+    data_path = paths.TOPIC_DATA / f"{topic_slug}.json"
+    plan = plan_research(title, slug=topic_slug, category=category, force_api=force_api)
+    context = _existing_context(files)
+    planning_context = json.dumps(asdict(plan), indent=2, sort_keys=True)
+
+    if not plan.should_call_api:
+        run_path = _write_run_record(
+            title=title,
+            slug=topic_slug,
+            category=category,
+            model=model,
+            depth=depth,
+            plan=plan,
+            response_id=None,
+            response={},
+            skipped=True,
+        )
+        return ResearchOutputs(
+            topic=title,
+            slug=topic_slug,
+            category=category,
+            model=model,
+            depth=depth,
+            topic_path=str(files.topic.relative_to(paths.ROOT)),
+            source_path=str(files.sources.relative_to(paths.ROOT)),
+            brief_path=str(files.brief.relative_to(paths.ROOT)),
+            presentation_path=str(files.presentation.relative_to(paths.ROOT)),
+            data_path=str(data_path.relative_to(paths.ROOT)),
+            run_path=str(run_path.relative_to(paths.ROOT)),
+        )
+
     if not os.environ.get("OPENAI_API_KEY"):
         raise SystemExit(
             "OPENAI_API_KEY is required for deep research. Add it as a GitHub Actions secret."
@@ -249,11 +340,6 @@ def run_deep_research(
             "openai is required. Install with: python3 -m pip install -e '.[research]'"
         ) from error
 
-    topic_slug = slugify(slug or title)
-    files = _files_for(title, topic_slug, category)
-    plan = plan_research(title, slug=topic_slug, category=category, force_api=True)
-    context = _existing_context(files)
-    planning_context = json.dumps(asdict(plan), indent=2, sort_keys=True)
     client = OpenAI()
 
     response = client.responses.create(
@@ -270,28 +356,30 @@ def run_deep_research(
     source_log = _extract_tag(output_text, "SOURCE_LOG")
     brief = _extract_tag(output_text, "BRIEF")
     presentation = _extract_tag(output_text, "PRESENTATION_OUTLINE")
+    topic_data = _extract_tag(output_text, "TOPIC_DATA")
 
     files.topic.write_text(topic_note, encoding="utf-8")
     files.sources.write_text(source_log, encoding="utf-8")
     files.brief.write_text(brief, encoding="utf-8")
     files.presentation.write_text(presentation, encoding="utf-8")
+    data_path.parent.mkdir(parents=True, exist_ok=True)
+    data_path.write_text(
+        json.dumps(_parse_topic_data(topic_data), indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
-    run_dir = paths.PROCESSED_DATA / "research_runs"
-    run_dir.mkdir(parents=True, exist_ok=True)
-    run_path = run_dir / f"{topic_slug}.json"
     response_dump = response.model_dump() if hasattr(response, "model_dump") else {}
-    run_payload = {
-        "title": title,
-        "slug": topic_slug,
-        "category": category,
-        "model": model,
-        "depth": depth,
-        "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat(),
-        "response_id": getattr(response, "id", None),
-        "research_plan": asdict(plan),
-        "response": response_dump,
-    }
-    run_path.write_text(json.dumps(run_payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    run_path = _write_run_record(
+        title=title,
+        slug=topic_slug,
+        category=category,
+        model=model,
+        depth=depth,
+        plan=plan,
+        response_id=getattr(response, "id", None),
+        response=response_dump,
+        skipped=False,
+    )
 
     outputs = ResearchOutputs(
         topic=title,
@@ -303,9 +391,48 @@ def run_deep_research(
         source_path=str(files.sources.relative_to(paths.ROOT)),
         brief_path=str(files.brief.relative_to(paths.ROOT)),
         presentation_path=str(files.presentation.relative_to(paths.ROOT)),
+        data_path=str(data_path.relative_to(paths.ROOT)),
         run_path=str(run_path.relative_to(paths.ROOT)),
     )
     return outputs
+
+
+def _write_run_record(
+    title: str,
+    slug: str,
+    category: str,
+    model: str,
+    depth: str,
+    plan: object,
+    response_id: str | None,
+    response: dict,
+    skipped: bool,
+) -> Path:
+    run_dir = paths.PROCESSED_DATA / "research_runs"
+    run_dir.mkdir(parents=True, exist_ok=True)
+    run_path = run_dir / f"{slug}.json"
+    run_payload = {
+        "title": title,
+        "slug": slug,
+        "category": category,
+        "model": model,
+        "depth": depth,
+        "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat(),
+        "response_id": response_id,
+        "skipped_api_call": skipped,
+        "research_plan": asdict(plan),
+        "response": response,
+    }
+    run_path.write_text(json.dumps(run_payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return run_path
+
+
+def _parse_topic_data(text: str) -> dict:
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        cleaned = cleaned.strip("`")
+        cleaned = cleaned.removeprefix("json").strip()
+    return json.loads(cleaned)
 
 
 def run_deep_research_json(**kwargs: str) -> str:

@@ -34,6 +34,11 @@ on:
         required: true
         default: gpt-5
         type: string
+      force_research:
+        description: Force an OpenAI API call even if repo memory looks sufficient
+        required: true
+        default: false
+        type: boolean
       commit_changes:
         description: Commit generated files back to the repository
         required: true
@@ -93,16 +98,17 @@ jobs:
           SLUG: ${{ inputs.slug }}
           CATEGORY: ${{ inputs.category }}
           MODEL: ${{ inputs.research_model }}
+          FORCE_RESEARCH: ${{ inputs.force_research }}
         run: |
-          if [ -z "$OPENAI_API_KEY" ]; then
-            echo "OPENAI_API_KEY is required for deep research. Add it in GitHub repo Settings > Secrets and variables > Actions."
-            exit 1
+          FORCE_FLAG=""
+          if [ "$FORCE_RESEARCH" = "true" ]; then
+            FORCE_FLAG="--force-api"
           fi
 
           if [ -n "$SLUG" ]; then
-            project-india deep-research "$TITLE" --slug "$SLUG" --category "$CATEGORY" --model "$MODEL" --depth deep
+            project-india deep-research "$TITLE" --slug "$SLUG" --category "$CATEGORY" --model "$MODEL" --depth deep $FORCE_FLAG
           else
-            project-india deep-research "$TITLE" --category "$CATEGORY" --model "$MODEL" --depth deep
+            project-india deep-research "$TITLE" --category "$CATEGORY" --model "$MODEL" --depth deep $FORCE_FLAG
           fi
 
       - name: Generate presentation draft

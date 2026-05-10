@@ -18,6 +18,7 @@ class ResearchRecord:
     brief_path: str | None
     presentation_outline_path: str | None
     presentation_deck_path: str | None
+    topic_data_path: str | None
     updated_at: str
 
 
@@ -65,6 +66,7 @@ def _record_for_topic(topic_path: Path) -> ResearchRecord:
         brief_path=_relative(paths.REPORTS / f"{slug}-brief.md"),
         presentation_outline_path=_relative(paths.PRESENTATIONS / f"{slug}-outline.md"),
         presentation_deck_path=_find_deck(slug),
+        topic_data_path=_relative(paths.TOPIC_DATA / f"{slug}.json"),
         updated_at=_git_timestamp(topic_path),
     )
 
