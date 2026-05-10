@@ -16,9 +16,6 @@ analysis = [
   "matplotlib>=3.8",
   "jupyter>=1.0",
 ]
-presentation = [
-  "python-pptx>=0.6.23",
-]
 research = [
   "openai>=2.0",
 ]
@@ -26,6 +23,7 @@ dashboard = [
   "streamlit>=1.57,<2",
   "pandas>=2.0",
   "plotly>=5.17",
+  "requests>=2.32",
 ]
 
 [project.scripts]

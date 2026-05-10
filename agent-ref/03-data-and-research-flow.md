@@ -7,9 +7,9 @@ Before spending OpenAI API credits, always use repo memory first:
 3. Check generated `research_context` and `research_plans` files.
 4. Only call deep research for missing sources, current facts, datasets, contradictions, or unexplored subtopics.
 5. Store structured evidence in `data/processed/topic_data/<topic-slug>.json`.
-6. Build presentations from structured topic data, not only prose.
+6. Build dashboard views from structured topic data, not only prose.
 
-Presentations should be informative and visual. They should use:
+Dashboard insight pages should be informative and visual. They should use:
 
 - metrics
 - comparisons
@@ -18,7 +18,7 @@ Presentations should be informative and visual. They should use:
 - data gaps
 - source notes
 
-Avoid hollow headline-only decks.
+Avoid hollow headline-only pages.
 
 The research index should be stable across workflow runs. Its `updated_at` values come from Git history, not wall-clock time.
 
@@ -32,3 +32,8 @@ The Streamlit dashboard reads committed repo data only:
 - `data/processed/research_index.json` for repository memory
 - `data/processed/topic_data/*.json` for visual topic evidence
 - `data/processed/research_runs/*.json` for research history and cost trends
+
+New user-provided topics should start in the Streamlit dashboard's **Start Research** form.
+The app dispatches `.github/workflows/topic-intake-research.yml` through GitHub's workflow API when Streamlit secrets are configured.
+Because the app is public, workflow dispatch must be protected by an admin PIN and a server-side GitHub token in Streamlit secrets.
+The intake workflow should not generate a PPTX deck or presentation outline by default; the Streamlit dashboard is the presentation mechanism.

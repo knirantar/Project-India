@@ -38,12 +38,11 @@ The project is huge: geopolitics, economy, defense, technology, agriculture, gov
 
    The project should not begin with "all of India." It should begin with one topic and use that topic to build the method.
 
-   Suggested pilot: India's Semiconductor Mission.
+   Suggested pilot: the first topic the user wants to investigate deeply through the Streamlit intake flow.
 
-   Why: it connects geopolitics, industry, technology, supply chains, China, Taiwan, the United States, manufacturing, capital, talent, and state capacity.
+   Why: the first topic should test the full method: user intent, source-backed research, structured evidence, and dashboard presentation.
 
 5. Create two parallel tracks.
 
    - Knowledge base: structured notes, sector explainers, source libraries.
    - Analysis output: essays, dashboards, briefs, timelines, maps, and eventually a public-facing site.
-

@@ -19,10 +19,9 @@ Briefs and reports:
 
 - `analyses/reports/<topic-slug>-brief.md`
 
-Presentation outlines and decks:
+Dashboard-ready structured evidence:
 
-- `docs/presentations/<topic-slug>-outline.md`
-- `docs/presentations/<topic-slug>-generated-deck.pptx`
+- `data/processed/topic_data/<topic-slug>.json`
 
 Structured topic data:
 
@@ -61,7 +60,7 @@ The workflow is repo-memory first.
    - topic note
    - source log
    - brief
-   - presentation outline
+   - structured topic data
    - structured topic data
    - related records in the research index
    - relevant files in `data/raw/` and `data/processed/`
@@ -83,9 +82,9 @@ The workflow is repo-memory first.
    - conflicting claims
    - unexplored subtopics
 
-4. `project-india build-presentation`
+4. Streamlit dashboard render
 
-   Uses `data/processed/topic_data/<topic-slug>.json` before prose. This creates more informative presentations with metrics, comparisons, timelines, tables, and data gaps.
+   Uses `data/processed/topic_data/<topic-slug>.json` before prose. This creates more informative app pages with metrics, comparisons, timelines, tables, and data gaps.
 
 ## How API Spending Is Minimized
 
@@ -111,5 +110,4 @@ Each serious topic should have:
 }
 ```
 
-This file is the main bridge between research and presentation.
-
+This file is the main bridge between research and the dashboard.

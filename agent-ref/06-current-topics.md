@@ -1,20 +1,14 @@
 # Current Topics
 
-Existing tracked topics include:
+The repository topic corpus was reset after the Streamlit production dashboard went live.
 
-- `west-bengal-assembly-election-2026`
-- `india-semiconductor-mission`
-- `us-iran-war-2026`
+There are currently no active topic files in the public research library.
 
-West Bengal already has structured topic data in:
-
-```text
-data/processed/topic_data/west-bengal-assembly-election-2026.json
-```
+New topics should enter through the Streamlit **Start Research** intake flow, which dispatches `.github/workflows/topic-intake-research.yml`.
+That workflow creates the topic note, source log, brief, structured topic data, run record, and research index update for the dashboard.
 
 Relevant reference docs:
 
 - `docs/research-notes/project-roadmap.md`
 - `docs/research-notes/data-and-indexing.md`
 - `docs/research-notes/dependency-graph.md`
-

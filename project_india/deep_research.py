@@ -15,7 +15,6 @@ TAG_NAMES = [
     "TOPIC_NOTE",
     "SOURCE_LOG",
     "BRIEF",
-    "PRESENTATION_OUTLINE",
     "TOPIC_DATA",
 ]
 
@@ -30,7 +29,6 @@ class ResearchOutputs:
     topic_path: str
     source_path: str
     brief_path: str
-    presentation_path: str
     data_path: str
     run_path: str
 
@@ -49,7 +47,6 @@ def _files_for(title: str, slug: str, category: str) -> TopicFiles:
         topic=TOPIC_FOLDERS[category] / f"{slug}.md",
         sources=paths.SOURCES / f"{slug}-sources.md",
         brief=paths.REPORTS / f"{slug}-brief.md",
-        presentation=paths.PRESENTATIONS / f"{slug}-outline.md",
     )
 
 
@@ -59,7 +56,6 @@ def _existing_context(files: TopicFiles) -> str:
         ("topic note", files.topic),
         ("source log", files.sources),
         ("brief", files.brief),
-        ("presentation outline", files.presentation),
         ("topic data", paths.TOPIC_DATA / f"{files.topic.stem}.json"),
     ]:
         if path.exists():
@@ -103,13 +99,11 @@ Rules:
 - For elections or current affairs, mark early reporting as provisional until
   official data is available.
 - Extract concrete numbers, dates, comparisons, timelines, and tables into
-  TOPIC_DATA. The presentation builder depends on this structured evidence.
+  TOPIC_DATA. The Streamlit dashboard depends on this structured evidence.
 - Include at least 5 metrics, 1 comparison with numeric values, 5 timeline
   events, 1 table, and explicit data gaps unless the topic genuinely lacks
   public data. If data is missing, say what source would be needed.
-- Make the presentation outline specific enough to become an actual deck, not a
-  generic template.
-- Return exactly the five XML-like blocks below and nothing outside them.
+- Return exactly the four XML-like blocks below and nothing outside them.
 
 Existing repository context to improve, replace, or build on:
 {planning_context}
@@ -211,29 +205,6 @@ Output format:
 ...
 </BRIEF>
 
-<PRESENTATION_OUTLINE>
-# Presentation Outline: {title}
-
-## Audience
-...
-
-## Core Message
-...
-
-## Slide Outline
-For each slide, write:
-1. Claim title
-   - Proof object:
-   - Evidence:
-   - Source:
-
-## Visual Ideas
-...
-
-## Speaker Notes To Build
-...
-</PRESENTATION_OUTLINE>
-
 <TOPIC_DATA>
 {{
   "topic": "{title}",
@@ -323,7 +294,6 @@ def run_deep_research(
             topic_path=str(files.topic.relative_to(paths.ROOT)),
             source_path=str(files.sources.relative_to(paths.ROOT)),
             brief_path=str(files.brief.relative_to(paths.ROOT)),
-            presentation_path=str(files.presentation.relative_to(paths.ROOT)),
             data_path=str(data_path.relative_to(paths.ROOT)),
             run_path=str(run_path.relative_to(paths.ROOT)),
         )
@@ -355,13 +325,11 @@ def run_deep_research(
     topic_note = _extract_tag(output_text, "TOPIC_NOTE")
     source_log = _extract_tag(output_text, "SOURCE_LOG")
     brief = _extract_tag(output_text, "BRIEF")
-    presentation = _extract_tag(output_text, "PRESENTATION_OUTLINE")
     topic_data = _extract_tag(output_text, "TOPIC_DATA")
 
     files.topic.write_text(topic_note, encoding="utf-8")
     files.sources.write_text(source_log, encoding="utf-8")
     files.brief.write_text(brief, encoding="utf-8")
-    files.presentation.write_text(presentation, encoding="utf-8")
     data_path.parent.mkdir(parents=True, exist_ok=True)
     data_path.write_text(
         json.dumps(_parse_topic_data(topic_data), indent=2, sort_keys=True) + "\n",
@@ -390,7 +358,6 @@ def run_deep_research(
         topic_path=str(files.topic.relative_to(paths.ROOT)),
         source_path=str(files.sources.relative_to(paths.ROOT)),
         brief_path=str(files.brief.relative_to(paths.ROOT)),
-        presentation_path=str(files.presentation.relative_to(paths.ROOT)),
         data_path=str(data_path.relative_to(paths.ROOT)),
         run_path=str(run_path.relative_to(paths.ROOT)),
     )

@@ -18,7 +18,6 @@ class TopicFiles:
     topic: Path
     sources: Path
     brief: Path
-    presentation: Path
 
 
 def topic_template(title: str) -> str:
@@ -150,42 +149,6 @@ TBD.
 """
 
 
-def presentation_template(title: str) -> str:
-    return f"""# Presentation Outline: {title}
-
-## Audience
-
-TBD.
-
-## Core Message
-
-TBD.
-
-## Slide Outline
-
-1. Title: {title}
-2. Why this matters now
-3. Current state
-4. Timeline and turning points
-5. Key actors and institutions
-6. Data view
-7. India's strengths
-8. Bottlenecks and risks
-9. Global comparison
-10. Scenarios
-11. What India should do next
-12. Questions for discussion
-
-## Visual Ideas
-
-- Timeline
-- Actor map
-- Sector value chain
-- Data chart
-- Scenario matrix
-"""
-
-
 TOPIC_FOLDERS = {
     "sectors": paths.SECTORS,
     "geopolitics": paths.GEOPOLITICS,
@@ -207,14 +170,12 @@ def create_topic(
         topic=topic_folder / f"{topic_slug}.md",
         sources=paths.SOURCES / f"{topic_slug}-sources.md",
         brief=paths.REPORTS / f"{topic_slug}-brief.md",
-        presentation=paths.PRESENTATIONS / f"{topic_slug}-outline.md",
     )
 
     for directory in {
         files.topic.parent,
         files.sources.parent,
         files.brief.parent,
-        files.presentation.parent,
     }:
         directory.mkdir(parents=True, exist_ok=True)
 
@@ -222,7 +183,6 @@ def create_topic(
         files.topic: topic_template(title),
         files.sources: source_template(title),
         files.brief: brief_template(title),
-        files.presentation: presentation_template(title),
     }
 
     for file_path, content in writes.items():

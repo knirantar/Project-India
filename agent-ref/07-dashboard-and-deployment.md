@@ -10,6 +10,9 @@ https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 
 The dashboard is meant to be the public presentation surface for the research system. Its first screen should prioritize insight, evidence, and topic interpretation, not API costs or workflow mechanics. Operational details belong under the Operations page.
 
+The dashboard also has a **Start Research** intake page. The intake form collects a topic title, category, starting context, questions, and source leads. When Streamlit secrets are configured, it dispatches `.github/workflows/topic-intake-research.yml`.
+The intake workflow should generate dashboard-ready research data, not a separate PPTX deck.
+
 It shows:
 
 - topic inventory and status
@@ -20,6 +23,27 @@ It shows:
 - structured topic data from `data/processed/topic_data/`
 - incremental research history from `data/processed/research_runs/`
 - operations/admin reference views for schedules, budget, and configuration
+
+Required Streamlit secrets for app-triggered research:
+
+```toml
+GITHUB_OWNER = "knirantar"
+GITHUB_REPO = "Project-India"
+GITHUB_DISPATCH_TOKEN = "github_token_with_actions_write"
+APP_ADMIN_PIN = "private-admin-pin"
+```
+
+Required GitHub Actions secret:
+
+```text
+OPENAI_API_KEY
+```
+
+Optional GitHub Actions secret for automatic PR merge:
+
+```text
+PROJECT_INDIA_ADMIN_TOKEN
+```
 
 Deployment target:
 
