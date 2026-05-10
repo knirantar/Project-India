@@ -40,6 +40,13 @@ Project India uses three connected layers:
 - Python is the workflow engine.
 - Presentations, briefs, dashboards, and essays are the communication layer.
 
+Key reference files:
+
+- `docs/research-notes/project-roadmap.md` - overall roadmap
+- `docs/research-notes/data-and-indexing.md` - how repo memory, data, and API calls work
+- `docs/research-notes/dependency-graph.md` - code, data, and maintenance dependency graph
+- `AGENTS.md` - guidance for future Codex sessions
+
 Create a new topic workflow with:
 
 ```bash
