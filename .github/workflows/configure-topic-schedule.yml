@@ -91,7 +91,7 @@ jobs:
 
       - name: Open pull request with schedule update
         id: cpr
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Configure research schedule for ${{ inputs.slug }}"

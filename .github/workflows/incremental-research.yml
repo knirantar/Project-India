@@ -136,7 +136,7 @@ jobs:
       - name: Open pull request with incremental updates
         if: steps.topics.outputs.has_topics == 'true'
         id: cpr
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Incremental research update"
