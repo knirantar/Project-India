@@ -69,6 +69,18 @@ python3 -m project_india.cli index-research
 
 The index is written to `data/processed/research_index.json` and acts as the project's lightweight research database. It links topic notes, source logs, briefs, structured topic data, and dashboard-ready outputs by slug.
 
+For local development, Project India now has a Postgres research store. It is intended to become the living data layer while Git remains the curated archive:
+
+```bash
+docker compose up -d postgres
+python3 -m pip install -e ".[db]"
+python3 -m project_india.cli db-init
+python3 -m project_india.cli db-import-repo
+python3 -m project_india.cli db-status
+```
+
+See `docs/research-notes/local-postgres.md` for the schema and direction.
+
 Structured evidence for each topic belongs in:
 
 ```text

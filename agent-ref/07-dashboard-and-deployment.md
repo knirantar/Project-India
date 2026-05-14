@@ -10,6 +10,8 @@ https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 
 The dashboard is meant to be the public presentation surface for the research system. Its first screen should prioritize insight, evidence, and topic interpretation, not API costs or workflow mechanics. Operational details belong under the Operations page.
 
+The dashboard currently reads committed repo files. The next refinement is to make it read local or hosted Postgres first, with committed files as fallback.
+
 The dashboard also has a **Start Research** intake page. The intake form collects a topic title, category, starting context, questions, and source leads. When Streamlit secrets are configured, it dispatches `.github/workflows/topic-intake-research.yml`.
 The intake workflow should generate dashboard-ready research data, not a separate PPTX deck.
 
