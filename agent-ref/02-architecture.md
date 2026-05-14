@@ -1,44 +1,39 @@
 # Current Project Architecture
 
-Project India is a repo-memory-first research system.
+Project India is being simplified into a Postgres-first research system.
 
-The project is now being refined toward a local database-first research system. During the transition, committed Markdown/JSON files remain the public dashboard source, while local Postgres becomes the living research data layer for faster iteration.
-
-The main public-app flow is:
+Current direction:
 
 ```text
-topic intake -> research plan -> local context -> deep research -> topic data -> brief -> research index -> Streamlit dashboard
+local Postgres -> evidence and source store -> dashboard -> curated archive exports
 ```
 
-The recurring update flow is:
+Git is the curated archive and codebase. Postgres is the living research workspace.
 
-```text
-topic schedule -> hourly due check -> focused incremental research -> run record -> PR -> Streamlit dashboard
-```
+The public Streamlit app still reads committed archive files until the dashboard is migrated to read from a local or hosted Postgres database first.
 
 Core folders:
 
-- `docs/` - human-readable research notes, sector notes, geopolitics notes, and internal-growth notes
-- `sources/` - source logs by topic
-- `analyses/reports/` - briefs, timelines, reports
-- `data/raw/` - raw datasets
-- `data/processed/` - generated and structured research data
-- `data/processed/topic_data/` - structured evidence used by dashboard insight pages
-- `data/processed/research_index.json` - lightweight research database
-- `data/processed/research_context/` - local context bundles for topics
-- `data/processed/research_plans/` - gap analysis before API calls
-- `data/processed/research_runs/` - records of AI research runs
-- `project_india/` - Python workflow package
 - `db/schema.sql` - local Postgres schema for topics, sources, evidence, and run records
 - `compose.yaml` - local Postgres service
-- `.github/workflows/topic-intake-research.yml` - app-triggered workflow for researching new topics
-- `.github/workflows/configure-topic-schedule.yml` - app-triggered workflow for changing topic cadence
-- `.github/workflows/incremental-research.yml` - scheduled and manual incremental research workflow
-- `.github/dependabot.yml` - dependency and GitHub Actions update checks
-- `dashboard.py` - Streamlit dashboard for topic status, budget, research history, and structured evidence
-- `research_config.json` - topic schedule, strategy, and budget configuration
-- `.streamlit/config.toml` - Streamlit Cloud theme and server configuration
+- `project_india/postgres_db.py` - database initialization, import, and status helpers
+- `dashboard.py` - Streamlit dashboard and presentation surface
+- `docs/` - curated Markdown research notes
+- `sources/` - curated source logs
+- `analyses/reports/` - curated briefs and reports
+- `data/processed/topic_data/` - archived structured evidence used by the current dashboard
+- `data/processed/research_index.json` - archived topic index
+- `data/processed/research_runs/` - archived AI run records
+- `.github/dependabot.yml` - dependency and GitHub Actions version checks
 - `requirements.txt` - Streamlit Cloud dependency entrypoint
+
+Removed legacy runtime:
+
+- GitHub Actions topic intake
+- GitHub Actions schedule configuration
+- GitHub Actions incremental research
+- `research_config.json`
+- old incremental/scheduling Python modules
 
 Local Postgres flow:
 

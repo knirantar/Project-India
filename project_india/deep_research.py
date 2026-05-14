@@ -344,7 +344,8 @@ def run_deep_research(
 
     if not os.environ.get("OPENAI_API_KEY"):
         raise SystemExit(
-            "OPENAI_API_KEY is required for deep research. Add it as a GitHub Actions secret."
+            "OPENAI_API_KEY is required for deep research. Set it in your local environment "
+            "or hosted worker secrets."
         )
 
     try:

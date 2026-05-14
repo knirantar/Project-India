@@ -121,9 +121,9 @@ Each major topic should use this structure:
 
 ## Pilot Topic
 
-Start with one user-submitted topic through the Streamlit **Start Research** intake flow.
+Start with the existing `us-iran-war` archive topic as seed data for local Postgres.
 
-The goal of the pilot is not only to understand that topic. The goal is to test the intake workflow, source-backed research, structured topic data, and dashboard presentation pattern before expanding to other sectors or geopolitical questions.
+The goal of the pilot is not only to understand that topic. The goal is to test the database import path, source-backed evidence tables, structured topic data, and dashboard presentation pattern before expanding to other sectors or geopolitical questions.
 
 ## Output Formats
 
@@ -146,13 +146,14 @@ Project India should be built as an integrated research system.
 
 Core layers:
 
-- Markdown is the memory: notes, topic files, sources, briefs, and outlines.
-- Python is the machinery: repeatable file creation, data processing, timelines, charts, reports, and future automation.
+- Postgres is the living workspace: topics, sources, metrics, timelines, gaps, and run history.
+- Markdown and JSON are the curated archive: notes, topic files, sources, briefs, and structured exports.
+- Python is the machinery: imports, data processing, timelines, charts, reports, and future automation.
 - The Streamlit dashboard is the voice: insight briefs, structured evidence boards, visual explainers, and decision-ready communication.
 
 The default flow is:
 
-User topic input -> Source-backed research -> Data tables -> Analysis -> Brief -> Dashboard
+Topic idea -> Source-backed evidence -> Postgres tables -> Analysis -> Brief -> Dashboard
 
 The Python package starts small on purpose. It should grow only when a workflow becomes repeated enough to deserve automation.
 
@@ -168,7 +169,7 @@ The Python package starts small on purpose. It should grow only when a workflow 
 
 ## Near-Term Plan
 
-1. Create a reusable topic intake template.
-2. Submit the first topic through the production dashboard.
-3. Generate source-backed research and structured topic data.
-4. Review the dashboard output and improve the workflow before expanding to other topics.
+1. Keep local Postgres as the working data layer.
+2. Migrate the dashboard to read Postgres first.
+3. Add a simple local topic intake path that writes to Postgres.
+4. Review the dashboard output and improve the database-backed research loop before expanding to other topics.

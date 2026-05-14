@@ -15,63 +15,25 @@ Main file path: dashboard.py
 Python: 3.11 or 3.12
 ```
 
-## Required Secrets
-
-Streamlit secrets:
-
-```toml
-GITHUB_OWNER = "knirantar"
-GITHUB_REPO = "Project-India"
-GITHUB_DISPATCH_TOKEN = "github_token_with_actions_write"
-APP_ADMIN_PIN = "private-admin-pin"
-```
-
-GitHub Actions secret:
-
-```text
-OPENAI_API_KEY
-```
-
-Optional GitHub Actions secret for one-step workflow PR auto-merge:
-
-```text
-PROJECT_INDIA_ADMIN_TOKEN
-```
-
-## First Research Run
-
-1. Open the production dashboard.
-2. Go to **Start Research**.
-3. Enter the topic title, category, context, questions, and source leads.
-4. Enter the admin PIN.
-5. Click **Start GitHub research workflow**.
-6. Watch the `Topic Intake Research` workflow in GitHub Actions.
-7. After the workflow PR merges, refresh the app.
-
-The app is the presentation surface. The intake workflow does not create PPTX decks.
-
-## Incremental Research Cadence
-
-Use this after the first deep research run:
-
-1. Open **Operations**.
-2. Go to **Schedules**.
-3. Choose the topic.
-4. Set `manual`, `daily`, `weekly`, or `monthly`.
-5. Pick the UTC run time and strategy rotation.
-6. Enter the admin PIN and save.
-
-The app dispatches `Configure Topic Schedule`, which opens and auto-merges a PR when `PROJECT_INDIA_ADMIN_TOKEN` is configured.
-
-The `Incremental Research` workflow checks every hour. It only researches topics that are due and uses focused strategies instead of full deep research.
+The public Streamlit app currently reads committed archive files from the repo. GitHub Actions research dispatch has been removed as part of the Postgres-first cleanup.
 
 ## Local Postgres
 
-For local refinement, start the database and import repo research:
+Start the database:
 
 ```bash
 docker compose up -d postgres
+```
+
+Install dependencies:
+
+```bash
 python3 -m pip install -e ".[db]"
+```
+
+Initialize and import the repo archive:
+
+```bash
 python3 -m project_india.cli db-init
 python3 -m project_india.cli db-import-repo
 python3 -m project_india.cli db-status
@@ -83,4 +45,8 @@ Default local database URL:
 postgresql://project_india:project_india_local@localhost:5433/project_india
 ```
 
-Postgres is the next living data layer. The public Streamlit app still reads committed repo files until the dashboard is migrated to read from the database.
+## Current Direction
+
+Postgres is the living data layer. Git is the curated archive.
+
+Next, migrate the dashboard to read Postgres first, then fall back to committed files when no database is configured.

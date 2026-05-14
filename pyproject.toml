@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "project-india"
 version = "0.1.0"
-description = "AI-assisted research workflows for Project India."
+description = "Postgres-first research data tools for Project India."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []
@@ -26,7 +26,6 @@ dashboard = [
   "streamlit>=1.57,<2",
   "pandas>=2.0",
   "plotly>=5.17",
-  "requests>=2.32",
 ]
 
 [project.scripts]

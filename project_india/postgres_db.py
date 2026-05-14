@@ -120,15 +120,6 @@ def _parse_generated_at(payload: dict[str, Any]) -> datetime | None:
         return None
 
 
-def _topic_config_by_slug() -> dict[str, dict[str, Any]]:
-    config = _read_json(paths.ROOT / "research_config.json", {})
-    return {
-        str(topic.get("slug")): topic
-        for topic in config.get("topics", [])
-        if topic.get("slug")
-    }
-
-
 def _extract_source_entries(source_log: str) -> list[dict[str, str | None]]:
     entries: list[dict[str, str | None]] = []
     url_pattern = re.compile(r"https?://[^\s)|]+")
@@ -188,7 +179,6 @@ def count_tables() -> dict[str, int]:
 
 def import_repo_data() -> ImportSummary:
     index = _read_json(paths.PROCESSED_DATA / "research_index.json", [])
-    config_by_slug = _topic_config_by_slug()
 
     counters = {
         "topics": 0,
@@ -212,11 +202,7 @@ def import_repo_data() -> ImportSummary:
                 continue
 
             topic_data = _read_json(paths.TOPIC_DATA / f"{slug}.json", {})
-            topic_config = config_by_slug.get(slug, {})
-            schedule = topic_config.get("schedule", {})
-            strategy = topic_config.get("strategy", {})
-            metadata = topic_config.get("metadata", {})
-            status = topic_data.get("status") or metadata.get("development_status") or "developing"
+            status = topic_data.get("status") or "developing"
 
             topic_id = conn.execute(
                 """
@@ -255,15 +241,15 @@ def import_repo_data() -> ImportSummary:
                     record.get("title", slug),
                     record.get("category", "research-notes"),
                     status,
-                    bool(topic_config.get("enabled", False)),
-                    schedule.get("frequency", "manual"),
-                    schedule.get("time_utc"),
-                    schedule.get("day_of_week"),
-                    schedule.get("day_of_month"),
-                    schedule.get("last_run_date"),
-                    schedule.get("next_scheduled_run"),
-                    _json(strategy.get("rotation", [])),
-                    _json(metadata),
+                    False,
+                    "manual",
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    _json([]),
+                    _json({}),
                     record.get("topic_path"),
                     record.get("source_path"),
                     record.get("brief_path"),
