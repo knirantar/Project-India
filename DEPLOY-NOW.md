@@ -64,3 +64,23 @@ Use this after the first deep research run:
 The app dispatches `Configure Topic Schedule`, which opens and auto-merges a PR when `PROJECT_INDIA_ADMIN_TOKEN` is configured.
 
 The `Incremental Research` workflow checks every hour. It only researches topics that are due and uses focused strategies instead of full deep research.
+
+## Local Postgres
+
+For local refinement, start the database and import repo research:
+
+```bash
+docker compose up -d postgres
+python3 -m pip install -e ".[db]"
+python3 -m project_india.cli db-init
+python3 -m project_india.cli db-import-repo
+python3 -m project_india.cli db-status
+```
+
+Default local database URL:
+
+```text
+postgresql://project_india:project_india_local@localhost:5433/project_india
+```
+
+Postgres is the next living data layer. The public Streamlit app still reads committed repo files until the dashboard is migrated to read from the database.

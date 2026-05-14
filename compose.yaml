@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: project-india-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: project_india
+      POSTGRES_USER: project_india
+      POSTGRES_PASSWORD: project_india_local
+    ports:
+      - "${PROJECT_INDIA_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - project_india_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U project_india -d project_india"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  project_india_postgres:

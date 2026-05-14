@@ -9,6 +9,8 @@ Before spending OpenAI API credits, always use repo memory first:
 5. Store structured evidence in `data/processed/topic_data/<topic-slug>.json`.
 6. Build dashboard views from structured topic data, not only prose.
 
+Local Postgres is the next preferred working store. For local development, import repo memory into Postgres with `db-import-repo` and use the database as the place to query topics, evidence, sources, gaps, and run history.
+
 Dashboard insight pages should be informative and visual. They should use:
 
 - metrics
@@ -32,6 +34,8 @@ The Streamlit dashboard reads committed repo data only:
 - `data/processed/research_index.json` for repository memory
 - `data/processed/topic_data/*.json` for visual topic evidence
 - `data/processed/research_runs/*.json` for research history and cost trends
+
+This is transitional. The next architecture should make the dashboard read Postgres first, then fall back to committed repo data when no database is configured.
 
 New user-provided topics should start in the Streamlit dashboard's **Start Research** form.
 The app dispatches `.github/workflows/topic-intake-research.yml` through GitHub's workflow API when Streamlit secrets are configured.

@@ -2,6 +2,8 @@
 
 Project India is a repo-memory-first research system.
 
+The project is now being refined toward a local database-first research system. During the transition, committed Markdown/JSON files remain the public dashboard source, while local Postgres becomes the living research data layer for faster iteration.
+
 The main public-app flow is:
 
 ```text
@@ -27,6 +29,8 @@ Core folders:
 - `data/processed/research_plans/` - gap analysis before API calls
 - `data/processed/research_runs/` - records of AI research runs
 - `project_india/` - Python workflow package
+- `db/schema.sql` - local Postgres schema for topics, sources, evidence, and run records
+- `compose.yaml` - local Postgres service
 - `.github/workflows/topic-intake-research.yml` - app-triggered workflow for researching new topics
 - `.github/workflows/configure-topic-schedule.yml` - app-triggered workflow for changing topic cadence
 - `.github/workflows/incremental-research.yml` - scheduled and manual incremental research workflow
@@ -35,3 +39,11 @@ Core folders:
 - `research_config.json` - topic schedule, strategy, and budget configuration
 - `.streamlit/config.toml` - Streamlit Cloud theme and server configuration
 - `requirements.txt` - Streamlit Cloud dependency entrypoint
+
+Local Postgres flow:
+
+```text
+docker compose up -d postgres -> db-init -> db-import-repo -> db-status
+```
+
+Use `docs/research-notes/local-postgres.md` for the database direction and table map.

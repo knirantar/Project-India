@@ -19,6 +19,9 @@ analysis = [
 research = [
   "openai>=2.0",
 ]
+db = [
+  "psycopg[binary]>=3.2",
+]
 dashboard = [
   "streamlit>=1.57,<2",
   "pandas>=2.0",

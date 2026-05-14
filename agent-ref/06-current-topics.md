@@ -16,3 +16,4 @@ Relevant reference docs:
 - `docs/research-notes/project-roadmap.md`
 - `docs/research-notes/data-and-indexing.md`
 - `docs/research-notes/dependency-graph.md`
+- `docs/research-notes/local-postgres.md`
