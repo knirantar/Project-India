@@ -8,7 +8,7 @@ Core Python package:
 
 - `project_india/`
 - Python `>=3.11`
-- No required runtime dependencies for basic topic creation and indexing.
+- no required runtime dependencies for basic archive file creation and indexing
 
 Optional dependency groups:
 
@@ -18,16 +18,14 @@ Optional dependency groups:
   - `jupyter`
 - `research`
   - `openai`
+- `db`
+  - `psycopg`
 
 GitHub automation:
 
-- `.github/workflows/topic-intake-research.yml`
 - `.github/dependabot.yml`
-- GitHub Actions:
-  - `actions/checkout`
-  - `actions/setup-python`
-  - `actions/upload-artifact`
-  - `peter-evans/create-pull-request`
+
+The old GitHub Actions research runtime has been removed. GitHub Actions should be reserved for maintenance and deployment checks unless a hosted worker is deliberately introduced.
 
 ## Code Dependency Graph
 
@@ -37,6 +35,7 @@ project_india.cli
   -> project_india.research_db
   -> project_india.research_plan
   -> project_india.deep_research
+  -> project_india.postgres_db
 
 project_india.topics
   -> project_india.paths
@@ -60,6 +59,11 @@ project_india.deep_research
   -> project_india.topics
   -> OpenAI Responses API when needed
 
+project_india.postgres_db
+  -> project_india.paths
+  -> db/schema.sql
+  -> committed archive files
+  -> local Postgres
 ```
 
 ## Data Dependency Graph
@@ -69,10 +73,9 @@ docs/<category>/<topic>.md
   -> sources/<topic>-sources.md
   -> analyses/reports/<topic>-brief.md
   -> data/processed/topic_data/<topic>.json
-  -> data/processed/research_context/<topic>.md
-  -> data/processed/research_plans/<topic>.json
   -> data/processed/research_runs/<topic>.json
   -> data/processed/research_index.json
+  -> local Postgres import
   -> Streamlit dashboard
 ```
 
@@ -81,11 +84,10 @@ docs/<category>/<topic>.md
 Dependabot is configured for:
 
 - Python package updates from `pyproject.toml`
-- GitHub Actions updates from `.github/workflows/`
 
 Security posture:
 
 - Keep dependencies minimal.
 - Prefer optional dependency groups over a large default install.
-- Keep API keys out of the repo. Use GitHub Actions secrets such as `OPENAI_API_KEY`.
+- Keep API keys out of the repo. Use local environment variables or hosted secrets.
 - Generated research data should preserve source links and confidence levels.

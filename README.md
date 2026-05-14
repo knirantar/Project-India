@@ -1,12 +1,20 @@
 # Project India
 
-Project India is a research and analysis repository for documenting, decoding, and contributing to India's geopolitical position and internal growth across sectors.
-
-The aim is to build a living knowledge base that combines structured research, data analysis, policy understanding, sector-by-sector tracking, and AI-assisted workflows.
+Project India is a research and analysis system for documenting, decoding, and contributing to India's geopolitical position and internal growth across sectors.
 
 Live dashboard: https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 
-## Focus Areas
+## Direction
+
+The project is moving to a Postgres-first research architecture:
+
+```text
+local Postgres -> research evidence store -> dashboard -> curated archive exports
+```
+
+Git remains the curated project archive. Postgres is the living workspace for topics, sources, evidence, metrics, timelines, gaps, and research runs.
+
+## Core Areas
 
 - Geopolitics and foreign policy
 - Economy, trade, and industry
@@ -21,103 +29,65 @@ Live dashboard: https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 
 ## Repository Structure
 
-- `docs/geopolitics/` - geopolitical notes, country relationships, global strategy
-- `docs/sectors/` - sector-wise documentation and analysis
-- `docs/internal-growth/` - domestic development, governance, and social indicators
-- `docs/research-notes/` - raw notes, reading summaries, open questions
-- `docs/ai-workflows/` - prompts, research methods, automation workflows
-- `docs/briefs/` - polished policy and strategy briefs
-- The production Streamlit app is the main presentation surface.
-- `data/` - datasets, cleaned data, and derived tables
-- `sources/` - source lists, citations, and reference material
-- `analyses/` - deeper essays, models, dashboards, and reports
-- `project_india/` - Python helpers for repeatable research workflows
-- `workflows/` - documented research and app workflow processes
+- `db/schema.sql` - local Postgres schema
+- `compose.yaml` - local Postgres service
+- `project_india/postgres_db.py` - import/status helpers for Postgres
+- `dashboard.py` - Streamlit presentation surface
+- `docs/` - curated Markdown research archive
+- `sources/` - source logs
+- `analyses/reports/` - research briefs
+- `data/processed/topic_data/` - structured archived evidence
+- `data/processed/research_index.json` - archived topic index
+- `data/processed/research_runs/` - archived run records
+- `AGENTS.md` and `agent-ref/` - guidance for future Codex sessions
 
-## Integrated Workflow
+## Local Postgres
 
-Project India uses three connected layers:
-
-- Markdown is the knowledge base.
-- Python is the workflow engine.
-- Briefs, dashboards, and essays are the communication layer.
-
-Key reference files:
-
-- `docs/research-notes/project-roadmap.md` - overall roadmap
-- `docs/research-notes/data-and-indexing.md` - how repo memory, data, and API calls work
-- `docs/research-notes/dependency-graph.md` - code, data, and maintenance dependency graph
-- `AGENTS.md` - guidance for future Codex sessions
-
-Create a new topic workflow manually with:
-
-```bash
-python3 -m project_india.cli new-topic "Topic Name" --slug topic-slug
-```
-
-For topics outside sectors, pass a category:
-
-```bash
-python3 -m project_india.cli new-topic "Topic Name" --slug topic-slug --category internal-growth
-```
-
-Build a reusable research index:
-
-```bash
-python3 -m project_india.cli index-research
-```
-
-The index is written to `data/processed/research_index.json` and acts as the project's lightweight research database. It links topic notes, source logs, briefs, structured topic data, and dashboard-ready outputs by slug.
-
-For local development, Project India now has a Postgres research store. It is intended to become the living data layer while Git remains the curated archive:
+Start the local database:
 
 ```bash
 docker compose up -d postgres
+```
+
+Install DB dependencies:
+
+```bash
 python3 -m pip install -e ".[db]"
+```
+
+Initialize and import the current archive:
+
+```bash
 python3 -m project_india.cli db-init
 python3 -m project_india.cli db-import-repo
 python3 -m project_india.cli db-status
 ```
 
-See `docs/research-notes/local-postgres.md` for the schema and direction.
-
-Structured evidence for each topic belongs in:
+Default local database URL:
 
 ```text
-data/processed/topic_data/<topic-slug>.json
+postgresql://project_india:project_india_local@localhost:5433/project_india
 ```
 
-This is where metrics, comparisons, timelines, tables, sources, and data gaps live. The Streamlit dashboard uses this file for charts and evidence boards.
+## Archive Commands
 
-Plan research from local repo memory before spending API calls:
+Create archive files for a topic:
 
 ```bash
-python3 -m project_india.cli plan-research "Topic Name" --slug topic-slug --category sectors
+python3 -m project_india.cli new-topic "Topic Name" --slug topic-slug --category sectors
 ```
 
-This writes a plan under `data/processed/research_plans/` and a local context bundle under `data/processed/research_context/`.
-
-Run source-backed AI research before building outputs:
+Rebuild the committed archive index:
 
 ```bash
-python3 -m pip install -e ".[research]"
-OPENAI_API_KEY=... python3 -m project_india.cli deep-research "Topic Name" --slug topic-slug --category sectors
+python3 -m project_india.cli index-research
 ```
 
-The current production workflow uses the Streamlit dashboard as the presentation surface. New app-submitted topics run through the GitHub Actions workflow `Topic Intake Research`, which creates research notes, source logs, briefs, structured topic data, and the research index for the dashboard.
-
-After a topic has its first deep research run, configure ongoing updates from the dashboard's **Operations -> Schedules** page. Scheduled tracking uses focused incremental strategies (`developments`, `gaps`, `factcheck`) instead of repeating full deep research every time. The hourly GitHub Actions scheduler only runs topics that are due at their configured UTC time.
-
-Manual schedule configuration is also available:
+Run the dashboard locally:
 
 ```bash
-python3 -m project_india.cli configure-schedule \
-  --slug topic-slug \
-  --frequency weekly \
-  --enabled \
-  --time-utc 06:00 \
-  --day-of-week monday \
-  --strategies developments,gaps,factcheck
+python3 -m pip install -r requirements.txt
+streamlit run dashboard.py
 ```
 
 ## Working Principles
@@ -126,8 +96,8 @@ python3 -m project_india.cli configure-schedule \
 - Separate facts, interpretation, and opinion.
 - Preserve citations and dates for time-sensitive claims.
 - Track assumptions and uncertainty clearly.
-- Use AI to accelerate research, analysis, synthesis, and publication, while keeping human judgment responsible for conclusions.
+- Use AI to accelerate research, analysis, synthesis, and publication while keeping human judgment responsible for conclusions.
 
-## Status
+## Next Step
 
-This project is just beginning.
+The next architectural step is to make `dashboard.py` read from Postgres first and use committed archive files only as fallback.
