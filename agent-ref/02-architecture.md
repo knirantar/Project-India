@@ -12,20 +12,16 @@ Git is the curated archive and codebase. Postgres is the living research workspa
 
 The public Streamlit app still reads committed archive files until the dashboard is migrated to read from a local or hosted Postgres database first.
 
-Core folders:
+Core files and folders:
 
 - `db/schema.sql` - local Postgres schema for topics, sources, evidence, and run records
 - `compose.yaml` - local Postgres service
 - `project_india/postgres_db.py` - database initialization, import, and status helpers
 - `dashboard.py` - Streamlit dashboard and presentation surface
-- `docs/` - curated Markdown research notes
-- `sources/` - curated source logs
-- `analyses/reports/` - curated briefs and reports
-- `data/processed/topic_data/` - archived structured evidence used by the current dashboard
-- `data/processed/research_index.json` - archived topic index
-- `data/processed/research_runs/` - archived AI run records
 - `.github/dependabot.yml` - Python dependency update checks
 - `requirements.txt` - Streamlit Cloud dependency entrypoint
+
+No topic archive data is committed right now. Export folders such as `docs/`, `sources/`, `analyses/`, and `data/processed/` should be created only when a topic is ready to publish from Postgres.
 
 Removed legacy runtime:
 
@@ -34,6 +30,7 @@ Removed legacy runtime:
 - GitHub Actions incremental research
 - `research_config.json`
 - old incremental/scheduling Python modules
+- old archive-first topic generation and API research modules
 
 Local Postgres flow:
 
@@ -41,4 +38,4 @@ Local Postgres flow:
 docker compose up -d postgres -> db-init -> db-import-repo -> db-status
 ```
 
-Use `docs/research-notes/local-postgres.md` for the database direction and table map.
+Use `agent-ref/03-data-and-research-flow.md` for the database direction and table map.

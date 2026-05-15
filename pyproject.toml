@@ -16,9 +16,6 @@ analysis = [
   "matplotlib>=3.8",
   "jupyter>=1.0",
 ]
-research = [
-  "openai>=2.0",
-]
 db = [
   "psycopg[binary]>=3.2",
 ]

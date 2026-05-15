@@ -15,30 +15,6 @@ python3 -m project_india.cli db-import-repo
 python3 -m project_india.cli db-status
 ```
 
-Create curated archive files for a topic:
-
-```bash
-python3 -m project_india.cli new-topic "Topic Name" --slug topic-slug --category sectors
-```
-
-Rebuild the committed research index:
-
-```bash
-python3 -m project_india.cli index-research
-```
-
-Plan research from existing repo memory:
-
-```bash
-python3 -m project_india.cli plan-research "Topic Name" --slug topic-slug --category sectors
-```
-
-Run source-backed repo-archive research only when needed:
-
-```bash
-OPENAI_API_KEY=... python3 -m project_india.cli deep-research "Topic Name" --slug topic-slug --category sectors
-```
-
 Run the dashboard locally:
 
 ```bash

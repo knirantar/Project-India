@@ -40,7 +40,8 @@ Streamlit Cloud expects the app entrypoint and dependencies to be committed to G
 
 - `dashboard.py`
 - `requirements.txt`
-- committed local data under `data/processed/`
+
+No topic archive data is committed right now. The dashboard should render an empty state until Postgres-backed or exported research exists.
 
 Actual Streamlit deployment requires the user to sign in to Streamlit with GitHub and authorize the app. Codex can prepare, test, commit, push, and guide deployment, but cannot complete the user's external OAuth/browser approval without the user's active login.
 
