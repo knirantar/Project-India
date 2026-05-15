@@ -33,13 +33,9 @@ Git remains the curated project archive. Postgres is the living workspace for to
 - `compose.yaml` - local Postgres service
 - `project_india/postgres_db.py` - import/status helpers for Postgres
 - `dashboard.py` - Streamlit presentation surface
-- `docs/` - curated Markdown research archive
-- `sources/` - source logs
-- `analyses/reports/` - research briefs
-- `data/processed/topic_data/` - structured archived evidence
-- `data/processed/research_index.json` - archived topic index
-- `data/processed/research_runs/` - archived run records
 - `AGENTS.md` and `agent-ref/` - guidance for future Codex sessions
+
+No research archive data is committed right now. Export folders such as `docs/`, `sources/`, `analyses/`, and `data/processed/` should be created only when a topic is ready to publish from the Postgres workspace.
 
 ## Local Postgres
 
@@ -67,20 +63,6 @@ Default local database URL:
 
 ```text
 postgresql://project_india:project_india_local@localhost:5433/project_india
-```
-
-## Archive Commands
-
-Create archive files for a topic:
-
-```bash
-python3 -m project_india.cli new-topic "Topic Name" --slug topic-slug --category sectors
-```
-
-Rebuild the committed archive index:
-
-```bash
-python3 -m project_india.cli index-research
 ```
 
 Run the dashboard locally:

@@ -23,7 +23,7 @@ Postgres should hold:
 - research runs
 - archive artifacts
 
-The committed repo remains useful as a curated archive:
+The committed repo can still act as a curated archive when exports exist:
 
 - `docs/` for polished Markdown notes
 - `sources/` for source logs
@@ -31,6 +31,8 @@ The committed repo remains useful as a curated archive:
 - `data/processed/topic_data/` for archived structured evidence
 - `data/processed/research_index.json` for the archived topic index
 - `data/processed/research_runs/` for archived run metadata
+
+No topic archive data is committed right now. Treat Postgres as the source of truth until a topic is intentionally exported.
 
 Dashboard insight pages should be informative and visual. They should use:
 
@@ -49,4 +51,4 @@ Next architecture step:
 dashboard reads Postgres first -> falls back to committed archive files
 ```
 
-The legacy GitHub Actions research runtime has been removed. Do not rebuild the old workflow-dispatch path unless the project deliberately chooses a hosted worker strategy.
+The legacy GitHub Actions research runtime and archive-first API research commands have been removed. Do not rebuild the old workflow-dispatch path unless the project deliberately chooses a hosted worker strategy.
