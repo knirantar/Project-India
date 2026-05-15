@@ -11,6 +11,7 @@ SYSTEM_RESEARCH_NOTES = {
     "data-and-indexing",
     "dependency-graph",
     "ideas",
+    "local-postgres",
     "project-roadmap",
 }
 

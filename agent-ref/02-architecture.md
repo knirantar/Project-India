@@ -24,7 +24,7 @@ Core folders:
 - `data/processed/topic_data/` - archived structured evidence used by the current dashboard
 - `data/processed/research_index.json` - archived topic index
 - `data/processed/research_runs/` - archived AI run records
-- `.github/dependabot.yml` - dependency and GitHub Actions version checks
+- `.github/dependabot.yml` - Python dependency update checks
 - `requirements.txt` - Streamlit Cloud dependency entrypoint
 
 Removed legacy runtime:
