@@ -8,7 +8,6 @@ Please include a summary of the changes and related context.
 
 ## Type of Change
 
-- [ ] Research/Analysis documentation
 - [ ] Data pipeline enhancement
 - [ ] Bug fix
 - [ ] New feature
@@ -32,7 +31,6 @@ How have you tested this change?
 
 - [ ] Ran unit tests
 - [ ] Manual testing
-- [ ] Verified data accuracy (for research PRs)
 - [ ] Updated documentation
 
 ## Checklist
@@ -40,7 +38,6 @@ How have you tested this change?
 - [ ] I have read the [CONTRIBUTING.md](../CONTRIBUTING.md) guidelines
 - [ ] I have updated documentation as needed
 - [ ] For code changes: I have added/updated comments and docstrings
-- [ ] For research changes: I have cited sources
 - [ ] My changes follow the project's code style
 - [ ] I have verified my changes don't break existing functionality
 

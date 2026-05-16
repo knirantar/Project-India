@@ -5,12 +5,12 @@ Project India is being simplified into a Postgres-first research system.
 Current direction:
 
 ```text
-local Postgres -> evidence and source store -> dashboard -> curated archive exports
+Postgres -> evidence and source store -> dashboard
 ```
 
-Git is the curated archive and codebase. Postgres is the living research workspace.
+GitHub is the codebase, schema, CI, workflow, and documentation home. Postgres is the living research workspace and system of record.
 
-The public Streamlit app still reads committed archive files until the dashboard is migrated to read from a local or hosted Postgres database first.
+The public Streamlit app now prefers Postgres data and has temporary legacy archive-oriented fallback paths until the hosted database is live.
 
 Core files and folders:
 
@@ -22,7 +22,7 @@ Core files and folders:
 - `.github/dependabot.yml` - Python dependency update checks
 - `requirements.txt` - Streamlit Cloud dependency entrypoint
 
-No topic archive data is committed right now. Project-level documentation may live in `docs/`. Topic archive exports such as `sources/`, `analyses/`, and `data/processed/` should be created only when a topic is ready to publish from Postgres.
+No topic archive data should be committed. Project-level documentation may live in `docs/`. Topics, source logs, evidence, notes, briefs, metrics, and research runs belong in Postgres.
 
 Removed legacy runtime:
 
@@ -36,7 +36,7 @@ Removed legacy runtime:
 Local Postgres flow:
 
 ```text
-docker compose up -d postgres -> db-init -> db-import-repo -> db-status
+docker compose up -d postgres -> db-init -> db-status
 ```
 
 Use `agent-ref/03-data-and-research-flow.md` for the database direction and table map.

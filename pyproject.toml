@@ -28,6 +28,7 @@ dashboard = [
   "streamlit>=1.57,<2",
   "pandas>=2.0",
   "plotly>=5.17",
+  "psycopg[binary]>=3.2",
 ]
 
 [project.scripts]

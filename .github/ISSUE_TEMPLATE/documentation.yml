@@ -19,7 +19,7 @@ body:
     attributes:
       label: Audience
       description: Who needs this documentation?
-      placeholder: Contributors, researchers, maintainers, dashboard users, etc.
+      placeholder: Contributors, maintainers, dashboard users, etc.
     validations:
       required: false
 

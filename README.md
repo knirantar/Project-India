@@ -9,10 +9,10 @@ Live dashboard: https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/
 The project is moving to a Postgres-first research architecture:
 
 ```text
-local Postgres -> research evidence store -> dashboard -> curated archive exports
+Postgres -> research evidence store -> dashboard
 ```
 
-Git remains the curated project archive. Postgres is the living workspace for topics, sources, evidence, metrics, timelines, gaps, and research runs.
+GitHub contains the application code, schema, tests, CI, and contributor documentation. Postgres is the system of record for topics, sources, evidence, metrics, timelines, gaps, notes, briefs, and research runs.
 
 ## Core Areas
 
@@ -36,7 +36,7 @@ Git remains the curated project archive. Postgres is the living workspace for to
 - `docs/` - project documentation for contributors and collaborators
 - `AGENTS.md` and `agent-ref/` - guidance for future Codex sessions
 
-No research archive data is committed right now. Project-level documentation may live in `docs/`, but topic archive exports such as `sources/`, `analyses/`, and `data/processed/` should be created only when a topic is ready to publish from the Postgres workspace.
+Research data should not be committed to GitHub. Project-level documentation may live in `docs/`, but topics, source logs, evidence, notes, and briefs belong in Postgres.
 
 ## Local Postgres
 
@@ -52,11 +52,10 @@ Install DB dependencies:
 python3 -m pip install -e ".[db]"
 ```
 
-Initialize and import the current archive:
+Initialize the database:
 
 ```bash
 python3 -m project_india.cli db-init
-python3 -m project_india.cli db-import-repo
 python3 -m project_india.cli db-status
 ```
 
@@ -73,6 +72,8 @@ python3 -m pip install -r requirements.txt
 streamlit run dashboard.py
 ```
 
+Deployment notes live in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
 ## Working Principles
 
 - Use credible primary and secondary sources.
@@ -83,4 +84,4 @@ streamlit run dashboard.py
 
 ## Next Step
 
-The next architectural step is to make `dashboard.py` read from Postgres first and use committed archive files only as fallback.
+The next architectural step is to make `dashboard.py` read directly from Postgres and treat empty tables as the normal first-run state.

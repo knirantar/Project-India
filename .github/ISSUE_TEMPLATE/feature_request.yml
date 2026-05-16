@@ -60,7 +60,6 @@ body:
       label: Category
       description: What category does this feature fall under?
       options:
-        - Research & Analysis
         - Documentation
         - Data Pipeline
         - Dashboard/UI

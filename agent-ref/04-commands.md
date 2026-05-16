@@ -11,7 +11,6 @@ Initialize and import repo archive data into Postgres:
 ```bash
 python3 -m pip install -e ".[db]"
 python3 -m project_india.cli db-init
-python3 -m project_india.cli db-import-repo
 python3 -m project_india.cli db-status
 ```
 

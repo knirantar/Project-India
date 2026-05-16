@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from datetime import UTC, datetime
 from pathlib import Path
@@ -17,6 +18,23 @@ ROOT = Path(__file__).parent
 DATA_DIR = ROOT / "data" / "processed"
 SOURCES_DIR = ROOT / "sources"
 PROD_URL = "https://project-india-nflujcnhq3f7xfj2d6q6sh.streamlit.app/"
+DATABASE_URL_ENV = "PROJECT_INDIA_DATABASE_URL"
+DEFAULT_DATABASE_URL = "postgresql://project_india:project_india_local@localhost:5433/project_india"
+STATUS_TABLES = [
+    "topics",
+    "topic_documents",
+    "briefs",
+    "source_logs",
+    "source_entries",
+    "research_runs",
+    "topic_metrics",
+    "topic_comparisons",
+    "comparison_items",
+    "timeline_events",
+    "topic_tables",
+    "data_gaps",
+    "research_artifacts",
+]
 
 
 st.set_page_config(
@@ -82,6 +100,183 @@ def read_text(path: Path) -> str:
     return ""
 
 
+def database_url() -> str:
+    if os.environ.get(DATABASE_URL_ENV):
+        return os.environ[DATABASE_URL_ENV]
+
+    try:
+        secret_url = st.secrets.get(DATABASE_URL_ENV)
+    except (FileNotFoundError, KeyError, AttributeError):
+        secret_url = None
+
+    return str(secret_url) if secret_url else DEFAULT_DATABASE_URL
+
+
+@st.cache_data(ttl=60)
+def load_database_status() -> dict[str, Any]:
+    try:
+        import psycopg
+    except ImportError as error:
+        return {
+            "connected": False,
+            "error": f"psycopg is not installed: {error}",
+            "counts": {},
+        }
+
+    try:
+        with psycopg.connect(database_url(), connect_timeout=5) as conn:
+            counts = {}
+            for table in STATUS_TABLES:
+                counts[table] = conn.execute(f"SELECT count(*) FROM {table}").fetchone()[0]
+            return {"connected": True, "error": "", "counts": counts}
+    except Exception as error:
+        return {"connected": False, "error": str(error), "counts": {}}
+
+
+@st.cache_data(ttl=60)
+def load_postgres_topics() -> list[dict[str, Any]]:
+    try:
+        import psycopg
+        from psycopg.rows import dict_row
+    except ImportError:
+        return []
+
+    try:
+        with psycopg.connect(database_url(), connect_timeout=5, row_factory=dict_row) as conn:
+            rows = conn.execute(
+                """
+                SELECT
+                    t.id,
+                    t.slug,
+                    t.title,
+                    t.category,
+                    t.status,
+                    t.metadata,
+                    t.updated_at,
+                    b.content AS brief_content,
+                    b.bottom_line,
+                    b.key_takeaways
+                FROM topics t
+                LEFT JOIN briefs b ON b.topic_id = t.id
+                ORDER BY t.category, t.title
+                """
+            ).fetchall()
+    except Exception:
+        return []
+
+    topics = []
+    for row in rows:
+        item = dict(row)
+        item["source"] = "postgres"
+        item["updated_at"] = item["updated_at"].isoformat() if item.get("updated_at") else "unknown"
+        topics.append(item)
+    return topics
+
+
+@st.cache_data(ttl=60)
+def load_postgres_topic_data(slug: str) -> dict[str, Any]:
+    try:
+        import psycopg
+        from psycopg.rows import dict_row
+    except ImportError:
+        return {}
+
+    try:
+        with psycopg.connect(database_url(), connect_timeout=5, row_factory=dict_row) as conn:
+            topic = conn.execute("SELECT id, status FROM topics WHERE slug = %s", (slug,)).fetchone()
+            if not topic:
+                return {}
+
+            topic_id = topic["id"]
+            metrics = conn.execute(
+                """
+                SELECT
+                    label,
+                    COALESCE(value_text, numeric_value::text) AS value,
+                    unit,
+                    context,
+                    source
+                FROM topic_metrics
+                WHERE topic_id = %s
+                ORDER BY label
+                """,
+                (topic_id,),
+            ).fetchall()
+
+            comparisons = []
+            comparison_rows = conn.execute(
+                """
+                SELECT id, title, unit, source
+                FROM topic_comparisons
+                WHERE topic_id = %s
+                ORDER BY title
+                """,
+                (topic_id,),
+            ).fetchall()
+            for comparison in comparison_rows:
+                items = conn.execute(
+                    """
+                    SELECT
+                        label,
+                        COALESCE(value_text, numeric_value::text) AS value
+                    FROM comparison_items
+                    WHERE comparison_id = %s
+                    ORDER BY label
+                    """,
+                    (comparison["id"],),
+                ).fetchall()
+                comparisons.append(
+                    {
+                        "title": comparison["title"],
+                        "unit": comparison["unit"],
+                        "source": comparison["source"],
+                        "items": [dict(item) for item in items],
+                    }
+                )
+
+            timeline = conn.execute(
+                """
+                SELECT event_date AS date, event, significance, source
+                FROM timeline_events
+                WHERE topic_id = %s
+                ORDER BY event_date, event
+                """,
+                (topic_id,),
+            ).fetchall()
+
+            tables = conn.execute(
+                """
+                SELECT title, columns, rows, source
+                FROM topic_tables
+                WHERE topic_id = %s
+                ORDER BY title
+                """,
+                (topic_id,),
+            ).fetchall()
+
+            gaps = conn.execute(
+                """
+                SELECT gap
+                FROM data_gaps
+                WHERE topic_id = %s
+                ORDER BY gap
+                """,
+                (topic_id,),
+            ).fetchall()
+
+    except Exception:
+        return {}
+
+    return {
+        "status": topic["status"],
+        "metrics": [dict(metric) for metric in metrics],
+        "comparisons": comparisons,
+        "timeline": [dict(event) for event in timeline],
+        "tables": [dict(table) for table in tables],
+        "data_gaps": [gap["gap"] for gap in gaps],
+    }
+
+
 @st.cache_data(ttl=300)
 def load_research_index() -> list[dict[str, Any]]:
     data = read_json(DATA_DIR / "research_index.json", [])
@@ -90,6 +285,10 @@ def load_research_index() -> list[dict[str, Any]]:
 
 @st.cache_data(ttl=300)
 def load_topic_data(slug: str) -> dict[str, Any]:
+    postgres_data = load_postgres_topic_data(slug)
+    if postgres_data:
+        return postgres_data
+
     data = read_json(DATA_DIR / "topic_data" / f"{slug}.json", {})
     return data if isinstance(data, dict) else {}
 
@@ -149,6 +348,11 @@ def brief_markdown_path(record: dict[str, Any]) -> Path | None:
 
 
 def topic_summary(record: dict[str, Any]) -> str:
+    if record.get("bottom_line"):
+        return str(record["bottom_line"])
+    if record.get("brief_content"):
+        return first_paragraph(str(record["brief_content"]))
+
     topic_path = topic_markdown_path(record)
     if topic_path and topic_path.exists():
         return first_paragraph(read_text(topic_path))
@@ -159,6 +363,10 @@ def topic_summary(record: dict[str, Any]) -> str:
 
 
 def merged_topics() -> list[dict[str, Any]]:
+    postgres_topics = load_postgres_topics()
+    if postgres_topics:
+        return postgres_topics
+
     index = load_research_index()
     by_slug: dict[str, dict[str, Any]] = {}
 
@@ -174,6 +382,13 @@ def merged_topics() -> list[dict[str, Any]]:
             item.get("category", ""),
             item.get("title", ""),
         ),
+    )
+
+
+def has_structured_data(topic_data: dict[str, Any]) -> bool:
+    return any(
+        topic_data.get(key)
+        for key in ["metrics", "comparisons", "timeline", "tables", "data_gaps"]
     )
 
 
@@ -290,6 +505,34 @@ def display_gaps(topic_data: dict[str, Any]) -> None:
 
 
 def display_brief(record: dict[str, Any]) -> None:
+    if record.get("brief_content") or record.get("bottom_line") or record.get("key_takeaways"):
+        brief = str(record.get("brief_content") or "")
+        bottom_line = str(record.get("bottom_line") or section_text(brief, "Bottom Line"))
+        takeaways = str(record.get("key_takeaways") or section_text(brief, "Key Takeaways"))
+        context = section_text(brief, "Strategic Context")
+        implications = section_text(brief, "Implications")
+        next_research = section_text(brief, "Recommended Next Research")
+
+        if bottom_line:
+            st.subheader("Bottom Line")
+            st.markdown(bottom_line)
+
+        if takeaways:
+            st.subheader("Key Takeaways")
+            st.markdown(takeaways)
+
+        if context or implications:
+            tab_context, tab_implications = st.tabs(["Strategic Context", "Implications"])
+            with tab_context:
+                st.markdown(context or "No strategic context has been written yet.")
+            with tab_implications:
+                st.markdown(implications or "No implication analysis has been written yet.")
+
+        if next_research:
+            with st.expander("Recommended next research", expanded=False):
+                st.markdown(next_research)
+        return
+
     brief_path = brief_markdown_path(record)
     if not brief_path or not brief_path.exists():
         st.info("No written brief has been added for this topic yet.")
@@ -338,6 +581,7 @@ def display_topic(record: dict[str, Any], *, expanded_evidence: bool = True) -> 
         " | ".join(
             [
                 f"Slug: {slug}",
+                f"Data source: {record.get('source', 'legacy files')}",
                 f"Updated: {record.get('updated_at', 'unknown')}",
                 f"Topic note: {file_label(record.get('topic_path'))}",
                 f"Brief: {file_label(record.get('brief_path'))}",
@@ -348,7 +592,7 @@ def display_topic(record: dict[str, Any], *, expanded_evidence: bool = True) -> 
     st.divider()
     display_brief(record)
 
-    if topic_data:
+    if has_structured_data(topic_data):
         with st.expander("Structured evidence board", expanded=expanded_evidence):
             display_metric_cards(topic_data)
             display_comparisons(topic_data)
@@ -357,9 +601,8 @@ def display_topic(record: dict[str, Any], *, expanded_evidence: bool = True) -> 
             display_gaps(topic_data)
     else:
         st.info(
-            "This topic has prose research but no structured topic-data file yet. "
-            "Add metrics, timelines, comparisons, and tables under data/processed/topic_data/ "
-            "to unlock charts and evidence boards."
+            "This topic has no structured evidence rows yet. Add metrics, timelines, "
+            "comparisons, tables, and gaps in Postgres to unlock charts and evidence boards."
         )
 
 
@@ -377,7 +620,7 @@ def display_topic_cards(records: list[dict[str, Any]]) -> None:
             st.markdown(
                 f"<span class='pi-chip'>{metric_count} metrics</span>"
                 f"<span class='pi-chip'>{gap_count} gaps</span>"
-                f"<span class='pi-chip'>{'structured' if topic_data else 'prose only'}</span>",
+                f"<span class='pi-chip'>{'structured' if has_structured_data(topic_data) else 'brief only'}</span>",
                 unsafe_allow_html=True,
             )
 
@@ -399,7 +642,9 @@ with st.sidebar:
 
 topics = merged_topics()
 runs = load_research_runs()
-structured_topics = [topic for topic in topics if load_topic_data(topic.get("slug", ""))]
+structured_topics = [
+    topic for topic in topics if has_structured_data(load_topic_data(topic.get("slug", "")))
+]
 
 
 if page == "Insight Briefs":
@@ -485,8 +730,8 @@ elif page == "Research Library":
 elif page == "Operations":
     st.title("Operations")
     st.markdown(
-        "Local database and archive status live here. The old GitHub Actions research controls "
-        "have been removed as part of the Postgres-first cleanup."
+        "Database and deployment status live here. GitHub Actions research controls have been "
+        "removed as part of the Postgres-first cleanup."
     )
 
     tab_database, tab_history, tab_config = st.tabs(
@@ -494,11 +739,10 @@ elif page == "Operations":
     )
 
     with tab_database:
-        st.subheader("Local Postgres")
+        st.subheader("Postgres")
         st.markdown(
-            "For local development, start Postgres and import the committed archive into the "
-            "database. The public Streamlit app still reads committed files until the dashboard "
-            "is migrated to a hosted database."
+            "Postgres is the research data layer for both local development and the deployed app. "
+            "Use local Docker Postgres for development and a hosted Postgres URL in Streamlit secrets."
         )
         st.code(
             "\n".join(
@@ -506,16 +750,35 @@ elif page == "Operations":
                     "docker compose up -d postgres",
                     "python3 -m pip install -e \".[db]\"",
                     "python3 -m project_india.cli db-init",
-                    "python3 -m project_india.cli db-import-repo",
                     "python3 -m project_india.cli db-status",
                 ]
             ),
             language="bash",
         )
-        c1, c2, c3 = st.columns(3)
+
+        db_status = load_database_status()
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Database", "Connected" if db_status["connected"] else "Unavailable")
         c1.metric("Indexed topics", len(topics))
         c2.metric("Structured datasets", len(structured_topics))
-        c3.metric("Source logs", len(list(SOURCES_DIR.glob("*-sources.md"))))
+        c3.metric("Postgres topics", db_status["counts"].get("topics", 0))
+        c4.metric("Source entries", db_status["counts"].get("source_entries", 0))
+
+        if db_status["connected"]:
+            with st.expander("Postgres table counts", expanded=False):
+                st.dataframe(
+                    pd.DataFrame(
+                        [
+                            {"table": table, "rows": count}
+                            for table, count in db_status["counts"].items()
+                        ]
+                    ),
+                    width="stretch",
+                    hide_index=True,
+                )
+        else:
+            st.warning("Postgres is not connected. Add PROJECT_INDIA_DATABASE_URL in Streamlit secrets.")
+            st.caption(db_status["error"])
 
     with tab_history:
         if not runs:
@@ -544,10 +807,9 @@ elif page == "Operations":
         st.markdown("**Archive inputs**")
         st.json(
             {
-                "research_index": "data/processed/research_index.json",
-                "topic_data": "data/processed/topic_data/*.json",
-                "research_runs": "data/processed/research_runs/*.json",
+                "database_url_secret": DATABASE_URL_ENV,
                 "postgres_schema": "db/schema.sql",
+                "deployment_guide": "docs/DEPLOYMENT.md",
             }
         )
 

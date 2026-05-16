@@ -12,7 +12,7 @@ Add dashboard screenshots to the README after the UI has stable example data.
 
 ## 3. Add Sample Seed Data
 
-Create a tiny sample dataset that helps contributors test the Postgres-first flow locally.
+Create tiny synthetic seed rows that help contributors test the Postgres-first flow locally.
 
 ## 4. Add Dashboard Filters
 
@@ -32,7 +32,7 @@ Expand setup docs for Docker, local database URLs, initialization, and troublesh
 
 ## 8. Add Issue Template Config
 
-Keep `.github/ISSUE_TEMPLATE/config.yml` current as project discussions and support channels evolve.
+Keep `.github/ISSUE_TEMPLATE/config.yml` current as contributor support channels evolve.
 
 ## 9. Add Tests for CLI
 

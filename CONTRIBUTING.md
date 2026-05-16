@@ -1,6 +1,6 @@
 # Contributing to Project India
 
-Thank you for your interest in contributing to Project India! This is a collaborative research, analysis, and documentation project about India's geopolitical position and internal growth.
+Thank you for your interest in contributing to Project India! This repository contains the app, database schema, tests, workflow, and project documentation for a Postgres-first research system.
 
 ## Local Setup
 
@@ -18,7 +18,6 @@ Start local Postgres when working on database-backed features:
 ```bash
 docker compose up -d postgres
 python3 -m project_india.cli db-init
-python3 -m project_india.cli db-import-repo
 python3 -m project_india.cli db-status
 ```
 
@@ -31,17 +30,16 @@ streamlit run dashboard.py
 
 ## How to Pick Issues
 
-Start with issues labeled `good first issue`, `documentation`, or `help wanted`. If an issue affects research claims, data models, or architecture, read the relevant files in `agent-ref/` before proposing changes.
+Start with issues labeled `good first issue`, `documentation`, or `help wanted`. If an issue affects data models, dashboard behavior, deployment, or architecture, read the relevant files in `agent-ref/` before proposing changes.
 
-For new research topics, prefer the Postgres-first flow. The repo currently has no committed topic archive data; publish exports only when a topic is ready to become part of the curated archive.
+Research topics, source logs, evidence, notes, briefs, metrics, and research runs belong in Postgres, not GitHub issues or committed files.
 
 ## Contribution Types
 
-- **Research & Analysis**: Contribute original research, data analysis, or policy insights
 - **Documentation**: Improve existing docs or add new documentation
-- **Data**: Provide verified datasets or sources for analysis
+- **Schema & Data Tools**: Improve the Postgres schema, import/export tooling, or database helpers
 - **Code**: Enhance tools, dashboards, or data pipelines
-- **Review**: Peer review research and analysis for accuracy
+- **Review**: Review code, documentation, workflows, and deployment changes
 
 ## Branch Naming
 
@@ -50,7 +48,7 @@ Use short, descriptive branch names:
 - `docs/architecture-overview`
 - `fix/ci-dev-dependencies`
 - `feature/dashboard-filters`
-- `research/india-energy-imports`
+- `infra/streamlit-postgres`
 
 Do not push normal work directly to `main`.
 
@@ -94,19 +92,16 @@ Use coverage when changing shared code:
 pytest tests/ --cov=project_india
 ```
 
-## Research Standards
+## Research Data Boundary
 
-- Use credible primary and secondary sources.
-- Include source names, URLs, publication dates, and access dates when relevant.
-- Distinguish facts, interpretation, assumptions, and opinion.
-- Be explicit about uncertainty and data gaps.
-- Do not overstate conclusions from thin evidence.
-- Prefer current sources for time-sensitive claims.
-- Preserve enough context for another contributor to audit the reasoning.
+- Do not commit research data, source logs, notes, briefs, metrics, or AI-generated analysis to GitHub.
+- Keep living research records in Postgres.
+- Keep only code, schema, tests, CI, app configuration, and project documentation in the repo.
+- Use sample or synthetic data only when it is clearly marked as development data.
 
 ## Dashboard Work
 
-The Streamlit dashboard is the public presentation surface. It currently reads committed archive files and should move toward reading Postgres first with archive files as fallback.
+The Streamlit dashboard is the public presentation surface. It should read from Postgres and handle empty tables cleanly.
 
 Run it with:
 
@@ -116,6 +111,6 @@ streamlit run dashboard.py
 
 ## Questions?
 
-Open an issue for scoped work. Use GitHub Discussions for broader project direction, research framing, and early ideas.
+Open an issue for scoped code, docs, schema, dashboard, CI, or deployment work. Keep research tasks and research records in Postgres.
 
 Thank you for contributing to Project India!
