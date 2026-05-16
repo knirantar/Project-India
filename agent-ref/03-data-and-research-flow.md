@@ -25,7 +25,7 @@ Postgres should hold:
 
 The committed repo can still act as a curated archive when exports exist:
 
-- `docs/` for polished Markdown notes
+- `docs/` for project-level documentation and future polished topic notes
 - `sources/` for source logs
 - `analyses/reports/` for briefs
 - `data/processed/topic_data/` for archived structured evidence

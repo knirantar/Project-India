@@ -1,0 +1,50 @@
+name: Research Task
+description: Propose a research, sourcing, or analysis task
+title: "[RESEARCH] "
+labels: ["research"]
+assignees: []
+
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Research Question
+      description: What question should this task answer?
+      placeholder: State the research question as clearly as possible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is included or excluded?
+      placeholder: Geography, time period, sectors, comparison countries, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Candidate Sources
+      description: List known useful sources or datasets.
+      placeholder: Government datasets, research papers, multilateral reports, news archives, etc.
+    validations:
+      required: false
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Expected Output
+      description: What should be produced?
+      placeholder: Brief, source log, dataset, dashboard update, chart, timeline, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: uncertainty
+    attributes:
+      label: Known Uncertainty or Data Gaps
+      description: Note any expected limitations.
+    validations:
+      required: false

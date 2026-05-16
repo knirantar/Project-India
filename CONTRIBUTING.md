@@ -2,11 +2,38 @@
 
 Thank you for your interest in contributing to Project India! This is a collaborative research, analysis, and documentation project about India's geopolitical position and internal growth.
 
-## Getting Started
+## Local Setup
 
-1. Read the [working style guide](agent-ref/01-working-style.md) to understand our approach
-2. Review [current topics](agent-ref/06-current-topics.md) to see active research areas
-3. Check the [data and research flow](agent-ref/03-data-and-research-flow.md) to understand our workflow
+Use Python 3.11 or newer.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install -e ".[dev,db]"
+```
+
+Start local Postgres when working on database-backed features:
+
+```bash
+docker compose up -d postgres
+python3 -m project_india.cli db-init
+python3 -m project_india.cli db-import-repo
+python3 -m project_india.cli db-status
+```
+
+Run the dashboard locally:
+
+```bash
+python3 -m pip install -r requirements.txt
+streamlit run dashboard.py
+```
+
+## How to Pick Issues
+
+Start with issues labeled `good first issue`, `documentation`, or `help wanted`. If an issue affects research claims, data models, or architecture, read the relevant files in `agent-ref/` before proposing changes.
+
+For new research topics, prefer the Postgres-first flow. The repo currently has no committed topic archive data; publish exports only when a topic is ready to become part of the curated archive.
 
 ## Contribution Types
 
@@ -16,33 +43,79 @@ Thank you for your interest in contributing to Project India! This is a collabor
 - **Code**: Enhance tools, dashboards, or data pipelines
 - **Review**: Peer review research and analysis for accuracy
 
-## Workflow
+## Branch Naming
 
-1. Create a feature branch: `git checkout -b your-branch-name`
+Use short, descriptive branch names:
+
+- `docs/architecture-overview`
+- `fix/ci-dev-dependencies`
+- `feature/dashboard-filters`
+- `research/india-energy-imports`
+
+Do not push normal work directly to `main`.
+
+## PR Process
+
+1. Create a feature branch from the latest `main`
 2. Make your changes following the repository structure
-3. Use repo memory files to document patterns and decisions
-4. Open a pull request with clear description of changes
-5. Address review feedback
-6. Merge once approved
+3. Run the relevant checks locally
+4. Open a pull request with a clear summary and testing notes
+5. Link related issues
+6. Address review feedback
+7. Merge through the PR after approval and passing CI
 
 See [branch and PR workflow](agent-ref/05-branch-and-pr-workflow.md) for detailed guidelines.
 
+## Code Style
+
+- Write clear, maintainable Python code.
+- Keep functions small enough to review.
+- Prefer existing project patterns over new abstractions.
+- Follow PEP 8 conventions.
+- Add or update tests for behavior changes.
+- Avoid committing secrets, generated local files, or one-off research scratchpads.
+
+Run style checks:
+
+```bash
+flake8 project_india
+```
+
+## How to Run Tests
+
+```bash
+python3 -m pip install -e ".[dev]"
+pytest tests/
+```
+
+Use coverage when changing shared code:
+
+```bash
+pytest tests/ --cov=project_india
+```
+
 ## Research Standards
 
-- Use verified, reputable sources
-- Document all data sources and methodology
-- Distinguish between fact, analysis, and speculation
-- Welcome peer review and constructive critique
+- Use credible primary and secondary sources.
+- Include source names, URLs, publication dates, and access dates when relevant.
+- Distinguish facts, interpretation, assumptions, and opinion.
+- Be explicit about uncertainty and data gaps.
+- Do not overstate conclusions from thin evidence.
+- Prefer current sources for time-sensitive claims.
+- Preserve enough context for another contributor to audit the reasoning.
 
-## Code Standards
+## Dashboard Work
 
-- Write clear, maintainable Python code
-- Include docstrings and comments
-- Follow PEP 8 style guide
-- Add tests for new functionality
+The Streamlit dashboard is the public presentation surface. It currently reads committed archive files and should move toward reading Postgres first with archive files as fallback.
+
+Run it with:
+
+```bash
+streamlit run dashboard.py
+```
 
 ## Questions?
 
-Open an issue or discussion for questions about the project direction or research approach.
+Open an issue for scoped work. Use GitHub Discussions for broader project direction, research framing, and early ideas.
 
 Thank you for contributing to Project India!

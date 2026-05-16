@@ -18,10 +18,11 @@ Core files and folders:
 - `compose.yaml` - local Postgres service
 - `project_india/postgres_db.py` - database initialization, import, and status helpers
 - `dashboard.py` - Streamlit dashboard and presentation surface
+- `docs/` - project documentation for contributors and collaborators
 - `.github/dependabot.yml` - Python dependency update checks
 - `requirements.txt` - Streamlit Cloud dependency entrypoint
 
-No topic archive data is committed right now. Export folders such as `docs/`, `sources/`, `analyses/`, and `data/processed/` should be created only when a topic is ready to publish from Postgres.
+No topic archive data is committed right now. Project-level documentation may live in `docs/`. Topic archive exports such as `sources/`, `analyses/`, and `data/processed/` should be created only when a topic is ready to publish from Postgres.
 
 Removed legacy runtime:
 

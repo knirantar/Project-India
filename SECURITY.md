@@ -6,10 +6,11 @@ If you discover a security vulnerability in Project India, please **do not** ope
 
 ### How to Report
 
-1. Email security reports to the project maintainers (create an issue on GitHub and mark it as security-sensitive)
-2. Include a clear description of the vulnerability
-3. Provide steps to reproduce the issue if possible
-4. Allow time for investigation and patching before public disclosure
+1. Do not open public GitHub issues for vulnerabilities.
+2. Email security reports to: knirantar@gmail.com
+3. Include a clear description of the vulnerability
+4. Provide steps to reproduce the issue if possible
+5. Allow time for investigation and patching before public disclosure
 
 ## Security Considerations
 

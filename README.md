@@ -33,9 +33,10 @@ Git remains the curated project archive. Postgres is the living workspace for to
 - `compose.yaml` - local Postgres service
 - `project_india/postgres_db.py` - import/status helpers for Postgres
 - `dashboard.py` - Streamlit presentation surface
+- `docs/` - project documentation for contributors and collaborators
 - `AGENTS.md` and `agent-ref/` - guidance for future Codex sessions
 
-No research archive data is committed right now. Export folders such as `docs/`, `sources/`, `analyses/`, and `data/processed/` should be created only when a topic is ready to publish from the Postgres workspace.
+No research archive data is committed right now. Project-level documentation may live in `docs/`, but topic archive exports such as `sources/`, `analyses/`, and `data/processed/` should be created only when a topic is ready to publish from the Postgres workspace.
 
 ## Local Postgres
 
