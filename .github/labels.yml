@@ -1,0 +1,42 @@
+# GitHub labels for Project India
+# Name | color | description
+
+- name: good first issue
+  color: "0e8a16"
+  description: "Good for newcomers: easy, well-defined tasks"
+
+- name: help wanted
+  color: "f9d0c4"
+  description: "Extra help is welcome on this issue"
+
+- name: documentation
+  color: "0366d6"
+  description: "Improvements or additions to documentation"
+
+- name: research
+  color: "5319e7"
+  description: "Research, data collection, or analysis tasks"
+
+- name: backend
+  color: "0e8a16"
+  description: "Backend / server-side work"
+
+- name: dashboard
+  color: "fbca04"
+  description: "Dashboard, UI, or visualization work"
+
+- name: data-model
+  color: "006b75"
+  description: "Changes to database schema or data models"
+
+- name: bug
+  color: "d73a4a"
+  description: "Unexpected behavior or a reproducible bug"
+
+- name: enhancement
+  color: "a2eeef"
+  description: "New feature or enhancement"
+
+- name: needs-discussion
+  color: "cfd3d7"
+  description: "Requires discussion before implementation"
