@@ -6,8 +6,7 @@ For local development:
 
 1. Start Postgres with `docker compose up -d postgres`.
 2. Initialize schema with `python3 -m project_india.cli db-init`.
-3. Import committed archive data with `python3 -m project_india.cli db-import-repo`.
-4. Inspect table counts with `python3 -m project_india.cli db-status`.
+3. Inspect table counts with `python3 -m project_india.cli db-status`.
 
 Postgres should hold:
 
@@ -23,16 +22,7 @@ Postgres should hold:
 - research runs
 - archive artifacts
 
-The committed repo can still act as a curated archive when exports exist:
-
-- `docs/` for polished Markdown notes
-- `sources/` for source logs
-- `analyses/reports/` for briefs
-- `data/processed/topic_data/` for archived structured evidence
-- `data/processed/research_index.json` for the archived topic index
-- `data/processed/research_runs/` for archived run metadata
-
-No topic archive data is committed right now. Treat Postgres as the source of truth until a topic is intentionally exported.
+The committed repo should not hold research archive data. Keep living and published research records in Postgres unless the project deliberately creates a separate export/publication system later.
 
 Dashboard insight pages should be informative and visual. They should use:
 
@@ -48,7 +38,7 @@ Avoid hollow headline-only pages.
 Next architecture step:
 
 ```text
-dashboard reads Postgres first -> falls back to committed archive files
+    dashboard reads Postgres -> clean empty state when no research exists
 ```
 
 The legacy GitHub Actions research runtime and archive-first API research commands have been removed. Do not rebuild the old workflow-dispatch path unless the project deliberately chooses a hosted worker strategy.

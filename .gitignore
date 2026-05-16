@@ -13,6 +13,9 @@ venv/
 
 # Local environment
 .env
+.streamlit/secrets.toml
+.coverage
+coverage.xml
 .DS_Store
 .devcontainer/
 

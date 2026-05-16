@@ -1,0 +1,39 @@
+name: Question
+description: Ask a scoped question about the project
+title: "[QUESTION] "
+labels: ["needs-discussion"]
+assignees: []
+
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What would you like to understand?
+      placeholder: Ask the question clearly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What prompted the question?
+      placeholder: Link files, issues, discussions, research topics, or decisions.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which area is this about?
+      options:
+        - Research
+        - Documentation
+        - Dashboard
+        - Database
+        - Contributor workflow
+        - Other
+    validations:
+      required: false

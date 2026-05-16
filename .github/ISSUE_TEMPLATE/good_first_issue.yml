@@ -1,0 +1,41 @@
+name: Good First Issue
+description: Suggest a small, well-scoped task for new contributors
+title: "[GOOD FIRST ISSUE] "
+labels: ["good first issue"]
+assignees: []
+
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: What should be done?
+      placeholder: Describe one clear task.
+    validations:
+      required: true
+
+  - type: textarea
+    id: files
+    attributes:
+      label: Files or Areas
+      description: Where should a contributor look first?
+      placeholder: README.md, dashboard.py, project_india/cli.py, docs/, etc.
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this is complete?
+      placeholder: List the expected result and any checks to run.
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes for New Contributors
+      description: Add helpful context or pointers.
+    validations:
+      required: false

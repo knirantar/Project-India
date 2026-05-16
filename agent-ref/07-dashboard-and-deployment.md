@@ -12,7 +12,8 @@ The dashboard is the public presentation surface for research. Its first screen 
 
 Current behavior:
 
-- reads committed archive files
+- prefers Postgres data
+- has temporary legacy archive-oriented fallback paths
 - shows public insight briefs
 - shows structured evidence boards
 - shows metrics, comparisons, timelines, tables, and research gaps
@@ -21,7 +22,7 @@ Current behavior:
 Next behavior:
 
 ```text
-dashboard reads Postgres first -> falls back to committed archive files
+dashboard reads Postgres -> clean empty state when no research exists
 ```
 
 The old app-triggered GitHub Actions controls have been removed. Do not add Streamlit secrets for GitHub dispatch unless the project intentionally reintroduces a hosted worker.
